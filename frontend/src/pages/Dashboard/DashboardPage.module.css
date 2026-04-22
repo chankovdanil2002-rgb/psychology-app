@@ -1,0 +1,242 @@
+.dashboard {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.dashboard h1 {
+  margin-bottom: 1.5rem;
+}
+
+.tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.tab {
+  padding: 0.7rem 1.5rem;
+  border: none;
+  background: none;
+  font-size: 1rem;
+  color: var(--color-text-light);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: all 0.2s;
+}
+
+.tab:hover {
+  color: var(--color-primary);
+}
+
+.tabActive {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+  font-weight: 600;
+}
+
+.tabContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.section {
+  background: var(--color-bg-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+}
+
+.section h3 {
+  margin-bottom: 1rem;
+}
+
+.sectionBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.empty {
+  color: var(--color-text-light);
+  font-style: italic;
+}
+
+/* Appointment cards */
+.apptCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: var(--color-bg);
+  border-radius: var(--radius-sm);
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.apptInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.apptInfo span {
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+}
+
+.badge {
+  color: white;
+  padding: 0.15rem 0.6rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  width: fit-content;
+}
+
+.comment {
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+  font-style: italic;
+}
+
+.apptActions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Schedule */
+.dateNav {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.dateInput {
+  padding: 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+}
+
+.slotList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.slotItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+}
+
+.slotTaken {
+  opacity: 0.5;
+  background: #fff3f3;
+}
+
+.slotStatus {
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+}
+
+.deleteBtn {
+  background: none;
+  border: none;
+  color: var(--color-danger);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0 0.3rem;
+}
+
+.slotForm {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.bulkForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.formRow {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.formRow > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.formRow label {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.weekdays {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.weekday {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+/* Reviews */
+.reviewsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.reviewCard {
+  padding: 1rem;
+  background: var(--color-bg);
+  border-radius: var(--radius-sm);
+}
+
+.reviewHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.reviewCard p {
+  color: var(--color-text-light);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .tabs {
+    overflow-x: auto;
+  }
+  .tab {
+    white-space: nowrap;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+  .slotForm {
+    flex-direction: column;
+  }
+}

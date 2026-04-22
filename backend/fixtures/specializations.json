@@ -1,0 +1,17 @@
+[
+  {"model": "specializations.specialization", "pk": 1, "fields": {"name": "Когнитивно-поведенческая терапия", "slug": "kpt", "description": "Работа с негативными мыслительными паттернами и поведенческими привычками", "icon": "brain"}},
+  {"model": "specializations.specialization", "pk": 2, "fields": {"name": "Семейная терапия", "slug": "family", "description": "Помощь в решении семейных конфликтов и улучшении отношений", "icon": "family"}},
+  {"model": "specializations.specialization", "pk": 3, "fields": {"name": "Детская психология", "slug": "child", "description": "Работа с детьми и подростками, возрастные кризисы", "icon": "child"}},
+  {"model": "specializations.specialization", "pk": 4, "fields": {"name": "Психоанализ", "slug": "psychoanalysis", "description": "Глубинный анализ бессознательных процессов и мотивов", "icon": "couch"}},
+  {"model": "specializations.specialization", "pk": 5, "fields": {"name": "Гештальт-терапия", "slug": "gestalt", "description": "Осознание текущего опыта и работа с эмоциями здесь и сейчас", "icon": "circle"}},
+  {"model": "specializations.specialization", "pk": 6, "fields": {"name": "Арт-терапия", "slug": "art-therapy", "description": "Использование творческих методов для самовыражения и исцеления", "icon": "palette"}},
+  {"model": "specializations.specialization", "pk": 7, "fields": {"name": "Тревожные расстройства", "slug": "anxiety", "description": "Помощь при панических атаках, фобиях и генерализованной тревоге", "icon": "warning"}},
+  {"model": "specializations.specialization", "pk": 8, "fields": {"name": "Депрессия", "slug": "depression", "description": "Работа с депрессивными состояниями и потерей мотивации", "icon": "mood"}},
+  {"model": "specializations.specialization", "pk": 9, "fields": {"name": "Зависимости", "slug": "addictions", "description": "Помощь при алкогольной, игровой и других зависимостях", "icon": "link"}},
+  {"model": "specializations.specialization", "pk": 10, "fields": {"name": "Стресс и выгорание", "slug": "burnout", "description": "Профилактика и восстановление после профессионального выгорания", "icon": "fire"}},
+  {"model": "specializations.specialization", "pk": 11, "fields": {"name": "Травма и ПТСР", "slug": "trauma", "description": "Работа с последствиями психологических травм", "icon": "healing"}},
+  {"model": "specializations.specialization", "pk": 12, "fields": {"name": "Расстройства пищевого поведения", "slug": "eating-disorders", "description": "Анорексия, булимия и компульсивное переедание", "icon": "food"}},
+  {"model": "specializations.specialization", "pk": 13, "fields": {"name": "Нейропсихология", "slug": "neuropsych", "description": "Диагностика и коррекция когнитивных нарушений", "icon": "neuro"}},
+  {"model": "specializations.specialization", "pk": 14, "fields": {"name": "Психосоматика", "slug": "psychosomatics", "description": "Связь психологических проблем с физическим здоровьем", "icon": "body"}},
+  {"model": "specializations.specialization", "pk": 15, "fields": {"name": "Сексология", "slug": "sexology", "description": "Помощь в вопросах сексуального здоровья и отношений", "icon": "heart"}}
+]

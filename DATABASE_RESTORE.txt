@@ -1,0 +1,20 @@
+Database restore instructions
+
+1. Install PostgreSQL.
+2. Create an empty database named psychology_db.
+3. Open a terminal in the folder with database_dump.sql.
+4. Run:
+
+   psql -U postgres -d psychology_db -f database_dump.sql
+
+5. Update the .env file if your PostgreSQL username, password, host, or port differ.
+
+Current project database settings:
+- DB_NAME=psychology_db
+- DB_USER=postgres
+- DB_HOST=localhost
+- DB_PORT=5433
+
+Notes:
+- The archive contains a SQL dump of the database, not the raw PostgreSQL data directory.
+- The recipient should install Python/Node dependencies locally after unpacking the project.

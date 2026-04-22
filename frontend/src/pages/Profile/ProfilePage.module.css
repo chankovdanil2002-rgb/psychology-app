@@ -1,0 +1,195 @@
+/* Page wrapper */
+.page {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+  min-height: calc(100vh - 140px);
+}
+
+/* Card (client / pending) */
+.card {
+  background-color: var(--color-bg-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 500px;
+}
+
+/* Wider card for psychologist */
+.cardWide {
+  background-color: var(--color-bg-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 680px;
+}
+
+/* Title */
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text);
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+/* Status badge */
+.statusBadge {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.badgeComplete {
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  background-color: #d4edda;
+  color: #155724;
+  border-radius: var(--radius-sm);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.badgeIncomplete {
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  background-color: #fff3cd;
+  color: #856404;
+  border-radius: var(--radius-sm);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+/* Form */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem;
+}
+
+/* Two-column row */
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* Sections (psychologist) */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.section:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+.sectionTitle {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* Info text */
+.infoText {
+  color: var(--color-text-light);
+  font-size: 0.9375rem;
+  text-align: center;
+  line-height: 1.6;
+  margin: 0.5rem 0;
+}
+
+/* Pending verification */
+.pendingIcon {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* Diploma preview */
+.diplomaPreview {
+  margin: 1rem 0;
+}
+
+.diplomaImage {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  margin-top: 0.5rem;
+}
+
+.diplomaLink {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* Checkbox grid for specializations */
+.checkboxGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.checkboxLabel:hover {
+  background-color: var(--color-bg);
+}
+
+.checkbox {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
+.checkboxText {
+  font-size: 0.875rem;
+  color: var(--color-text);
+}
+
+/* Field-level error under checkboxes */
+.fieldError {
+  font-size: 0.8125rem;
+  color: var(--color-danger);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .cardWide {
+    padding: 2rem 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .card,
+  .cardWide {
+    padding: 1.5rem 1rem;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+  }
+
+  .checkboxGrid {
+    grid-template-columns: 1fr;
+  }
+}

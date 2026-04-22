@@ -1,0 +1,106 @@
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.page h1 {
+  margin-bottom: 1.5rem;
+}
+
+.empty {
+  text-align: center;
+  color: var(--color-text-light);
+  padding: 3rem;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.card {
+  background: var(--color-bg-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.2rem;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.badge {
+  color: white;
+  padding: 0.2rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.date {
+  color: var(--color-text-light);
+  font-size: 0.9rem;
+}
+
+.cardBody {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.info strong {
+  font-size: 1.05rem;
+}
+
+.info span {
+  color: var(--color-text-light);
+  font-size: 0.9rem;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.reviewForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.reviewField {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.reviewField label {
+  font-weight: 500;
+}
+
+.textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  resize: vertical;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}

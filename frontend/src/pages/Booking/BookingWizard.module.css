@@ -1,0 +1,231 @@
+.wizard {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.wizard h1 {
+  margin-bottom: 1.5rem;
+}
+
+.steps {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.steps::before {
+  content: '';
+  position: absolute;
+  top: 18px;
+  left: 40px;
+  right: 40px;
+  height: 2px;
+  background: var(--color-border);
+  z-index: 0;
+}
+
+.stepItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  position: relative;
+  z-index: 1;
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+}
+
+.stepNum {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: white;
+}
+
+.stepActive .stepNum {
+  background: var(--color-primary);
+}
+
+.stepActive span {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.stepDone .stepNum {
+  background: var(--color-success);
+}
+
+.stepContent {
+  background: var(--color-bg-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+}
+
+.stepContent h2 {
+  margin-bottom: 1.5rem;
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.selCard {
+  background: var(--color-bg);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.2rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.selCard:hover {
+  border-color: var(--color-primary-light);
+}
+
+.selCard h3 {
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+}
+
+.selCard p {
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+}
+
+.selCardActive {
+  border-color: var(--color-primary);
+  background: rgba(74, 144, 217, 0.08);
+}
+
+.dateGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.dateBtn {
+  padding: 0.5rem 0.8rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-white);
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.dateBtn:hover {
+  border-color: var(--color-primary);
+}
+
+.dateBtnActive {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.slotGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.slotBtn {
+  padding: 0.6rem 1.2rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-white);
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+}
+
+.slotBtn:hover {
+  border-color: var(--color-primary);
+}
+
+.slotBtnActive {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.noSlots {
+  color: var(--color-text-light);
+  font-style: italic;
+  margin-bottom: 1rem;
+}
+
+.summary {
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.summaryRow:last-child {
+  border-bottom: none;
+}
+
+.commentBlock {
+  margin-bottom: 1.5rem;
+}
+
+.commentBlock label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  resize: vertical;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .steps {
+    gap: 0;
+  }
+  .stepItem span {
+    font-size: 0.7rem;
+  }
+  .steps::before {
+    left: 20px;
+    right: 20px;
+  }
+}

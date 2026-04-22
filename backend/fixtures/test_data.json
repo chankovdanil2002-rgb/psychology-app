@@ -1,0 +1,2728 @@
+[
+  {
+    "model": "users.User",
+    "pk": 10,
+    "fields": {
+      "email": "anna.petrova@mail.ru",
+      "password": "pbkdf2_sha256$260000$testsalt$Kx8m1hFZIlMlSnBFmv2TFyDPRrN+fMOGEibaGFx3T7k=",
+      "role": "client",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "date_joined": "2026-03-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "users.User",
+    "pk": 11,
+    "fields": {
+      "email": "dmitry.sokolov@yandex.ru",
+      "password": "pbkdf2_sha256$260000$testsalt$Kx8m1hFZIlMlSnBFmv2TFyDPRrN+fMOGEibaGFx3T7k=",
+      "role": "client",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "date_joined": "2026-03-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "users.User",
+    "pk": 12,
+    "fields": {
+      "email": "elena.kozlova@gmail.com",
+      "password": "pbkdf2_sha256$260000$testsalt$Kx8m1hFZIlMlSnBFmv2TFyDPRrN+fMOGEibaGFx3T7k=",
+      "role": "client",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "date_joined": "2026-03-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "users.User",
+    "pk": 13,
+    "fields": {
+      "email": "igor.novikov@mail.ru",
+      "password": "pbkdf2_sha256$260000$testsalt$Kx8m1hFZIlMlSnBFmv2TFyDPRrN+fMOGEibaGFx3T7k=",
+      "role": "client",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "date_joined": "2026-03-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "users.User",
+    "pk": 14,
+    "fields": {
+      "email": "maria.fedorova@yandex.ru",
+      "password": "pbkdf2_sha256$260000$testsalt$Kx8m1hFZIlMlSnBFmv2TFyDPRrN+fMOGEibaGFx3T7k=",
+      "role": "client",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "date_joined": "2026-03-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "users.User",
+    "pk": 15,
+    "fields": {
+      "email": "sergey.morozov@gmail.com",
+      "password": "pbkdf2_sha256$260000$testsalt$Kx8m1hFZIlMlSnBFmv2TFyDPRrN+fMOGEibaGFx3T7k=",
+      "role": "client",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "date_joined": "2026-03-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "users.User",
+    "pk": 16,
+    "fields": {
+      "email": "olga.volkova@mail.ru",
+      "password": "pbkdf2_sha256$260000$testsalt$Kx8m1hFZIlMlSnBFmv2TFyDPRrN+fMOGEibaGFx3T7k=",
+      "role": "client",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "date_joined": "2026-03-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "users.User",
+    "pk": 17,
+    "fields": {
+      "email": "alexey.lebedev@yandex.ru",
+      "password": "pbkdf2_sha256$260000$testsalt$Kx8m1hFZIlMlSnBFmv2TFyDPRrN+fMOGEibaGFx3T7k=",
+      "role": "client",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "date_joined": "2026-03-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "users.User",
+    "pk": 20,
+    "fields": {
+      "email": "dr.ivanova@mail.ru",
+      "password": "pbkdf2_sha256$260000$testsalt$Kx8m1hFZIlMlSnBFmv2TFyDPRrN+fMOGEibaGFx3T7k=",
+      "role": "psychologist",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "date_joined": "2026-02-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "users.User",
+    "pk": 21,
+    "fields": {
+      "email": "dr.smirnov@yandex.ru",
+      "password": "pbkdf2_sha256$260000$testsalt$Kx8m1hFZIlMlSnBFmv2TFyDPRrN+fMOGEibaGFx3T7k=",
+      "role": "psychologist",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "date_joined": "2026-02-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "users.User",
+    "pk": 22,
+    "fields": {
+      "email": "dr.kuznetsova@gmail.com",
+      "password": "pbkdf2_sha256$260000$testsalt$Kx8m1hFZIlMlSnBFmv2TFyDPRrN+fMOGEibaGFx3T7k=",
+      "role": "psychologist",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "date_joined": "2026-02-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "users.User",
+    "pk": 23,
+    "fields": {
+      "email": "dr.popov@mail.ru",
+      "password": "pbkdf2_sha256$260000$testsalt$Kx8m1hFZIlMlSnBFmv2TFyDPRrN+fMOGEibaGFx3T7k=",
+      "role": "psychologist",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "date_joined": "2026-02-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "users.User",
+    "pk": 24,
+    "fields": {
+      "email": "dr.vasilieva@yandex.ru",
+      "password": "pbkdf2_sha256$260000$testsalt$Kx8m1hFZIlMlSnBFmv2TFyDPRrN+fMOGEibaGFx3T7k=",
+      "role": "psychologist",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "date_joined": "2026-02-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "users.User",
+    "pk": 25,
+    "fields": {
+      "email": "dr.pavlova@gmail.com",
+      "password": "pbkdf2_sha256$260000$testsalt$Kx8m1hFZIlMlSnBFmv2TFyDPRrN+fMOGEibaGFx3T7k=",
+      "role": "psychologist",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "date_joined": "2026-02-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "users.User",
+    "pk": 26,
+    "fields": {
+      "email": "dr.semenov@mail.ru",
+      "password": "pbkdf2_sha256$260000$testsalt$Kx8m1hFZIlMlSnBFmv2TFyDPRrN+fMOGEibaGFx3T7k=",
+      "role": "psychologist",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "date_joined": "2026-02-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "users.User",
+    "pk": 27,
+    "fields": {
+      "email": "dr.golubeva@yandex.ru",
+      "password": "pbkdf2_sha256$260000$testsalt$Kx8m1hFZIlMlSnBFmv2TFyDPRrN+fMOGEibaGFx3T7k=",
+      "role": "psychologist",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "date_joined": "2026-02-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "users.User",
+    "pk": 30,
+    "fields": {
+      "email": "natalia.orlova@mail.ru",
+      "password": "pbkdf2_sha256$260000$testsalt$Kx8m1hFZIlMlSnBFmv2TFyDPRrN+fMOGEibaGFx3T7k=",
+      "role": "client",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "date_joined": "2026-03-05T10:00:00Z"
+    }
+  },
+  {
+    "model": "users.User",
+    "pk": 31,
+    "fields": {
+      "email": "pavel.kovalev@yandex.ru",
+      "password": "pbkdf2_sha256$260000$testsalt$Kx8m1hFZIlMlSnBFmv2TFyDPRrN+fMOGEibaGFx3T7k=",
+      "role": "client",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "date_joined": "2026-03-05T10:00:00Z"
+    }
+  },
+  {
+    "model": "users.User",
+    "pk": 32,
+    "fields": {
+      "email": "irina.nikolaeva@gmail.com",
+      "password": "pbkdf2_sha256$260000$testsalt$Kx8m1hFZIlMlSnBFmv2TFyDPRrN+fMOGEibaGFx3T7k=",
+      "role": "client",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "date_joined": "2026-03-05T10:00:00Z"
+    }
+  },
+  {
+    "model": "users.User",
+    "pk": 33,
+    "fields": {
+      "email": "roman.andreev@mail.ru",
+      "password": "pbkdf2_sha256$260000$testsalt$Kx8m1hFZIlMlSnBFmv2TFyDPRrN+fMOGEibaGFx3T7k=",
+      "role": "client",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "date_joined": "2026-03-05T10:00:00Z"
+    }
+  },
+  {
+    "model": "users.User",
+    "pk": 34,
+    "fields": {
+      "email": "julia.sidorova@yandex.ru",
+      "password": "pbkdf2_sha256$260000$testsalt$Kx8m1hFZIlMlSnBFmv2TFyDPRrN+fMOGEibaGFx3T7k=",
+      "role": "client",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "date_joined": "2026-03-05T10:00:00Z"
+    }
+  },
+  {
+    "model": "users.User",
+    "pk": 35,
+    "fields": {
+      "email": "maksim.egorov@gmail.com",
+      "password": "pbkdf2_sha256$260000$testsalt$Kx8m1hFZIlMlSnBFmv2TFyDPRrN+fMOGEibaGFx3T7k=",
+      "role": "client",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "date_joined": "2026-03-05T10:00:00Z"
+    }
+  },
+  {
+    "model": "users.User",
+    "pk": 36,
+    "fields": {
+      "email": "vera.zakharova@mail.ru",
+      "password": "pbkdf2_sha256$260000$testsalt$Kx8m1hFZIlMlSnBFmv2TFyDPRrN+fMOGEibaGFx3T7k=",
+      "role": "client",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "date_joined": "2026-03-05T10:00:00Z"
+    }
+  },
+  {
+    "model": "users.User",
+    "pk": 37,
+    "fields": {
+      "email": "artem.makarov@yandex.ru",
+      "password": "pbkdf2_sha256$260000$testsalt$Kx8m1hFZIlMlSnBFmv2TFyDPRrN+fMOGEibaGFx3T7k=",
+      "role": "client",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "date_joined": "2026-03-05T10:00:00Z"
+    }
+  },
+  {
+    "model": "clients.ClientProfile",
+    "pk": 10,
+    "fields": {
+      "user": 10,
+      "first_name": "Анна",
+      "last_name": "Петрова",
+      "phone": "+79161234501",
+      "date_of_birth": "1995-03-15",
+      "is_profile_complete": true
+    }
+  },
+  {
+    "model": "clients.ClientProfile",
+    "pk": 11,
+    "fields": {
+      "user": 11,
+      "first_name": "Дмитрий",
+      "last_name": "Соколов",
+      "phone": "+79161234502",
+      "date_of_birth": "1990-07-22",
+      "is_profile_complete": true
+    }
+  },
+  {
+    "model": "clients.ClientProfile",
+    "pk": 12,
+    "fields": {
+      "user": 12,
+      "first_name": "Елена",
+      "last_name": "Козлова",
+      "phone": "+79161234503",
+      "date_of_birth": "1988-11-03",
+      "is_profile_complete": true
+    }
+  },
+  {
+    "model": "clients.ClientProfile",
+    "pk": 13,
+    "fields": {
+      "user": 13,
+      "first_name": "Игорь",
+      "last_name": "Новиков",
+      "phone": "+79161234504",
+      "date_of_birth": "1992-01-18",
+      "is_profile_complete": true
+    }
+  },
+  {
+    "model": "clients.ClientProfile",
+    "pk": 14,
+    "fields": {
+      "user": 14,
+      "first_name": "Мария",
+      "last_name": "Фёдорова",
+      "phone": "+79161234505",
+      "date_of_birth": "1997-06-30",
+      "is_profile_complete": true
+    }
+  },
+  {
+    "model": "clients.ClientProfile",
+    "pk": 15,
+    "fields": {
+      "user": 15,
+      "first_name": "Сергей",
+      "last_name": "Морозов",
+      "phone": "+79161234506",
+      "date_of_birth": "1985-09-12",
+      "is_profile_complete": true
+    }
+  },
+  {
+    "model": "clients.ClientProfile",
+    "pk": 16,
+    "fields": {
+      "user": 16,
+      "first_name": "Ольга",
+      "last_name": "Волкова",
+      "phone": "+79161234507",
+      "date_of_birth": "1993-04-25",
+      "is_profile_complete": true
+    }
+  },
+  {
+    "model": "clients.ClientProfile",
+    "pk": 17,
+    "fields": {
+      "user": 17,
+      "first_name": "Алексей",
+      "last_name": "Лебедев",
+      "phone": "+79161234508",
+      "date_of_birth": "1991-12-08",
+      "is_profile_complete": true
+    }
+  },
+  {
+    "model": "clients.ClientProfile",
+    "pk": 18,
+    "fields": {
+      "user": 30,
+      "first_name": "Наталья",
+      "last_name": "Орлова",
+      "phone": "+79161234509",
+      "date_of_birth": "1994-08-11",
+      "is_profile_complete": true
+    }
+  },
+  {
+    "model": "clients.ClientProfile",
+    "pk": 19,
+    "fields": {
+      "user": 31,
+      "first_name": "Павел",
+      "last_name": "Ковалёв",
+      "phone": "+79161234510",
+      "date_of_birth": "1989-02-28",
+      "is_profile_complete": true
+    }
+  },
+  {
+    "model": "clients.ClientProfile",
+    "pk": 20,
+    "fields": {
+      "user": 32,
+      "first_name": "Ирина",
+      "last_name": "Николаева",
+      "phone": "+79161234511",
+      "date_of_birth": "1996-05-19",
+      "is_profile_complete": true
+    }
+  },
+  {
+    "model": "clients.ClientProfile",
+    "pk": 21,
+    "fields": {
+      "user": 33,
+      "first_name": "Роман",
+      "last_name": "Андреев",
+      "phone": "+79161234512",
+      "date_of_birth": "1987-10-07",
+      "is_profile_complete": true
+    }
+  },
+  {
+    "model": "clients.ClientProfile",
+    "pk": 22,
+    "fields": {
+      "user": 34,
+      "first_name": "Юлия",
+      "last_name": "Сидорова",
+      "phone": "+79161234513",
+      "date_of_birth": "1993-12-24",
+      "is_profile_complete": true
+    }
+  },
+  {
+    "model": "clients.ClientProfile",
+    "pk": 23,
+    "fields": {
+      "user": 35,
+      "first_name": "Максим",
+      "last_name": "Егоров",
+      "phone": "+79161234514",
+      "date_of_birth": "1991-07-15",
+      "is_profile_complete": true
+    }
+  },
+  {
+    "model": "clients.ClientProfile",
+    "pk": 24,
+    "fields": {
+      "user": 36,
+      "first_name": "Вера",
+      "last_name": "Захарова",
+      "phone": "+79161234515",
+      "date_of_birth": "1998-01-30",
+      "is_profile_complete": true
+    }
+  },
+  {
+    "model": "clients.ClientProfile",
+    "pk": 25,
+    "fields": {
+      "user": 37,
+      "first_name": "Артём",
+      "last_name": "Макаров",
+      "phone": "+79161234516",
+      "date_of_birth": "1990-04-03",
+      "is_profile_complete": true
+    }
+  },
+  {
+    "model": "users.User",
+    "pk": 40,
+    "fields": {
+      "email": "dr.romanova@mail.ru",
+      "password": "pbkdf2_sha256$260000$testsalt$Kx8m1hFZIlMlSnBFmv2TFyDPRrN+fMOGEibaGFx3T7k=",
+      "role": "psychologist",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "date_joined": "2026-02-20T10:00:00Z"
+    }
+  },
+  {
+    "model": "users.User",
+    "pk": 41,
+    "fields": {
+      "email": "dr.titov@yandex.ru",
+      "password": "pbkdf2_sha256$260000$testsalt$Kx8m1hFZIlMlSnBFmv2TFyDPRrN+fMOGEibaGFx3T7k=",
+      "role": "psychologist",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "date_joined": "2026-02-20T10:00:00Z"
+    }
+  },
+  {
+    "model": "users.User",
+    "pk": 42,
+    "fields": {
+      "email": "dr.belova@gmail.com",
+      "password": "pbkdf2_sha256$260000$testsalt$Kx8m1hFZIlMlSnBFmv2TFyDPRrN+fMOGEibaGFx3T7k=",
+      "role": "psychologist",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "date_joined": "2026-02-20T10:00:00Z"
+    }
+  },
+  {
+    "model": "users.User",
+    "pk": 43,
+    "fields": {
+      "email": "dr.korolev@mail.ru",
+      "password": "pbkdf2_sha256$260000$testsalt$Kx8m1hFZIlMlSnBFmv2TFyDPRrN+fMOGEibaGFx3T7k=",
+      "role": "psychologist",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "date_joined": "2026-02-20T10:00:00Z"
+    }
+  },
+  {
+    "model": "users.User",
+    "pk": 44,
+    "fields": {
+      "email": "dr.medvedeva@yandex.ru",
+      "password": "pbkdf2_sha256$260000$testsalt$Kx8m1hFZIlMlSnBFmv2TFyDPRrN+fMOGEibaGFx3T7k=",
+      "role": "psychologist",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "date_joined": "2026-02-20T10:00:00Z"
+    }
+  },
+  {
+    "model": "users.User",
+    "pk": 45,
+    "fields": {
+      "email": "dr.voronov@gmail.com",
+      "password": "pbkdf2_sha256$260000$testsalt$Kx8m1hFZIlMlSnBFmv2TFyDPRrN+fMOGEibaGFx3T7k=",
+      "role": "psychologist",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "date_joined": "2026-02-20T10:00:00Z"
+    }
+  },
+  {
+    "model": "users.User",
+    "pk": 46,
+    "fields": {
+      "email": "dr.tarasova@mail.ru",
+      "password": "pbkdf2_sha256$260000$testsalt$Kx8m1hFZIlMlSnBFmv2TFyDPRrN+fMOGEibaGFx3T7k=",
+      "role": "psychologist",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "date_joined": "2026-02-20T10:00:00Z"
+    }
+  },
+  {
+    "model": "users.User",
+    "pk": 47,
+    "fields": {
+      "email": "dr.grigoriev@yandex.ru",
+      "password": "pbkdf2_sha256$260000$testsalt$Kx8m1hFZIlMlSnBFmv2TFyDPRrN+fMOGEibaGFx3T7k=",
+      "role": "psychologist",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "date_joined": "2026-02-20T10:00:00Z"
+    }
+  },
+  {
+    "model": "psychologists.PsychologistProfile",
+    "pk": 10,
+    "fields": {
+      "user": 20,
+      "first_name": "Ирина",
+      "last_name": "Иванова",
+      "patronymic": "Сергеевна",
+      "phone": "+79261234501",
+      "experience_years": 12,
+      "education": "МГУ, факультет психологии, 2012",
+      "bio": "Специализируюсь на когнитивно-поведенческой терапии. Помогаю справиться с тревогой и депрессией.",
+      "price": "4500.00",
+      "is_verified": true,
+      "verified_at": "2026-03-01T12:00:00Z",
+      "is_profile_complete": true
+    }
+  },
+  {
+    "model": "psychologists.PsychologistProfile",
+    "pk": 11,
+    "fields": {
+      "user": 21,
+      "first_name": "Андрей",
+      "last_name": "Смирнов",
+      "patronymic": "Викторович",
+      "phone": "+79261234502",
+      "experience_years": 8,
+      "education": "СПбГУ, клиническая психология, 2016",
+      "bio": "Работаю с семейными парами и индивидуальными клиентами. Гештальт-подход.",
+      "price": "5000.00",
+      "is_verified": true,
+      "verified_at": "2026-03-01T12:00:00Z",
+      "is_profile_complete": true
+    }
+  },
+  {
+    "model": "psychologists.PsychologistProfile",
+    "pk": 12,
+    "fields": {
+      "user": 22,
+      "first_name": "Наталья",
+      "last_name": "Кузнецова",
+      "patronymic": "Александровна",
+      "phone": "+79261234503",
+      "experience_years": 15,
+      "education": "МГППУ, психотерапия, 2009",
+      "bio": "Психоаналитик с 15-летним опытом. Глубинная работа с бессознательным.",
+      "price": "6500.00",
+      "is_verified": true,
+      "verified_at": "2026-03-01T12:00:00Z",
+      "is_profile_complete": true
+    }
+  },
+  {
+    "model": "psychologists.PsychologistProfile",
+    "pk": 13,
+    "fields": {
+      "user": 23,
+      "first_name": "Виктор",
+      "last_name": "Попов",
+      "patronymic": "Дмитриевич",
+      "phone": "+79261234504",
+      "experience_years": 6,
+      "education": "НГУ, психология, 2018",
+      "bio": "Помогаю подросткам и их родителям найти общий язык. Детская психология.",
+      "price": "3500.00",
+      "is_verified": true,
+      "verified_at": "2026-03-01T12:00:00Z",
+      "is_profile_complete": true
+    }
+  },
+  {
+    "model": "psychologists.PsychologistProfile",
+    "pk": 14,
+    "fields": {
+      "user": 24,
+      "first_name": "Светлана",
+      "last_name": "Васильева",
+      "patronymic": "Петровна",
+      "phone": "+79261234505",
+      "experience_years": 10,
+      "education": "КФУ, клиническая психология, 2014",
+      "bio": "Работаю с зависимостями и расстройствами пищевого поведения.",
+      "price": "5500.00",
+      "is_verified": true,
+      "verified_at": "2026-03-01T12:00:00Z",
+      "is_profile_complete": true
+    }
+  },
+  {
+    "model": "psychologists.PsychologistProfile",
+    "pk": 15,
+    "fields": {
+      "user": 25,
+      "first_name": "Екатерина",
+      "last_name": "Павлова",
+      "patronymic": "Игоревна",
+      "phone": "+79261234506",
+      "experience_years": 7,
+      "education": "ЮФУ, психология, 2017",
+      "bio": "Арт-терапевт. Использую творческие методы для работы с эмоциями.",
+      "price": "4000.00",
+      "is_verified": true,
+      "verified_at": "2026-03-01T12:00:00Z",
+      "is_profile_complete": true
+    }
+  },
+  {
+    "model": "psychologists.PsychologistProfile",
+    "pk": 16,
+    "fields": {
+      "user": 26,
+      "first_name": "Михаил",
+      "last_name": "Семёнов",
+      "patronymic": "Олегович",
+      "phone": "+79261234507",
+      "experience_years": 20,
+      "education": "МГУ, нейропсихология, 2004",
+      "bio": "Нейропсихолог. Диагностика и коррекция когнитивных нарушений.",
+      "price": "7000.00",
+      "is_verified": true,
+      "verified_at": "2026-03-01T12:00:00Z",
+      "is_profile_complete": true
+    }
+  },
+  {
+    "model": "psychologists.PsychologistProfile",
+    "pk": 17,
+    "fields": {
+      "user": 27,
+      "first_name": "Татьяна",
+      "last_name": "Голубева",
+      "patronymic": "Николаевна",
+      "phone": "+79261234508",
+      "experience_years": 9,
+      "education": "СФУ, психология, 2015",
+      "bio": "Специалист по травме и ПТСР. Метод EMDR.",
+      "price": "5000.00",
+      "is_verified": true,
+      "verified_at": "2026-03-01T12:00:00Z",
+      "is_profile_complete": true
+    }
+  },
+  {
+    "model": "psychologists.PsychologistProfile",
+    "pk": 18,
+    "fields": {
+      "user": 40,
+      "first_name": "Ольга",
+      "last_name": "Романова",
+      "patronymic": "Владимировна",
+      "phone": "+79261234509",
+      "experience_years": 11,
+      "education": "РУДН, психология, 2013",
+      "bio": "Экзистенциальная терапия. Помогаю обрести смысл и направление в жизни.",
+      "price": "5500.00",
+      "is_verified": true,
+      "verified_at": "2026-03-01T12:00:00Z",
+      "is_profile_complete": true
+    }
+  },
+  {
+    "model": "psychologists.PsychologistProfile",
+    "pk": 19,
+    "fields": {
+      "user": 41,
+      "first_name": "Дмитрий",
+      "last_name": "Титов",
+      "patronymic": "Андреевич",
+      "phone": "+79261234510",
+      "experience_years": 5,
+      "education": "ТГУ, клиническая психология, 2019",
+      "bio": "Работаю с тревожными расстройствами и паническими атаками.",
+      "price": "3000.00",
+      "is_verified": true,
+      "verified_at": "2026-03-01T12:00:00Z",
+      "is_profile_complete": true
+    }
+  },
+  {
+    "model": "psychologists.PsychologistProfile",
+    "pk": 20,
+    "fields": {
+      "user": 42,
+      "first_name": "Алина",
+      "last_name": "Белова",
+      "patronymic": "Михайловна",
+      "phone": "+79261234511",
+      "experience_years": 14,
+      "education": "МГУ, психология личности, 2010",
+      "bio": "Семейный психолог. Помогаю парам и семьям наладить отношения.",
+      "price": "6000.00",
+      "is_verified": true,
+      "verified_at": "2026-03-01T12:00:00Z",
+      "is_profile_complete": true
+    }
+  },
+  {
+    "model": "psychologists.PsychologistProfile",
+    "pk": 21,
+    "fields": {
+      "user": 43,
+      "first_name": "Константин",
+      "last_name": "Королёв",
+      "patronymic": "Сергеевич",
+      "phone": "+79261234512",
+      "experience_years": 9,
+      "education": "МГППУ, детская психология, 2015",
+      "bio": "Детский и подростковый психолог. Песочная терапия, игровая терапия.",
+      "price": "4500.00",
+      "is_verified": true,
+      "verified_at": "2026-03-01T12:00:00Z",
+      "is_profile_complete": true
+    }
+  },
+  {
+    "model": "psychologists.PsychologistProfile",
+    "pk": 22,
+    "fields": {
+      "user": 44,
+      "first_name": "Елена",
+      "last_name": "Медведева",
+      "patronymic": "Юрьевна",
+      "phone": "+79261234513",
+      "experience_years": 16,
+      "education": "СПбГУ, психиатрия, 2008",
+      "bio": "Клинический психолог. Работаю с депрессией и биполярным расстройством.",
+      "price": "7500.00",
+      "is_verified": true,
+      "verified_at": "2026-03-01T12:00:00Z",
+      "is_profile_complete": true
+    }
+  },
+  {
+    "model": "psychologists.PsychologistProfile",
+    "pk": 23,
+    "fields": {
+      "user": 45,
+      "first_name": "Игорь",
+      "last_name": "Воронов",
+      "patronymic": "Александрович",
+      "phone": "+79261234514",
+      "experience_years": 7,
+      "education": "НГУ, психология, 2017",
+      "bio": "Коуч и психолог. Помогаю с целеполаганием и преодолением прокрастинации.",
+      "price": "4000.00",
+      "is_verified": true,
+      "verified_at": "2026-03-01T12:00:00Z",
+      "is_profile_complete": true
+    }
+  },
+  {
+    "model": "psychologists.PsychologistProfile",
+    "pk": 24,
+    "fields": {
+      "user": 46,
+      "first_name": "Марина",
+      "last_name": "Тарасова",
+      "patronymic": "Дмитриевна",
+      "phone": "+79261234515",
+      "experience_years": 12,
+      "education": "КФУ, сексология, 2012",
+      "bio": "Психолог-сексолог. Деликатный подход к интимным вопросам.",
+      "price": "6000.00",
+      "is_verified": true,
+      "verified_at": "2026-03-01T12:00:00Z",
+      "is_profile_complete": true
+    }
+  },
+  {
+    "model": "psychologists.PsychologistProfile",
+    "pk": 25,
+    "fields": {
+      "user": 47,
+      "first_name": "Александр",
+      "last_name": "Григорьев",
+      "patronymic": "Петрович",
+      "phone": "+79261234516",
+      "experience_years": 18,
+      "education": "МГУ, нейропсихология, 2006",
+      "bio": "Нейропсихолог высшей категории. Работаю со сложными случаями.",
+      "price": "8000.00",
+      "is_verified": true,
+      "verified_at": "2026-03-01T12:00:00Z",
+      "is_profile_complete": true
+    }
+  },
+  {
+    "model": "specializations.PsychologistSpecialization",
+    "pk": 1,
+    "fields": {
+      "psychologist": 10,
+      "specialization": 6,
+      "is_primary": true
+    }
+  },
+  {
+    "model": "specializations.PsychologistSpecialization",
+    "pk": 2,
+    "fields": {
+      "psychologist": 10,
+      "specialization": 15,
+      "is_primary": false
+    }
+  },
+  {
+    "model": "specializations.PsychologistSpecialization",
+    "pk": 3,
+    "fields": {
+      "psychologist": 10,
+      "specialization": 3,
+      "is_primary": false
+    }
+  },
+  {
+    "model": "specializations.PsychologistSpecialization",
+    "pk": 4,
+    "fields": {
+      "psychologist": 11,
+      "specialization": 2,
+      "is_primary": true
+    }
+  },
+  {
+    "model": "specializations.PsychologistSpecialization",
+    "pk": 5,
+    "fields": {
+      "psychologist": 11,
+      "specialization": 12,
+      "is_primary": false
+    }
+  },
+  {
+    "model": "specializations.PsychologistSpecialization",
+    "pk": 6,
+    "fields": {
+      "psychologist": 12,
+      "specialization": 8,
+      "is_primary": true
+    }
+  },
+  {
+    "model": "specializations.PsychologistSpecialization",
+    "pk": 7,
+    "fields": {
+      "psychologist": 12,
+      "specialization": 9,
+      "is_primary": false
+    }
+  },
+  {
+    "model": "specializations.PsychologistSpecialization",
+    "pk": 8,
+    "fields": {
+      "psychologist": 12,
+      "specialization": 3,
+      "is_primary": false
+    }
+  },
+  {
+    "model": "specializations.PsychologistSpecialization",
+    "pk": 9,
+    "fields": {
+      "psychologist": 13,
+      "specialization": 4,
+      "is_primary": true
+    }
+  },
+  {
+    "model": "specializations.PsychologistSpecialization",
+    "pk": 10,
+    "fields": {
+      "psychologist": 13,
+      "specialization": 12,
+      "is_primary": false
+    }
+  },
+  {
+    "model": "specializations.PsychologistSpecialization",
+    "pk": 11,
+    "fields": {
+      "psychologist": 14,
+      "specialization": 5,
+      "is_primary": true
+    }
+  },
+  {
+    "model": "specializations.PsychologistSpecialization",
+    "pk": 12,
+    "fields": {
+      "psychologist": 14,
+      "specialization": 10,
+      "is_primary": false
+    }
+  },
+  {
+    "model": "specializations.PsychologistSpecialization",
+    "pk": 13,
+    "fields": {
+      "psychologist": 14,
+      "specialization": 15,
+      "is_primary": false
+    }
+  },
+  {
+    "model": "specializations.PsychologistSpecialization",
+    "pk": 14,
+    "fields": {
+      "psychologist": 15,
+      "specialization": 1,
+      "is_primary": true
+    }
+  },
+  {
+    "model": "specializations.PsychologistSpecialization",
+    "pk": 15,
+    "fields": {
+      "psychologist": 15,
+      "specialization": 13,
+      "is_primary": false
+    }
+  },
+  {
+    "model": "specializations.PsychologistSpecialization",
+    "pk": 16,
+    "fields": {
+      "psychologist": 16,
+      "specialization": 7,
+      "is_primary": true
+    }
+  },
+  {
+    "model": "specializations.PsychologistSpecialization",
+    "pk": 17,
+    "fields": {
+      "psychologist": 16,
+      "specialization": 9,
+      "is_primary": false
+    }
+  },
+  {
+    "model": "specializations.PsychologistSpecialization",
+    "pk": 18,
+    "fields": {
+      "psychologist": 17,
+      "specialization": 14,
+      "is_primary": true
+    }
+  },
+  {
+    "model": "specializations.PsychologistSpecialization",
+    "pk": 19,
+    "fields": {
+      "psychologist": 17,
+      "specialization": 13,
+      "is_primary": false
+    }
+  },
+  {
+    "model": "specializations.PsychologistSpecialization",
+    "pk": 20,
+    "fields": {
+      "psychologist": 17,
+      "specialization": 15,
+      "is_primary": false
+    }
+  },
+  {
+    "model": "specializations.PsychologistSpecialization",
+    "pk": 21,
+    "fields": {
+      "psychologist": 18,
+      "specialization": 8,
+      "is_primary": true
+    }
+  },
+  {
+    "model": "specializations.PsychologistSpecialization",
+    "pk": 22,
+    "fields": {
+      "psychologist": 18,
+      "specialization": 13,
+      "is_primary": false
+    }
+  },
+  {
+    "model": "specializations.PsychologistSpecialization",
+    "pk": 23,
+    "fields": {
+      "psychologist": 19,
+      "specialization": 6,
+      "is_primary": true
+    }
+  },
+  {
+    "model": "specializations.PsychologistSpecialization",
+    "pk": 24,
+    "fields": {
+      "psychologist": 19,
+      "specialization": 15,
+      "is_primary": false
+    }
+  },
+  {
+    "model": "specializations.PsychologistSpecialization",
+    "pk": 25,
+    "fields": {
+      "psychologist": 20,
+      "specialization": 12,
+      "is_primary": true
+    }
+  },
+  {
+    "model": "specializations.PsychologistSpecialization",
+    "pk": 26,
+    "fields": {
+      "psychologist": 20,
+      "specialization": 2,
+      "is_primary": false
+    }
+  },
+  {
+    "model": "specializations.PsychologistSpecialization",
+    "pk": 27,
+    "fields": {
+      "psychologist": 21,
+      "specialization": 4,
+      "is_primary": true
+    }
+  },
+  {
+    "model": "specializations.PsychologistSpecialization",
+    "pk": 28,
+    "fields": {
+      "psychologist": 22,
+      "specialization": 3,
+      "is_primary": true
+    }
+  },
+  {
+    "model": "specializations.PsychologistSpecialization",
+    "pk": 29,
+    "fields": {
+      "psychologist": 22,
+      "specialization": 6,
+      "is_primary": false
+    }
+  },
+  {
+    "model": "specializations.PsychologistSpecialization",
+    "pk": 30,
+    "fields": {
+      "psychologist": 23,
+      "specialization": 13,
+      "is_primary": true
+    }
+  },
+  {
+    "model": "specializations.PsychologistSpecialization",
+    "pk": 31,
+    "fields": {
+      "psychologist": 24,
+      "specialization": 11,
+      "is_primary": true
+    }
+  },
+  {
+    "model": "specializations.PsychologistSpecialization",
+    "pk": 32,
+    "fields": {
+      "psychologist": 25,
+      "specialization": 7,
+      "is_primary": true
+    }
+  },
+  {
+    "model": "specializations.PsychologistSpecialization",
+    "pk": 33,
+    "fields": {
+      "psychologist": 25,
+      "specialization": 9,
+      "is_primary": false
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 1,
+    "fields": {
+      "psychologist": 10,
+      "date": "2026-04-20",
+      "start_time": "10:00:00",
+      "end_time": "11:00:00",
+      "is_available": false
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 2,
+    "fields": {
+      "psychologist": 10,
+      "date": "2026-04-21",
+      "start_time": "10:00:00",
+      "end_time": "11:00:00",
+      "is_available": false
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 3,
+    "fields": {
+      "psychologist": 10,
+      "date": "2026-04-22",
+      "start_time": "10:00:00",
+      "end_time": "11:00:00",
+      "is_available": false
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 4,
+    "fields": {
+      "psychologist": 11,
+      "date": "2026-04-21",
+      "start_time": "12:00:00",
+      "end_time": "13:00:00",
+      "is_available": false
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 5,
+    "fields": {
+      "psychologist": 11,
+      "date": "2026-04-22",
+      "start_time": "12:00:00",
+      "end_time": "13:00:00",
+      "is_available": false
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 6,
+    "fields": {
+      "psychologist": 11,
+      "date": "2026-04-23",
+      "start_time": "12:00:00",
+      "end_time": "13:00:00",
+      "is_available": false
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 7,
+    "fields": {
+      "psychologist": 12,
+      "date": "2026-04-22",
+      "start_time": "14:00:00",
+      "end_time": "15:00:00",
+      "is_available": false
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 8,
+    "fields": {
+      "psychologist": 12,
+      "date": "2026-04-23",
+      "start_time": "14:00:00",
+      "end_time": "15:00:00",
+      "is_available": false
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 9,
+    "fields": {
+      "psychologist": 12,
+      "date": "2026-04-24",
+      "start_time": "14:00:00",
+      "end_time": "15:00:00",
+      "is_available": false
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 10,
+    "fields": {
+      "psychologist": 13,
+      "date": "2026-04-23",
+      "start_time": "16:00:00",
+      "end_time": "17:00:00",
+      "is_available": false
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 11,
+    "fields": {
+      "psychologist": 13,
+      "date": "2026-04-24",
+      "start_time": "16:00:00",
+      "end_time": "17:00:00",
+      "is_available": false
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 12,
+    "fields": {
+      "psychologist": 13,
+      "date": "2026-04-25",
+      "start_time": "16:00:00",
+      "end_time": "17:00:00",
+      "is_available": false
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 13,
+    "fields": {
+      "psychologist": 14,
+      "date": "2026-04-24",
+      "start_time": "10:00:00",
+      "end_time": "11:00:00",
+      "is_available": false
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 14,
+    "fields": {
+      "psychologist": 14,
+      "date": "2026-04-25",
+      "start_time": "10:00:00",
+      "end_time": "11:00:00",
+      "is_available": false
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 15,
+    "fields": {
+      "psychologist": 14,
+      "date": "2026-04-26",
+      "start_time": "10:00:00",
+      "end_time": "11:00:00",
+      "is_available": false
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 16,
+    "fields": {
+      "psychologist": 15,
+      "date": "2026-04-20",
+      "start_time": "12:00:00",
+      "end_time": "13:00:00",
+      "is_available": false
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 17,
+    "fields": {
+      "psychologist": 15,
+      "date": "2026-04-21",
+      "start_time": "12:00:00",
+      "end_time": "13:00:00",
+      "is_available": false
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 18,
+    "fields": {
+      "psychologist": 15,
+      "date": "2026-04-22",
+      "start_time": "12:00:00",
+      "end_time": "13:00:00",
+      "is_available": false
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 19,
+    "fields": {
+      "psychologist": 16,
+      "date": "2026-04-21",
+      "start_time": "14:00:00",
+      "end_time": "15:00:00",
+      "is_available": false
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 20,
+    "fields": {
+      "psychologist": 16,
+      "date": "2026-04-22",
+      "start_time": "14:00:00",
+      "end_time": "15:00:00",
+      "is_available": false
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 21,
+    "fields": {
+      "psychologist": 16,
+      "date": "2026-04-23",
+      "start_time": "14:00:00",
+      "end_time": "15:00:00",
+      "is_available": true
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 22,
+    "fields": {
+      "psychologist": 17,
+      "date": "2026-04-22",
+      "start_time": "16:00:00",
+      "end_time": "17:00:00",
+      "is_available": true
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 23,
+    "fields": {
+      "psychologist": 17,
+      "date": "2026-04-23",
+      "start_time": "16:00:00",
+      "end_time": "17:00:00",
+      "is_available": true
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 24,
+    "fields": {
+      "psychologist": 17,
+      "date": "2026-04-24",
+      "start_time": "16:00:00",
+      "end_time": "17:00:00",
+      "is_available": true
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 25,
+    "fields": {
+      "psychologist": 18,
+      "date": "2026-04-23",
+      "start_time": "10:00:00",
+      "end_time": "11:00:00",
+      "is_available": true
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 26,
+    "fields": {
+      "psychologist": 18,
+      "date": "2026-04-24",
+      "start_time": "10:00:00",
+      "end_time": "11:00:00",
+      "is_available": true
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 27,
+    "fields": {
+      "psychologist": 18,
+      "date": "2026-04-25",
+      "start_time": "10:00:00",
+      "end_time": "11:00:00",
+      "is_available": true
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 28,
+    "fields": {
+      "psychologist": 19,
+      "date": "2026-04-24",
+      "start_time": "12:00:00",
+      "end_time": "13:00:00",
+      "is_available": true
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 29,
+    "fields": {
+      "psychologist": 19,
+      "date": "2026-04-25",
+      "start_time": "12:00:00",
+      "end_time": "13:00:00",
+      "is_available": true
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 30,
+    "fields": {
+      "psychologist": 19,
+      "date": "2026-04-26",
+      "start_time": "12:00:00",
+      "end_time": "13:00:00",
+      "is_available": true
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 31,
+    "fields": {
+      "psychologist": 20,
+      "date": "2026-04-20",
+      "start_time": "14:00:00",
+      "end_time": "15:00:00",
+      "is_available": true
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 32,
+    "fields": {
+      "psychologist": 20,
+      "date": "2026-04-21",
+      "start_time": "14:00:00",
+      "end_time": "15:00:00",
+      "is_available": true
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 33,
+    "fields": {
+      "psychologist": 20,
+      "date": "2026-04-22",
+      "start_time": "14:00:00",
+      "end_time": "15:00:00",
+      "is_available": true
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 34,
+    "fields": {
+      "psychologist": 21,
+      "date": "2026-04-21",
+      "start_time": "16:00:00",
+      "end_time": "17:00:00",
+      "is_available": true
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 35,
+    "fields": {
+      "psychologist": 21,
+      "date": "2026-04-22",
+      "start_time": "16:00:00",
+      "end_time": "17:00:00",
+      "is_available": true
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 36,
+    "fields": {
+      "psychologist": 21,
+      "date": "2026-04-23",
+      "start_time": "16:00:00",
+      "end_time": "17:00:00",
+      "is_available": true
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 37,
+    "fields": {
+      "psychologist": 22,
+      "date": "2026-04-22",
+      "start_time": "10:00:00",
+      "end_time": "11:00:00",
+      "is_available": true
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 38,
+    "fields": {
+      "psychologist": 22,
+      "date": "2026-04-23",
+      "start_time": "10:00:00",
+      "end_time": "11:00:00",
+      "is_available": true
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 39,
+    "fields": {
+      "psychologist": 22,
+      "date": "2026-04-24",
+      "start_time": "10:00:00",
+      "end_time": "11:00:00",
+      "is_available": true
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 40,
+    "fields": {
+      "psychologist": 23,
+      "date": "2026-04-23",
+      "start_time": "12:00:00",
+      "end_time": "13:00:00",
+      "is_available": true
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 41,
+    "fields": {
+      "psychologist": 23,
+      "date": "2026-04-24",
+      "start_time": "12:00:00",
+      "end_time": "13:00:00",
+      "is_available": true
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 42,
+    "fields": {
+      "psychologist": 23,
+      "date": "2026-04-25",
+      "start_time": "12:00:00",
+      "end_time": "13:00:00",
+      "is_available": true
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 43,
+    "fields": {
+      "psychologist": 24,
+      "date": "2026-04-24",
+      "start_time": "14:00:00",
+      "end_time": "15:00:00",
+      "is_available": true
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 44,
+    "fields": {
+      "psychologist": 24,
+      "date": "2026-04-25",
+      "start_time": "14:00:00",
+      "end_time": "15:00:00",
+      "is_available": true
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 45,
+    "fields": {
+      "psychologist": 24,
+      "date": "2026-04-26",
+      "start_time": "14:00:00",
+      "end_time": "15:00:00",
+      "is_available": true
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 46,
+    "fields": {
+      "psychologist": 25,
+      "date": "2026-04-20",
+      "start_time": "16:00:00",
+      "end_time": "17:00:00",
+      "is_available": true
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 47,
+    "fields": {
+      "psychologist": 25,
+      "date": "2026-04-21",
+      "start_time": "16:00:00",
+      "end_time": "17:00:00",
+      "is_available": true
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 48,
+    "fields": {
+      "psychologist": 25,
+      "date": "2026-04-22",
+      "start_time": "16:00:00",
+      "end_time": "17:00:00",
+      "is_available": true
+    }
+  },
+  {
+    "model": "appointments.Appointment",
+    "pk": 1,
+    "fields": {
+      "client": 10,
+      "psychologist": 13,
+      "time_slot": 1,
+      "status": "completed",
+      "comment": "Хочу обсудить тревожность"
+    }
+  },
+  {
+    "model": "appointments.Appointment",
+    "pk": 2,
+    "fields": {
+      "client": 11,
+      "psychologist": 14,
+      "time_slot": 2,
+      "status": "completed",
+      "comment": "Проблемы в отношениях"
+    }
+  },
+  {
+    "model": "appointments.Appointment",
+    "pk": 3,
+    "fields": {
+      "client": 12,
+      "psychologist": 15,
+      "time_slot": 3,
+      "status": "completed",
+      "comment": "Не могу справиться со стрессом"
+    }
+  },
+  {
+    "model": "appointments.Appointment",
+    "pk": 4,
+    "fields": {
+      "client": 13,
+      "psychologist": 16,
+      "time_slot": 4,
+      "status": "completed",
+      "comment": "Панические атаки"
+    }
+  },
+  {
+    "model": "appointments.Appointment",
+    "pk": 5,
+    "fields": {
+      "client": 14,
+      "psychologist": 17,
+      "time_slot": 5,
+      "status": "completed",
+      "comment": "Проблемы с самооценкой"
+    }
+  },
+  {
+    "model": "appointments.Appointment",
+    "pk": 6,
+    "fields": {
+      "client": 15,
+      "psychologist": 18,
+      "time_slot": 6,
+      "status": "completed",
+      "comment": "Хочу разобраться в себе"
+    }
+  },
+  {
+    "model": "appointments.Appointment",
+    "pk": 7,
+    "fields": {
+      "client": 16,
+      "psychologist": 19,
+      "time_slot": 7,
+      "status": "completed",
+      "comment": "Сложности на работе"
+    }
+  },
+  {
+    "model": "appointments.Appointment",
+    "pk": 8,
+    "fields": {
+      "client": 17,
+      "psychologist": 20,
+      "time_slot": 8,
+      "status": "completed",
+      "comment": "Проблемы со сном"
+    }
+  },
+  {
+    "model": "appointments.Appointment",
+    "pk": 9,
+    "fields": {
+      "client": 18,
+      "psychologist": 21,
+      "time_slot": 9,
+      "status": "confirmed",
+      "comment": "Нужна поддержка"
+    }
+  },
+  {
+    "model": "appointments.Appointment",
+    "pk": 10,
+    "fields": {
+      "client": 19,
+      "psychologist": 22,
+      "time_slot": 10,
+      "status": "confirmed",
+      "comment": "Конфликты в семье"
+    }
+  },
+  {
+    "model": "appointments.Appointment",
+    "pk": 11,
+    "fields": {
+      "client": 20,
+      "psychologist": 23,
+      "time_slot": 11,
+      "status": "confirmed",
+      "comment": "Выгорание на работе"
+    }
+  },
+  {
+    "model": "appointments.Appointment",
+    "pk": 12,
+    "fields": {
+      "client": 21,
+      "psychologist": 24,
+      "time_slot": 12,
+      "status": "confirmed",
+      "comment": "Потеря мотивации"
+    }
+  },
+  {
+    "model": "appointments.Appointment",
+    "pk": 13,
+    "fields": {
+      "client": 22,
+      "psychologist": 25,
+      "time_slot": 13,
+      "status": "pending",
+      "comment": "Тревога перед экзаменами"
+    }
+  },
+  {
+    "model": "appointments.Appointment",
+    "pk": 14,
+    "fields": {
+      "client": 23,
+      "psychologist": 10,
+      "time_slot": 14,
+      "status": "pending",
+      "comment": "Проблемы с едой"
+    }
+  },
+  {
+    "model": "appointments.Appointment",
+    "pk": 15,
+    "fields": {
+      "client": 24,
+      "psychologist": 11,
+      "time_slot": 15,
+      "status": "pending",
+      "comment": "Пережил утрату"
+    }
+  },
+  {
+    "model": "appointments.Appointment",
+    "pk": 16,
+    "fields": {
+      "client": 25,
+      "psychologist": 12,
+      "time_slot": 16,
+      "status": "pending",
+      "comment": "Хочу начать терапию"
+    }
+  },
+  {
+    "model": "appointments.Appointment",
+    "pk": 17,
+    "fields": {
+      "client": 10,
+      "psychologist": 13,
+      "time_slot": 17,
+      "status": "rejected",
+      "comment": "Нужна помощь с зависимостью"
+    }
+  },
+  {
+    "model": "appointments.Appointment",
+    "pk": 18,
+    "fields": {
+      "client": 11,
+      "psychologist": 14,
+      "time_slot": 18,
+      "status": "rejected",
+      "comment": "Проблемы в общении"
+    }
+  },
+  {
+    "model": "appointments.Appointment",
+    "pk": 19,
+    "fields": {
+      "client": 12,
+      "psychologist": 15,
+      "time_slot": 19,
+      "status": "cancelled",
+      "comment": "Хочу улучшить самооценку"
+    }
+  },
+  {
+    "model": "appointments.Appointment",
+    "pk": 20,
+    "fields": {
+      "client": 13,
+      "psychologist": 16,
+      "time_slot": 20,
+      "status": "cancelled",
+      "comment": "Нужна консультация по детской психологии"
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 49,
+    "fields": {
+      "psychologist": 10,
+      "date": "2026-03-10",
+      "start_time": "14:00:00",
+      "end_time": "15:00:00",
+      "is_available": false
+    }
+  },
+  {
+    "model": "appointments.Appointment",
+    "pk": 21,
+    "fields": {
+      "client": 15,
+      "psychologist": 10,
+      "time_slot": 49,
+      "status": "completed",
+      "comment": "Повторная консультация"
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 50,
+    "fields": {
+      "psychologist": 11,
+      "date": "2026-03-11",
+      "start_time": "14:00:00",
+      "end_time": "15:00:00",
+      "is_available": false
+    }
+  },
+  {
+    "model": "appointments.Appointment",
+    "pk": 22,
+    "fields": {
+      "client": 16,
+      "psychologist": 11,
+      "time_slot": 50,
+      "status": "completed",
+      "comment": "Повторная консультация"
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 51,
+    "fields": {
+      "psychologist": 12,
+      "date": "2026-03-12",
+      "start_time": "14:00:00",
+      "end_time": "15:00:00",
+      "is_available": false
+    }
+  },
+  {
+    "model": "appointments.Appointment",
+    "pk": 23,
+    "fields": {
+      "client": 17,
+      "psychologist": 12,
+      "time_slot": 51,
+      "status": "completed",
+      "comment": "Повторная консультация"
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 52,
+    "fields": {
+      "psychologist": 13,
+      "date": "2026-03-13",
+      "start_time": "14:00:00",
+      "end_time": "15:00:00",
+      "is_available": false
+    }
+  },
+  {
+    "model": "appointments.Appointment",
+    "pk": 24,
+    "fields": {
+      "client": 18,
+      "psychologist": 13,
+      "time_slot": 52,
+      "status": "completed",
+      "comment": "Повторная консультация"
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 53,
+    "fields": {
+      "psychologist": 14,
+      "date": "2026-03-14",
+      "start_time": "14:00:00",
+      "end_time": "15:00:00",
+      "is_available": false
+    }
+  },
+  {
+    "model": "appointments.Appointment",
+    "pk": 25,
+    "fields": {
+      "client": 19,
+      "psychologist": 14,
+      "time_slot": 53,
+      "status": "completed",
+      "comment": "Повторная консультация"
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 54,
+    "fields": {
+      "psychologist": 15,
+      "date": "2026-03-15",
+      "start_time": "14:00:00",
+      "end_time": "15:00:00",
+      "is_available": false
+    }
+  },
+  {
+    "model": "appointments.Appointment",
+    "pk": 26,
+    "fields": {
+      "client": 20,
+      "psychologist": 15,
+      "time_slot": 54,
+      "status": "completed",
+      "comment": "Повторная консультация"
+    }
+  },
+  {
+    "model": "schedule.TimeSlot",
+    "pk": 55,
+    "fields": {
+      "psychologist": 16,
+      "date": "2026-03-16",
+      "start_time": "14:00:00",
+      "end_time": "15:00:00",
+      "is_available": false
+    }
+  },
+  {
+    "model": "appointments.Appointment",
+    "pk": 27,
+    "fields": {
+      "client": 21,
+      "psychologist": 16,
+      "time_slot": 55,
+      "status": "completed",
+      "comment": "Повторная консультация"
+    }
+  },
+  {
+    "model": "reviews.Review",
+    "pk": 1,
+    "fields": {
+      "appointment": 1,
+      "rating": 5,
+      "text": "Отличный специалист! Помогла разобраться в моих проблемах. Рекомендую всем."
+    }
+  },
+  {
+    "model": "reviews.Review",
+    "pk": 2,
+    "fields": {
+      "appointment": 2,
+      "rating": 5,
+      "text": "Очень внимательный психолог, чувствуется профессионализм. Стало легче после первого сеанса."
+    }
+  },
+  {
+    "model": "reviews.Review",
+    "pk": 3,
+    "fields": {
+      "appointment": 3,
+      "rating": 5,
+      "text": "Прекрасный опыт. Наталья Александровна нашла подход и помогла увидеть ситуацию по-новому."
+    }
+  },
+  {
+    "model": "reviews.Review",
+    "pk": 4,
+    "fields": {
+      "appointment": 4,
+      "rating": 4,
+      "text": "Хороший психолог, но хотелось бы более конкретных рекомендаций. В целом доволен."
+    }
+  },
+  {
+    "model": "reviews.Review",
+    "pk": 5,
+    "fields": {
+      "appointment": 5,
+      "rating": 5,
+      "text": "Замечательный специалист! Работает мягко, но эффективно. Результат заметен."
+    }
+  },
+  {
+    "model": "reviews.Review",
+    "pk": 6,
+    "fields": {
+      "appointment": 6,
+      "rating": 4,
+      "text": "Профессиональный подход, комфортная атмосфера. Буду продолжать терапию."
+    }
+  },
+  {
+    "model": "reviews.Review",
+    "pk": 7,
+    "fields": {
+      "appointment": 7,
+      "rating": 5,
+      "text": "Очень помогли сессии. Научился справляться с тревогой самостоятельно."
+    }
+  },
+  {
+    "model": "reviews.Review",
+    "pk": 8,
+    "fields": {
+      "appointment": 8,
+      "rating": 5,
+      "text": "Рекомендую! Светлана Петровна — настоящий профессионал своего дела."
+    }
+  },
+  {
+    "model": "reviews.Review",
+    "pk": 9,
+    "fields": {
+      "appointment": 21,
+      "rating": 5,
+      "text": "Благодарна за помощь. Арт-терапия оказалась именно тем, что мне было нужно."
+    }
+  },
+  {
+    "model": "reviews.Review",
+    "pk": 10,
+    "fields": {
+      "appointment": 22,
+      "rating": 4,
+      "text": "Отличная работа! Михаил Олегович помог разобраться с когнитивными проблемами."
+    }
+  },
+  {
+    "model": "reviews.Review",
+    "pk": 11,
+    "fields": {
+      "appointment": 23,
+      "rating": 5,
+      "text": "Спасибо за поддержку в трудный период. Чувствую себя гораздо лучше."
+    }
+  },
+  {
+    "model": "reviews.Review",
+    "pk": 12,
+    "fields": {
+      "appointment": 24,
+      "rating": 4,
+      "text": "Профессионально и по существу. Доволен результатом терапии."
+    }
+  },
+  {
+    "model": "reviews.Review",
+    "pk": 13,
+    "fields": {
+      "appointment": 25,
+      "rating": 3,
+      "text": "Хорошие сессии, но иногда не хватало времени. В целом положительный опыт."
+    }
+  },
+  {
+    "model": "reviews.Review",
+    "pk": 14,
+    "fields": {
+      "appointment": 26,
+      "rating": 5,
+      "text": "Татьяна Николаевна — замечательный специалист по травме. Очень помогла."
+    }
+  },
+  {
+    "model": "reviews.Review",
+    "pk": 15,
+    "fields": {
+      "appointment": 27,
+      "rating": 5,
+      "text": "Прекрасный психолог. Чуткий, внимательный, профессиональный подход."
+    }
+  },
+  {
+    "model": "notifications.Notification",
+    "pk": 1,
+    "fields": {
+      "user": 10,
+      "type": "appointment_confirmed",
+      "title": "Запись подтверждена",
+      "message": "Ваша запись к психологу Ивановой И.С. подтверждена на 20 апреля в 10:00.",
+      "is_read": true
+    }
+  },
+  {
+    "model": "notifications.Notification",
+    "pk": 2,
+    "fields": {
+      "user": 11,
+      "type": "appointment_confirmed",
+      "title": "Запись подтверждена",
+      "message": "Ваша запись к психологу Смирнову А.В. подтверждена на 21 апреля в 12:00.",
+      "is_read": true
+    }
+  },
+  {
+    "model": "notifications.Notification",
+    "pk": 3,
+    "fields": {
+      "user": 12,
+      "type": "appointment_completed",
+      "title": "Сеанс завершён",
+      "message": "Ваш сеанс с психологом Кузнецовой Н.А. завершён. Спасибо!",
+      "is_read": true
+    }
+  },
+  {
+    "model": "notifications.Notification",
+    "pk": 4,
+    "fields": {
+      "user": 13,
+      "type": "review_request",
+      "title": "Оставьте отзыв",
+      "message": "Пожалуйста, оставьте отзыв о сеансе с Поповым В.Д.",
+      "is_read": true
+    }
+  },
+  {
+    "model": "notifications.Notification",
+    "pk": 5,
+    "fields": {
+      "user": 14,
+      "type": "appointment_rejected",
+      "title": "Запись отклонена",
+      "message": "К сожалению, ваша запись на 22 апреля была отклонена. Попробуйте другое время.",
+      "is_read": true
+    }
+  },
+  {
+    "model": "notifications.Notification",
+    "pk": 6,
+    "fields": {
+      "user": 15,
+      "type": "appointment_cancelled",
+      "title": "Запись отменена",
+      "message": "Ваша запись на 23 апреля была отменена.",
+      "is_read": true
+    }
+  },
+  {
+    "model": "notifications.Notification",
+    "pk": 7,
+    "fields": {
+      "user": 30,
+      "type": "review_request",
+      "title": "Оставьте отзыв",
+      "message": "Пожалуйста, оцените сеанс с Ивановой И.С.",
+      "is_read": true
+    }
+  },
+  {
+    "model": "notifications.Notification",
+    "pk": 8,
+    "fields": {
+      "user": 31,
+      "type": "appointment_confirmed",
+      "title": "Запись подтверждена",
+      "message": "Ваша запись подтверждена. Ждём вас!",
+      "is_read": true
+    }
+  },
+  {
+    "model": "notifications.Notification",
+    "pk": 9,
+    "fields": {
+      "user": 20,
+      "type": "verification_approved",
+      "title": "Верификация пройдена",
+      "message": "Ваш профиль верифицирован. Теперь вы видны в каталоге и можете принимать клиентов.",
+      "is_read": false
+    }
+  },
+  {
+    "model": "notifications.Notification",
+    "pk": 10,
+    "fields": {
+      "user": 21,
+      "type": "verification_approved",
+      "title": "Верификация пройдена",
+      "message": "Поздравляем! Ваш профиль психолога подтверждён администратором.",
+      "is_read": false
+    }
+  },
+  {
+    "model": "notifications.Notification",
+    "pk": 11,
+    "fields": {
+      "user": 22,
+      "type": "system",
+      "title": "Добро пожаловать",
+      "message": "Добро пожаловать на платформу Психолог Онлайн!",
+      "is_read": false
+    }
+  },
+  {
+    "model": "notifications.Notification",
+    "pk": 12,
+    "fields": {
+      "user": 23,
+      "type": "system",
+      "title": "Новая запись",
+      "message": "К вам записался новый клиент. Проверьте раздел Записи.",
+      "is_read": false
+    }
+  },
+  {
+    "model": "notifications.Notification",
+    "pk": 13,
+    "fields": {
+      "user": 24,
+      "type": "system",
+      "title": "Напоминание",
+      "message": "Напоминаем о предстоящем сеансе завтра в 10:00.",
+      "is_read": false
+    }
+  },
+  {
+    "model": "notifications.Notification",
+    "pk": 14,
+    "fields": {
+      "user": 40,
+      "type": "verification_approved",
+      "title": "Верификация пройдена",
+      "message": "Ваш профиль успешно верифицирован.",
+      "is_read": false
+    }
+  },
+  {
+    "model": "notifications.Notification",
+    "pk": 15,
+    "fields": {
+      "user": 41,
+      "type": "system",
+      "title": "Новый отзыв",
+      "message": "Вам оставили новый отзыв. Средний рейтинг: 4.8.",
+      "is_read": false
+    }
+  },
+  {
+    "model": "notifications.Notification",
+    "pk": 16,
+    "fields": {
+      "user": 42,
+      "type": "system",
+      "title": "Обновление платформы",
+      "message": "На платформе появились новые функции. Ознакомьтесь в разделе Новости.",
+      "is_read": false
+    }
+  },
+  {
+    "model": "users.EmailConfirmationToken",
+    "pk": 1,
+    "fields": {
+      "user": 10,
+      "token": "531f8b73-ef1b-4158-8255-5247499eb369",
+      "is_used": true,
+      "expires_at": "2026-05-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.EmailConfirmationToken",
+    "pk": 2,
+    "fields": {
+      "user": 11,
+      "token": "2733d52e-7c24-423a-9dc8-5cd6d3bb86c6",
+      "is_used": true,
+      "expires_at": "2026-05-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.EmailConfirmationToken",
+    "pk": 3,
+    "fields": {
+      "user": 12,
+      "token": "1a6dd72a-c91c-466c-ade6-410d4c9f2bf5",
+      "is_used": true,
+      "expires_at": "2026-05-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.EmailConfirmationToken",
+    "pk": 4,
+    "fields": {
+      "user": 13,
+      "token": "cadb2f26-42a5-4768-83ea-9ef4f063838b",
+      "is_used": true,
+      "expires_at": "2026-05-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.EmailConfirmationToken",
+    "pk": 5,
+    "fields": {
+      "user": 14,
+      "token": "a2ef6e46-f074-493d-a628-6f3b509de9ba",
+      "is_used": true,
+      "expires_at": "2026-05-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.EmailConfirmationToken",
+    "pk": 6,
+    "fields": {
+      "user": 15,
+      "token": "ea761fcf-aa6a-41ed-a445-dd0886199aa0",
+      "is_used": true,
+      "expires_at": "2026-05-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.EmailConfirmationToken",
+    "pk": 7,
+    "fields": {
+      "user": 16,
+      "token": "e767efe1-db28-40cd-b606-61744468b589",
+      "is_used": true,
+      "expires_at": "2026-05-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.EmailConfirmationToken",
+    "pk": 8,
+    "fields": {
+      "user": 17,
+      "token": "a8e9c756-fa23-41b5-814f-4b6118fb851b",
+      "is_used": true,
+      "expires_at": "2026-05-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.EmailConfirmationToken",
+    "pk": 9,
+    "fields": {
+      "user": 20,
+      "token": "8de86d9e-1166-4338-9056-025dbe6d6538",
+      "is_used": true,
+      "expires_at": "2026-05-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.EmailConfirmationToken",
+    "pk": 10,
+    "fields": {
+      "user": 21,
+      "token": "46d058c8-2e71-44bd-9b4d-addaa86c9412",
+      "is_used": true,
+      "expires_at": "2026-05-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.EmailConfirmationToken",
+    "pk": 11,
+    "fields": {
+      "user": 22,
+      "token": "ce168b30-e2e5-4519-8972-5f25b6adef30",
+      "is_used": true,
+      "expires_at": "2026-05-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.EmailConfirmationToken",
+    "pk": 12,
+    "fields": {
+      "user": 23,
+      "token": "a6e16d6b-71f5-49a4-8194-bf6f1804fe1a",
+      "is_used": true,
+      "expires_at": "2026-05-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.EmailConfirmationToken",
+    "pk": 13,
+    "fields": {
+      "user": 24,
+      "token": "930e0471-f5ae-46ae-b9a5-3ce77f326cc9",
+      "is_used": true,
+      "expires_at": "2026-05-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.EmailConfirmationToken",
+    "pk": 14,
+    "fields": {
+      "user": 25,
+      "token": "563885f3-d35d-467f-bd27-b41bfdc0940a",
+      "is_used": true,
+      "expires_at": "2026-05-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.EmailConfirmationToken",
+    "pk": 15,
+    "fields": {
+      "user": 26,
+      "token": "4ef174e1-d32b-49a9-840b-76cd7ae45926",
+      "is_used": true,
+      "expires_at": "2026-05-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.EmailConfirmationToken",
+    "pk": 16,
+    "fields": {
+      "user": 27,
+      "token": "2112366f-1217-4a7f-a2ea-fae1780bcb71",
+      "is_used": true,
+      "expires_at": "2026-05-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.EmailConfirmationToken",
+    "pk": 17,
+    "fields": {
+      "user": 30,
+      "token": "a387bd7f-1e21-429c-b7dd-7cb4c5c45616",
+      "is_used": true,
+      "expires_at": "2026-05-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.EmailConfirmationToken",
+    "pk": 18,
+    "fields": {
+      "user": 31,
+      "token": "6ce1ab80-e5e2-4675-9e78-0ecde1b9706b",
+      "is_used": true,
+      "expires_at": "2026-05-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.EmailConfirmationToken",
+    "pk": 19,
+    "fields": {
+      "user": 32,
+      "token": "0bf6573c-9780-40ff-ae31-d268e84a1866",
+      "is_used": true,
+      "expires_at": "2026-05-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.EmailConfirmationToken",
+    "pk": 20,
+    "fields": {
+      "user": 33,
+      "token": "89641b9f-8b64-4289-beb6-cf69c0ac9631",
+      "is_used": true,
+      "expires_at": "2026-05-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.EmailConfirmationToken",
+    "pk": 21,
+    "fields": {
+      "user": 34,
+      "token": "602adc27-fd65-4074-b38c-47351a576342",
+      "is_used": true,
+      "expires_at": "2026-05-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.EmailConfirmationToken",
+    "pk": 22,
+    "fields": {
+      "user": 35,
+      "token": "cd70bbf6-975d-4040-9adb-299b4cd2c7f3",
+      "is_used": true,
+      "expires_at": "2026-05-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.EmailConfirmationToken",
+    "pk": 23,
+    "fields": {
+      "user": 36,
+      "token": "ece9408f-585c-4b89-9913-03dfd68e2690",
+      "is_used": true,
+      "expires_at": "2026-05-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.EmailConfirmationToken",
+    "pk": 24,
+    "fields": {
+      "user": 37,
+      "token": "3c0cf8d1-febd-4ab3-9fd4-8acef2d5830b",
+      "is_used": true,
+      "expires_at": "2026-05-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.EmailConfirmationToken",
+    "pk": 25,
+    "fields": {
+      "user": 40,
+      "token": "952b6cbd-a393-4416-8824-5f2b3eaf6234",
+      "is_used": true,
+      "expires_at": "2026-05-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.EmailConfirmationToken",
+    "pk": 26,
+    "fields": {
+      "user": 41,
+      "token": "56d66e55-1faa-4353-8bad-904f167cc3f4",
+      "is_used": true,
+      "expires_at": "2026-05-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.EmailConfirmationToken",
+    "pk": 27,
+    "fields": {
+      "user": 42,
+      "token": "152bcedc-884d-42de-9efe-2c80905fe4b2",
+      "is_used": true,
+      "expires_at": "2026-05-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.EmailConfirmationToken",
+    "pk": 28,
+    "fields": {
+      "user": 43,
+      "token": "19ce1d2d-e50b-4560-b05e-d020e3eff07b",
+      "is_used": true,
+      "expires_at": "2026-05-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.EmailConfirmationToken",
+    "pk": 29,
+    "fields": {
+      "user": 44,
+      "token": "4a3b2e03-f1d9-4e45-8e56-f1aaa0d1bffa",
+      "is_used": true,
+      "expires_at": "2026-05-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.EmailConfirmationToken",
+    "pk": 30,
+    "fields": {
+      "user": 45,
+      "token": "d464883a-f189-49e5-87e9-5d3cbde18030",
+      "is_used": true,
+      "expires_at": "2026-05-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.EmailConfirmationToken",
+    "pk": 31,
+    "fields": {
+      "user": 46,
+      "token": "6f059e47-f726-492b-a9cb-13e61afa688c",
+      "is_used": true,
+      "expires_at": "2026-05-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.EmailConfirmationToken",
+    "pk": 32,
+    "fields": {
+      "user": 47,
+      "token": "6106d0a3-dfa8-438e-9680-816a54f2cff8",
+      "is_used": true,
+      "expires_at": "2026-05-01T00:00:00Z"
+    }
+  }
+]

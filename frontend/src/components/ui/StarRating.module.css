@@ -1,0 +1,44 @@
+.wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.stars {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.star {
+  color: var(--color-border);
+  transition: color 0.15s, transform 0.15s;
+  user-select: none;
+  line-height: 1;
+}
+
+.star.filled {
+  color: var(--color-star);
+}
+
+.star.interactive {
+  cursor: pointer;
+}
+
+.star.interactive:hover {
+  transform: scale(1.2);
+}
+
+.value {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* Sizes */
+.sm .star { font-size: 1rem; }
+.sm .value { font-size: 0.85rem; }
+
+.md .star { font-size: 1.4rem; }
+.md .value { font-size: 1rem; }
+
+.lg .star { font-size: 2rem; }
+.lg .value { font-size: 1.2rem; }
