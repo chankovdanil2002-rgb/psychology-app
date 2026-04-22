@@ -17,7 +17,6 @@ from django.utils import timezone
 
 from apps.appointments.models import Appointment
 from apps.clients.models import ClientProfile
-from apps.notifications.models import Notification
 from apps.psychologists.models import PsychologistProfile
 from apps.reviews.models import Review
 from apps.schedule.models import TimeSlot
@@ -497,31 +496,6 @@ def seed_reviews(appointments):
     return result
 
 
-def seed_notifications(users):
-    result = []
-    types = [
-        Notification.NotificationType.APPOINTMENT_CONFIRMED,
-        Notification.NotificationType.SYSTEM,
-        Notification.NotificationType.REVIEW_REQUEST,
-        Notification.NotificationType.APPOINTMENT_COMPLETED,
-        Notification.NotificationType.VERIFICATION_APPROVED,
-    ]
-
-    for index, user in enumerate(users[:15], start=1):
-        title = f"Demo notification {index}"
-        notification, _ = Notification.objects.update_or_create(
-            user=user,
-            title=title,
-            defaults={
-                "type": types[index % len(types)],
-                "message": f"Demo message {index} for {user.email}.",
-                "is_read": False,
-            },
-        )
-        result.append(notification)
-    return result
-
-
 def main():
     post_save.disconnect(create_user_profile, sender=User)
     try:
@@ -533,9 +507,6 @@ def main():
         appointments = seed_appointments(clients, psychologists)
         reviews = seed_reviews(appointments)
         future_slots = seed_time_slots(psychologists)
-        notifications = seed_notifications(
-            [admin] + [profile.user for profile in psychologists] + [profile.user for profile in clients]
-        )
 
         print("Demo data is ready.")
         print(f"Admin: {admin.email} / {DEFAULT_PASSWORD}")
@@ -550,12 +521,10 @@ def main():
         print(f"Time slots: {TimeSlot.objects.count()}")
         print(f"Appointments: {Appointment.objects.count()}")
         print(f"Reviews: {Review.objects.count()}")
-        print(f"Notifications: {Notification.objects.count()}")
         print(f"Email tokens: {EmailConfirmationToken.objects.count()}")
         print(f"Future slots created: {len(future_slots)}")
         print(f"Completed appointments created: {len(appointments)}")
         print(f"Reviews created: {len(reviews)}")
-        print(f"Notifications created: {len(notifications)}")
     finally:
         post_save.connect(create_user_profile, sender=User)
 

@@ -13,8 +13,7 @@ django-cors-headers>=4.3,<5.0
 # Filtering
 django-filter>=24.0,<25.0
 
-# Async tasks
-celery>=5.4,<6.0
+# Cache backend
 redis>=5.0,<6.0
 
 # Image processing (avatars, diploma scans)

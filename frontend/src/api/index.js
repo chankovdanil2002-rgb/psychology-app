@@ -122,16 +122,3 @@ export function getReviews(params = {}) {
   return api.get('/reviews/', { params });
 }
 
-// --- Notifications ---
-
-export function getNotifications() {
-  return api.get('/notifications/');
-}
-
-export function markRead(id) {
-  return api.patch(`/notifications/${id}/read/`);
-}
-
-export function markAllRead() {
-  return api.patch('/notifications/read-all/');
-}

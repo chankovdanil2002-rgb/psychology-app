@@ -19,7 +19,6 @@ urlpatterns = [
     path('api/schedule/', include('apps.schedule.urls')),
     path('api/appointments/', include('apps.appointments.urls')),
     path('api/reviews/', include('apps.reviews.urls')),
-    path('api/notifications/', include('apps.notifications.urls')),
 
     # Административные API endpoints
     path('api/admin/', include(psychologist_admin_urls)),

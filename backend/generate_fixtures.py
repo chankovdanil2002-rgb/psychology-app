@@ -23,7 +23,6 @@ from apps.specializations.models import PsychologistSpecialization, Specializati
 from apps.schedule.models import TimeSlot
 from apps.appointments.models import Appointment
 from apps.reviews.models import Review
-from apps.notifications.models import Notification
 
 PASSWORD = "password123"
 
@@ -365,55 +364,7 @@ for i, appt in enumerate(completed[:15]):
 print(f"  Reviews: {len(reviews)}")
 
 # ================================================================
-# 8. NOTIFICATIONS (16)
-# ================================================================
-all_users_list = client_users + psych_users
-notif_data = [
-    (client_users[0], "appointment_confirmed", "Запись подтверждена",
-     "Ваша запись к психологу Ивановой И.С. подтверждена на 20 апреля в 10:00."),
-    (client_users[1], "appointment_confirmed", "Запись подтверждена",
-     "Ваша запись к психологу Смирнову А.В. подтверждена на 21 апреля в 12:00."),
-    (client_users[2], "appointment_completed", "Сеанс завершён",
-     "Ваш сеанс с психологом Кузнецовой Н.А. завершён. Спасибо!"),
-    (client_users[3], "review_request", "Оставьте отзыв",
-     "Пожалуйста, оставьте отзыв о сеансе с Поповым В.Д."),
-    (client_users[4], "appointment_rejected", "Запись отклонена",
-     "К сожалению, ваша запись на 22 апреля была отклонена."),
-    (client_users[5], "appointment_cancelled", "Запись отменена",
-     "Ваша запись на 23 апреля была отменена."),
-    (client_users[6], "review_request", "Оставьте отзыв",
-     "Пожалуйста, оцените прошедший сеанс."),
-    (client_users[7], "appointment_confirmed", "Запись подтверждена",
-     "Ваша запись подтверждена. Ждём вас!"),
-    (psych_users[0], "verification_approved", "Верификация пройдена",
-     "Ваш профиль верифицирован. Теперь вы видны в каталоге."),
-    (psych_users[1], "verification_approved", "Верификация пройдена",
-     "Поздравляем! Ваш профиль психолога подтверждён."),
-    (psych_users[2], "system", "Добро пожаловать",
-     "Добро пожаловать на платформу Психолог Онлайн!"),
-    (psych_users[3], "system", "Новая запись",
-     "К вам записался новый клиент. Проверьте раздел Записи."),
-    (psych_users[4], "system", "Напоминание",
-     "Напоминаем о предстоящем сеансе завтра в 10:00."),
-    (psych_users[5], "verification_approved", "Верификация пройдена",
-     "Ваш профиль успешно верифицирован."),
-    (psych_users[6], "system", "Новый отзыв",
-     "Вам оставили новый отзыв. Средний рейтинг: 4.8."),
-    (psych_users[7], "system", "Обновление платформы",
-     "На платформе появились новые функции."),
-]
-
-notifs = []
-for user, ntype, title, msg in notif_data:
-    n = Notification.objects.create(
-        user=user, type=ntype, title=title,
-        message=msg, is_read=False,
-    )
-    notifs.append(n)
-print(f"  Notifications: {len(notifs)}")
-
-# ================================================================
-# 9. EMAIL CONFIRMATION TOKENS (32)
+# 8. EMAIL CONFIRMATION TOKENS (32)
 # ================================================================
 for user in client_users + psych_users:
     EmailConfirmationToken.objects.get_or_create(
@@ -440,5 +391,4 @@ print(f"  PsychSpecializations: {PsychologistSpecialization.objects.count()}")
 print(f"  TimeSlots:          {TimeSlot.objects.count()}")
 print(f"  Appointments:       {Appointment.objects.count()}")
 print(f"  Reviews:            {Review.objects.count()}")
-print(f"  Notifications:      {Notification.objects.count()}")
 print(f"  EmailTokens:        {EmailConfirmationToken.objects.count()}")

@@ -1,18 +1,14 @@
 """
-Celery-задачи для асинхронной отправки email.
-
-В режиме разработки (CELERY_TASK_ALWAYS_EAGER=True) задачи выполняются синхронно.
+Вспомогательные функции для отправки email.
 """
 import logging
 
-from celery import shared_task
 from django.conf import settings
 from django.core.mail import send_mail
 
 logger = logging.getLogger(__name__)
 
 
-@shared_task(name='users.send_confirmation_email')
 def send_confirmation_email(user_email, token):
     """Отправляет ссылку подтверждения email новому зарегистрированному пользователю."""
     confirmation_url = f'{settings.FRONTEND_URL}/confirm-email/{token}'
@@ -40,23 +36,6 @@ def send_confirmation_email(user_email, token):
         logger.error('Failed to send confirmation email to %s: %s', user_email, exc)
 
 
-@shared_task(name='users.send_notification_email')
-def send_notification_email(user_email, subject, message):
-    """Отправляет пользователю обычное уведомление по email."""
-    try:
-        send_mail(
-            subject=subject,
-            message=message,
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[user_email],
-            fail_silently=False,
-        )
-        logger.info('Notification email sent to %s', user_email)
-    except Exception as exc:
-        logger.error('Failed to send notification email to %s: %s', user_email, exc)
-
-
-@shared_task(name='users.send_password_reset_email')
 def send_password_reset_email(user_email, token):
     """Отправляет пользователю ссылку для сброса пароля."""
     reset_url = f'{settings.FRONTEND_URL}/reset-password/{token}'

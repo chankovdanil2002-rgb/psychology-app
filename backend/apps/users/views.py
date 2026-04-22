@@ -30,7 +30,7 @@ class ClientRegistrationView(GenericAPIView):
     POST /api/auth/register/client/
 
     Регистрирует нового клиента. Создаёт User (is_active=False) и
-    отправляет письмо с подтверждением через Celery.
+    отправляет письмо с подтверждением.
     """
 
     serializer_class = ClientRegistrationSerializer
@@ -45,7 +45,6 @@ class ClientRegistrationView(GenericAPIView):
         # Создаём токен подтверждения email.
         token = EmailConfirmationToken.objects.create(user=user)
 
-        # Асинхронно отправляем письмо с подтверждением.
         send_confirmation_email(user.email, str(token.token))
 
         return success_response(

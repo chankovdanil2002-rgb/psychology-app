@@ -1,6 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
-import { NotificationProvider } from './context/NotificationContext';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import ProtectedRoute from './components/layout/ProtectedRoute';
@@ -8,9 +7,7 @@ import ProtectedRoute from './components/layout/ProtectedRoute';
 // Компоненты страниц
 import HomePage from './pages/Home/HomePage';
 import LoginPage from './pages/Auth/LoginPage';
-import RegisterPage from './pages/Auth/RegisterPage';
 import ClientRegisterPage from './pages/Auth/ClientRegisterPage';
-import PsychologistRegisterPage from './pages/Auth/PsychologistRegisterPage';
 import EmailConfirmPage from './pages/Auth/EmailConfirmPage';
 import CatalogPage from './pages/Catalog/CatalogPage';
 import PsychologistDetailPage from './pages/Catalog/PsychologistDetailPage';
@@ -20,24 +17,16 @@ import AppointmentsPage from './pages/Dashboard/AppointmentsPage';
 import DashboardPage from './pages/Dashboard/DashboardPage';
 import AdminVerificationPage from './pages/Admin/AdminVerificationPage';
 
-/**
- * Корневой компонент приложения.
- * Оборачивает всё в AuthProvider и NotificationProvider,
- * рендерит шапку, маршруты и подвал.
- */
 export default function App() {
   return (
     <AuthProvider>
-      <NotificationProvider>
         <Header />
         <main style={{ flex: 1 }}>
           <Routes>
             {/* Публичные маршруты */}
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/register/client" element={<ClientRegisterPage />} />
-            <Route path="/register/psychologist" element={<PsychologistRegisterPage />} />
+            <Route path="/register" element={<ClientRegisterPage />} />
             <Route path="/confirm-email/:token" element={<EmailConfirmPage />} />
             <Route path="/catalog" element={<CatalogPage />} />
             <Route path="/psychologists/:id" element={<PsychologistDetailPage />} />
@@ -102,7 +91,6 @@ export default function App() {
           </Routes>
         </main>
         <Footer />
-      </NotificationProvider>
     </AuthProvider>
   );
 }

@@ -1,18 +1,12 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { FiBell, FiMenu, FiX, FiUser, FiLogOut } from 'react-icons/fi';
+import { FiMenu, FiX, FiUser, FiLogOut } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
-import { useNotifications } from '../../context/NotificationContext';
 import styles from './Header.module.css';
 
-/**
- * Responsive application header with navigation, auth controls,
- * and notification bell. Collapses into a hamburger menu on mobile.
- */
 export default function Header() {
   const { isAuthenticated, isClient, isPsychologist, isAdmin, logout } =
     useAuth();
-  const { unreadCount } = useNotifications();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => setMenuOpen((prev) => !prev);
@@ -96,18 +90,6 @@ export default function Header() {
           {/* Auth section */}
           {isAuthenticated ? (
             <div className={styles.authSection}>
-              {/* Notification bell */}
-              <Link
-                to="/notifications"
-                className={styles.bellWrapper}
-                onClick={closeMenu}
-              >
-                <FiBell size={20} />
-                {unreadCount > 0 && (
-                  <span className={styles.badge}>{unreadCount}</span>
-                )}
-              </Link>
-
               {/* Profile link */}
               <NavLink
                 to="/profile"

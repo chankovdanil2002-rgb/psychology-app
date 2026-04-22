@@ -53,7 +53,6 @@ INSTALLED_APPS = [
     'apps.schedule',
     'apps.appointments',
     'apps.reviews',
-    'apps.notifications',
 ]
 
 MIDDLEWARE = [
@@ -210,19 +209,6 @@ CORS_ALLOWED_ORIGINS = os.environ.get(
 ).split(',')
 
 CORS_ALLOW_CREDENTIALS = True
-
-# ──────────────────────────────────────────────
-# Celery (очередь асинхронных задач)
-# ──────────────────────────────────────────────
-
-CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL', 'redis://localhost:6379/0')
-CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND', 'redis://localhost:6379/0')
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = TIME_ZONE
-CELERY_TASK_TRACK_STARTED = True
-CELERY_TASK_TIME_LIMIT = 300  # 5 минут
 
 # ──────────────────────────────────────────────
 # Кэш (Redis)
