@@ -207,8 +207,9 @@ function ScheduleTab({ psychologistId, onError, onSuccess }) {
   const [bulkWeekdays, setBulkWeekdays] = useState([0, 1, 2, 3, 4]);
 
   const fetchSlots = () => {
+    if (!psychologistId) return;
     setLoading(true);
-    getSlots({ psychologist: psychologistId, date: viewDate })
+    getSlots({ psychologist: psychologistId, date: viewDate, all: 1 })
       .then((res) => {
         const data = extractList(res);
         setSlots(data);

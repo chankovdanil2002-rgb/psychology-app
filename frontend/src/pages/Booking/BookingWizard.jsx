@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { getSpecializations, getPsychologists, getSlots, createAppointment } from '../../api';
 import Alert from '../../components/ui/Alert';
@@ -22,7 +22,6 @@ export default function BookingWizard() {
   // Данные
   const [specializations, setSpecializations] = useState([]);
   const [psychologists, setPsychologists] = useState([]);
-  const [slots, setSlots] = useState([]);
 
   // Выбранные значения
   const [selectedSpec, setSelectedSpec] = useState('');
@@ -61,32 +60,33 @@ export default function BookingWizard() {
     }
   }, [step, selectedSpec, preselectedPsych]);
 
-  // Генерируем ближайшие 14 дней
-  const getAvailableDates = useCallback(() => {
-    const dates = [];
-    const today = new Date();
-    for (let i = 0; i < 14; i++) {
-      const d = new Date(today);
-      d.setDate(d.getDate() + i);
-      dates.push(d.toISOString().split('T')[0]);
-    }
-    return dates;
-  }, []);
+  // Все доступные слоты выбранного психолога (без фильтра по дате)
+  const [allSlots, setAllSlots] = useState([]);
 
-  // Шаг 2: загрузка слотов для выбранного психолога и даты
+  // Уникальные даты, на которых есть свободные слоты
+  const availableDates = [...new Set(allSlots.map((s) => s.date))].sort();
+
+  // Шаг 2: загружаем ВСЕ доступные слоты психолога одним запросом
   useEffect(() => {
-    if (step === 2 && selectedPsych && selectedDate) {
+    if (step === 2 && selectedPsych) {
       setLoading(true);
-      getSlots({ psychologist: selectedPsych, date: selectedDate })
+      setAllSlots([]);
+      setSelectedDate('');
+      setSelectedSlot(null);
+      getSlots({ psychologist: selectedPsych })
         .then((res) => {
           const data = extractList(res);
-          const available = data.filter((s) => s.is_available);
-          setSlots(available);
+          setAllSlots(data);
         })
-        .catch(() => setSlots([]))
+        .catch(() => setAllSlots([]))
         .finally(() => setLoading(false));
     }
-  }, [step, selectedPsych, selectedDate]);
+  }, [step, selectedPsych]);
+
+  // Слоты для выбранной даты
+  const slots = selectedDate
+    ? allSlots.filter((s) => s.date === selectedDate)
+    : [];
 
   const handleSubmit = async () => {
     setLoading(true);
@@ -192,22 +192,26 @@ export default function BookingWizard() {
         {step === 2 && (
           <>
             <h2>Выберите дату и время</h2>
-            <div className={styles.dateGrid}>
-              {getAvailableDates().map((d) => (
-                <button
-                  key={d}
-                  className={`${styles.dateBtn} ${selectedDate === d ? styles.dateBtnActive : ''}`}
-                  onClick={() => { setSelectedDate(d); setSelectedSlot(null); }}
-                >
-                  {formatDate(d)}
-                </button>
-              ))}
-            </div>
-            {selectedDate && (
+            {loading ? <Loader /> : availableDates.length === 0 ? (
+              <p className={styles.noSlots}>У этого психолога нет свободных слотов</p>
+            ) : (
               <>
-                {loading ? <Loader /> : slots.length === 0 ? (
-                  <p className={styles.noSlots}>Нет свободных слотов на эту дату</p>
-                ) : (
+                <div className={styles.dateGrid}>
+                  {availableDates.map((d) => {
+                    const count = allSlots.filter((s) => s.date === d).length;
+                    return (
+                      <button
+                        key={d}
+                        className={`${styles.dateBtn} ${selectedDate === d ? styles.dateBtnActive : ''}`}
+                        onClick={() => { setSelectedDate(d); setSelectedSlot(null); }}
+                      >
+                        <span>{formatDate(d)}</span>
+                        <small>{count} сл.</small>
+                      </button>
+                    );
+                  })}
+                </div>
+                {selectedDate && (
                   <div className={styles.slotGrid}>
                     {slots.map((s) => (
                       <button

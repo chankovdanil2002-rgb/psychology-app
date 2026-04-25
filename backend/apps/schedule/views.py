@@ -19,26 +19,45 @@ class TimeSlotListView(ListAPIView):
     """
     GET /api/schedule/slots/?psychologist=<id>&date=<YYYY-MM-DD>
 
-    Публичный эндпоинт. Возвращает доступные тайм-слоты с опциональной
-    фильтрацией по id психолога и/или дате.
+    Публичный эндпоинт. Возвращает доступные тайм-слоты.
+    Параметр all=1 доступен только самому психологу — возвращает все слоты
+    (включая занятые) для отображения расписания в личном кабинете.
     """
 
     permission_classes = [AllowAny]
     serializer_class = TimeSlotSerializer
 
     def get_queryset(self):
-        qs = TimeSlot.objects.select_related('psychologist').filter(
-            is_available=True,
-        )
-        psychologist_id = self.request.query_params.get('psychologist')
-        if psychologist_id:
-            qs = qs.filter(psychologist_id=psychologist_id)
+        params = self.request.query_params
+        psychologist_id = params.get('psychologist')
+        date = params.get('date')
+        show_all = params.get('all') == '1'
 
-        date = self.request.query_params.get('date')
+        # Психолог смотрит своё расписание — показываем все слоты
+        user = self.request.user
+        is_own_schedule = (
+            show_all
+            and user.is_authenticated
+            and user.role == 'psychologist'
+            and hasattr(user, 'psychologist_profile')
+            and str(user.psychologist_profile.id) == str(psychologist_id)
+        )
+
+        if is_own_schedule:
+            qs = TimeSlot.objects.select_related('psychologist').filter(
+                psychologist_id=psychologist_id,
+            )
+        else:
+            qs = TimeSlot.objects.select_related('psychologist').filter(
+                is_available=True,
+            )
+            if psychologist_id:
+                qs = qs.filter(psychologist_id=psychologist_id)
+
         if date:
             qs = qs.filter(date=date)
 
-        return qs
+        return qs.order_by('date', 'start_time')
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
