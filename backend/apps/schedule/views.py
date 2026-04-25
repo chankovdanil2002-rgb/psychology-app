@@ -114,10 +114,10 @@ class TimeSlotDeleteView(DestroyAPIView):
         instance = self.get_object()
 
         # Запрещаем удаление, если к слоту привязана запись.
-        if hasattr(instance, 'appointment'):
+        if instance.appointments.filter(status__in=['pending', 'confirmed']).exists():
             return success_response(
                 data={},
-                message='Cannot delete a time slot that has a linked appointment.',
+                message='Cannot delete a time slot that has an active appointment.',
                 status_code=status.HTTP_400_BAD_REQUEST,
             )
 

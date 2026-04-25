@@ -1,4 +1,5 @@
 """Сериализаторы для приложения appointments."""
+from django.db import transaction
 from rest_framework import serializers
 
 from apps.schedule.models import TimeSlot
@@ -6,26 +7,40 @@ from apps.schedule.models import TimeSlot
 from .models import Appointment
 
 
+ACTIVE_APPOINTMENT_STATUSES = (
+    Appointment.Status.PENDING,
+    Appointment.Status.CONFIRMED,
+)
+
+
 class AppointmentCreateSerializer(serializers.Serializer):
     """
-    Сериализатор создания новой записи на приём.
+    Сериализатор создания новой записи на прием.
 
-    Проверяет, что тайм-слот существует и свободен, а профиль клиента заполнен.
+    Проверяет, что тайм-слот существует, свободен и не имеет активной записи.
+    Отмененные и отклоненные записи остаются в истории, но не блокируют слот.
     """
 
     time_slot_id = serializers.IntegerField()
     comment = serializers.CharField(required=False, allow_blank=True, default='')
 
+    @staticmethod
+    def _slot_has_active_appointment(slot):
+        return Appointment.objects.filter(
+            time_slot=slot,
+            status__in=ACTIVE_APPOINTMENT_STATUSES,
+        ).exists()
+
     def validate_time_slot_id(self, value):
-        """Проверяет существование и доступность тайм-слота."""
+        """Проверяет существование и доступность выбранного тайм-слота."""
         try:
             slot = TimeSlot.objects.select_related('psychologist').get(pk=value)
         except TimeSlot.DoesNotExist:
-            raise serializers.ValidationError('Time slot not found.')
+            raise serializers.ValidationError('Время приема не найдено.')
 
-        if not slot.is_available:
+        if not slot.is_available or self._slot_has_active_appointment(slot):
             raise serializers.ValidationError(
-                'This time slot is no longer available.'
+                'Это время уже занято. Выберите другой слот.'
             )
         return value
 
@@ -35,33 +50,39 @@ class AppointmentCreateSerializer(serializers.Serializer):
         client_profile = getattr(request.user, 'client_profile', None)
         if client_profile is None or not client_profile.is_profile_complete:
             raise serializers.ValidationError(
-                'You must complete your profile before booking an appointment.'
+                'Заполните профиль перед записью на прием.'
             )
         return attrs
 
     def create(self, validated_data):
-        """Создаёт запись и помечает тайм-слот как занятый."""
+        """Создает запись и помечает тайм-слот как занятый."""
         request = self.context['request']
-        slot = TimeSlot.objects.select_related('psychologist').get(
-            pk=validated_data['time_slot_id'],
-        )
 
-        appointment = Appointment.objects.create(
-            client=request.user.client_profile,
-            psychologist=slot.psychologist,
-            time_slot=slot,
-            comment=validated_data.get('comment', ''),
-        )
+        with transaction.atomic():
+            slot = TimeSlot.objects.select_for_update().select_related(
+                'psychologist',
+            ).get(pk=validated_data['time_slot_id'])
 
-        # Помечаем слот как занятый.
-        slot.is_available = False
-        slot.save(update_fields=['is_available'])
+            if not slot.is_available or self._slot_has_active_appointment(slot):
+                raise serializers.ValidationError({
+                    'time_slot_id': 'Это время уже занято. Выберите другой слот.'
+                })
+
+            appointment = Appointment.objects.create(
+                client=request.user.client_profile,
+                psychologist=slot.psychologist,
+                time_slot=slot,
+                comment=validated_data.get('comment', ''),
+            )
+
+            slot.is_available = False
+            slot.save(update_fields=['is_available'])
 
         return appointment
 
 
 class AppointmentListSerializer(serializers.ModelSerializer):
-    """Компактный сериализатор для списка записей (только чтение)."""
+    """Короткий сериализатор записи для списков."""
 
     client_name = serializers.SerializerMethodField()
     psychologist_name = serializers.SerializerMethodField()
@@ -91,7 +112,7 @@ class AppointmentListSerializer(serializers.ModelSerializer):
 
 
 class AppointmentDetailSerializer(serializers.ModelSerializer):
-    """Подробный сериализатор одной записи (только чтение)."""
+    """Подробный сериализатор одной записи."""
 
     client_name = serializers.SerializerMethodField()
     psychologist_name = serializers.SerializerMethodField()

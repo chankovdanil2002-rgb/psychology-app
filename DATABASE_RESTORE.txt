@@ -5,7 +5,7 @@ Database restore instructions
 3. Open a terminal in the folder with database_dump.sql.
 4. Run:
 
-   psql -U postgres -d psychology_db -f database_dump.sql
+   psql -h localhost -p 5433 -U postgres -d psychology_db -f database_dump.sql
 
 5. Update the .env file if your PostgreSQL username, password, host, or port differ.
 
@@ -17,4 +17,5 @@ Current project database settings:
 
 Notes:
 - The archive contains a SQL dump of the database, not the raw PostgreSQL data directory.
+- Profile avatars/photos are stored inside this SQL dump as base64 image strings.
 - The recipient should install Python/Node dependencies locally after unpacking the project.

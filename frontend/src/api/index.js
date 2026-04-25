@@ -18,6 +18,10 @@ export function confirmEmail(token) {
   return api.get(`/auth/confirm-email/${token}/`);
 }
 
+export function confirmEmailCode(email, code) {
+  return api.post('/auth/confirm-email/code/', { email, code });
+}
+
 export function getProfile() {
   return api.get('/profile/me/');
 }
@@ -43,7 +47,7 @@ export function requestPasswordReset(data) {
 // --- Appointments ---
 
 export function createAppointment(data) {
-  return api.post('/appointments/', data);
+  return api.post('/appointments/create/', data);
 }
 
 export function getAppointments(params = {}) {

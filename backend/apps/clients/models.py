@@ -46,11 +46,11 @@ class ClientProfile(models.Model):
         blank=True,
         null=True,
     )
-    avatar = models.ImageField(
-        'avatar',
-        upload_to='clients/avatars/',
+    avatar = models.TextField(
+        'avatar image',
         blank=True,
-        null=True,
+        default='',
+        help_text='Base64 data URL with the client avatar image.',
     )
     is_profile_complete = models.BooleanField(
         'profile complete',

@@ -6,6 +6,7 @@ import logging
 from django.core.cache import cache
 from django.db import transaction
 from rest_framework import status
+from rest_framework.exceptions import APIException
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -14,15 +15,26 @@ from rest_framework_simplejwt.views import TokenRefreshView as BaseTokenRefreshV
 from apps.users.models import EmailConfirmationToken, User
 from apps.users.serializers import (
     ClientRegistrationSerializer,
+    EmailCodeConfirmationSerializer,
     LoginSerializer,
     PasswordResetConfirmSerializer,
     PasswordResetSerializer,
     UserSerializer,
 )
-from apps.users.tasks import send_confirmation_email, send_password_reset_email
+from apps.users.tasks import (
+    EmailDeliveryError,
+    send_confirmation_email,
+    send_password_reset_email,
+)
 from apps.users.utils import success_response
 
 logger = logging.getLogger(__name__)
+
+
+class EmailDeliveryAPIException(APIException):
+    status_code = status.HTTP_503_SERVICE_UNAVAILABLE
+    default_detail = 'Не удалось отправить письмо. Проверьте настройки почты.'
+    default_code = 'email_delivery_failed'
 
 
 class ClientRegistrationView(GenericAPIView):
@@ -45,7 +57,10 @@ class ClientRegistrationView(GenericAPIView):
         # Создаём токен подтверждения email.
         token = EmailConfirmationToken.objects.create(user=user)
 
-        send_confirmation_email(user.email, str(token.token))
+        try:
+            send_confirmation_email(user.email, token.code)
+        except EmailDeliveryError as exc:
+            raise EmailDeliveryAPIException(str(exc)) from exc
 
         return success_response(
             data=UserSerializer(user).data,
@@ -129,6 +144,50 @@ class EmailConfirmView(GenericAPIView):
         )
 
 
+class EmailCodeConfirmView(GenericAPIView):
+    serializer_class = EmailCodeConfirmationSerializer
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        email = serializer.validated_data['email']
+        code = serializer.validated_data['code']
+
+        confirmation = EmailConfirmationToken.objects.select_related(
+            'user'
+        ).filter(
+            user__email=email,
+            code=code,
+            is_used=False,
+        ).order_by('-created_at').first()
+
+        if confirmation is None:
+            return success_response(
+                message='Неверный код подтверждения.',
+                status_code=status.HTTP_400_BAD_REQUEST,
+            )
+
+        if confirmation.is_expired:
+            return success_response(
+                message='Срок действия кода истек.',
+                status_code=status.HTTP_400_BAD_REQUEST,
+            )
+
+        user = confirmation.user
+        user.is_active = True
+        user.save(update_fields=['is_active'])
+
+        confirmation.is_used = True
+        confirmation.save(update_fields=['is_used'])
+
+        return success_response(
+            data=UserSerializer(user).data,
+            message='Email подтвержден. Теперь можно войти.',
+        )
+
+
 class PasswordResetView(GenericAPIView):
     """
     POST /api/auth/password-reset/
@@ -149,7 +208,10 @@ class PasswordResetView(GenericAPIView):
         try:
             user = User.objects.get(email=email, is_active=True)
             token = EmailConfirmationToken.objects.create(user=user)
-            send_password_reset_email(user.email, str(token.token))
+            try:
+                send_password_reset_email(user.email, str(token.token))
+            except EmailDeliveryError as exc:
+                raise EmailDeliveryAPIException(str(exc)) from exc
         except User.DoesNotExist:
             pass  # Не раскрываем, существует ли такой email.
 

@@ -13,6 +13,7 @@ from django.utils import timezone
 from rest_framework import serializers
 
 from apps.psychologists.models import PsychologistProfile
+from apps.users.image_utils import uploaded_image_to_data_url
 from apps.users.models import User
 
 
@@ -26,6 +27,11 @@ class PsychologistProfileSerializer(serializers.ModelSerializer):
 
     email = serializers.EmailField(source='user.email', read_only=True)
     role = serializers.CharField(source='user.role', read_only=True)
+    photo = serializers.ImageField(
+        write_only=True,
+        required=False,
+        allow_empty_file=False,
+    )
 
     class Meta:
         model = PsychologistProfile
@@ -48,6 +54,21 @@ class PsychologistProfileSerializer(serializers.ModelSerializer):
             'is_profile_complete',
         ]
         read_only_fields = ['email', 'role', 'is_verified', 'verified_at']
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data['photo'] = instance.photo or ''
+        return data
+
+    def update(self, instance, validated_data):
+        photo_file = validated_data.pop('photo', None)
+        instance = super().update(instance, validated_data)
+
+        if photo_file is not None:
+            instance.photo = uploaded_image_to_data_url(photo_file)
+            instance.save(update_fields=['photo'])
+
+        return instance
 
 
 class PsychologistListSerializer(serializers.ModelSerializer):

@@ -3,6 +3,7 @@
 
 Использует email как основной идентификатор вместо username.
 """
+import secrets
 import uuid
 from datetime import timedelta
 
@@ -171,6 +172,12 @@ class EmailConfirmationToken(models.Model):
         editable=False,
         db_index=True,
     )
+    code = models.CharField(
+        'code',
+        max_length=6,
+        blank=True,
+        db_index=True,
+    )
     is_used = models.BooleanField(
         'used',
         default=False,
@@ -194,6 +201,8 @@ class EmailConfirmationToken(models.Model):
 
     def save(self, *args, **kwargs):
         """Устанавливает время истечения при первом сохранении, если оно ещё не задано."""
+        if not self.code:
+            self.code = f'{secrets.randbelow(1_000_000):06d}'
         if not self.expires_at:
             expiry_hours = getattr(
                 settings,

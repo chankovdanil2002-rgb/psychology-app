@@ -22,7 +22,10 @@ DATABASES = {
 # Email — в режиме разработки письма выводятся в консоль
 # ──────────────────────────────────────────────
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = os.environ.get(
+    'EMAIL_BACKEND',
+    'django.core.mail.backends.console.EmailBackend',
+)
 
 # ──────────────────────────────────────────────
 # Кэш — в оперативной памяти процесса (локальный dev-кэш)

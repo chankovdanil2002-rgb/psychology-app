@@ -47,11 +47,11 @@ class PsychologistProfile(models.Model):
         blank=True,
         null=True,
     )
-    photo = models.ImageField(
-        'photo',
-        upload_to='psychologists/photos/',
+    photo = models.TextField(
+        'profile photo image',
         blank=True,
-        null=True,
+        default='',
+        help_text='Base64 data URL with the psychologist profile photo.',
     )
     experience_years = models.IntegerField(
         'years of experience',

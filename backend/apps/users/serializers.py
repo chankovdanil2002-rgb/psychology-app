@@ -194,6 +194,21 @@ class LoginSerializer(serializers.Serializer):
         return attrs
 
 
+class EmailCodeConfirmationSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    code = serializers.RegexField(
+        regex=r'^\d{6}$',
+        max_length=6,
+        min_length=6,
+        error_messages={
+            'invalid': 'Введите 6 цифр из письма.',
+        },
+    )
+
+    def validate_email(self, value):
+        return value.lower()
+
+
 class UserSerializer(serializers.ModelSerializer):
     """Сериализатор только для чтения базовой информации о пользователе."""
 

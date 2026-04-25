@@ -1,11 +1,11 @@
 import api from './axios';
 
 /**
- * Create a new appointment (client only).
- * @param {Object} data - { psychologist, time_slot, comment? }
+ * Создает новую запись на консультацию (только для клиента).
+ * @param {Object} data - { time_slot_id, comment? }
  */
 export function createAppointment(data) {
-  return api.post('/appointments/', data);
+  return api.post('/appointments/create/', data);
 }
 
 /**

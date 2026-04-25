@@ -5,6 +5,7 @@ from django.urls import path
 
 from apps.users.views import (
     ClientRegistrationView,
+    EmailCodeConfirmView,
     EmailConfirmView,
     LoginView,
     PasswordResetConfirmView,
@@ -39,6 +40,11 @@ urlpatterns = [
         'confirm-email/<uuid:token>/',
         EmailConfirmView.as_view(),
         name='confirm-email',
+    ),
+    path(
+        'confirm-email/code/',
+        EmailCodeConfirmView.as_view(),
+        name='confirm-email-code',
     ),
 
     # Сброс пароля

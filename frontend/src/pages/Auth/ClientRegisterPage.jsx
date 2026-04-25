@@ -1,16 +1,12 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { confirmEmailCode } from '../../api';
 import { useAuth } from '../../context/AuthContext';
 import Input from '../../components/ui/Input';
 import Button from '../../components/ui/Button';
 import Alert from '../../components/ui/Alert';
 import styles from './ClientRegisterPage.module.css';
 
-/**
- * Страница регистрации клиента.
- * Собирает email, пароль и подтверждение пароля.
- * При успехе показывает сообщение с просьбой проверить почту.
- */
 export default function ClientRegisterPage() {
   const { registerClient } = useAuth();
 
@@ -23,8 +19,11 @@ export default function ClientRegisterPage() {
   const [serverError, setServerError] = useState('');
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [confirmationCode, setConfirmationCode] = useState('');
+  const [confirmationError, setConfirmationError] = useState('');
+  const [confirmationLoading, setConfirmationLoading] = useState(false);
+  const [confirmed, setConfirmed] = useState(false);
 
-  // Клиентская валидация
   const validate = () => {
     const errs = {};
     if (!form.email.trim()) {
@@ -74,12 +73,10 @@ export default function ClientRegisterPage() {
       setSuccess(true);
     } catch (err) {
       const resp = err.response?.data;
-      // API возвращает { status: "error", message: "...", data: { field: [...] } }
       if (resp && typeof resp === 'object') {
         if (resp.message) {
           setServerError(resp.message);
         }
-        // Разбираем ошибки по полям из resp.data
         const errData = resp.data || resp;
         const fieldErrors = {};
         for (const [key, val] of Object.entries(errData)) {
@@ -102,7 +99,31 @@ export default function ClientRegisterPage() {
     }
   };
 
-  // Состояние успеха
+  const handleCodeSubmit = async (e) => {
+    e.preventDefault();
+    const normalizedCode = confirmationCode.trim();
+
+    if (!/^\d{6}$/.test(normalizedCode)) {
+      setConfirmationError('Введите 6 цифр из письма');
+      return;
+    }
+
+    setConfirmationLoading(true);
+    setConfirmationError('');
+
+    try {
+      await confirmEmailCode(form.email, normalizedCode);
+      setConfirmed(true);
+    } catch (err) {
+      const resp = err.response?.data;
+      setConfirmationError(
+        resp?.message || 'Не удалось подтвердить email. Проверьте код и попробуйте еще раз.'
+      );
+    } finally {
+      setConfirmationLoading(false);
+    }
+  };
+
   if (success) {
     return (
       <div className={styles.page}>
@@ -113,14 +134,54 @@ export default function ClientRegisterPage() {
               <polyline points="22 4 12 14.01 9 11.01" />
             </svg>
           </div>
-          <h2 className={styles.title}>Регистрация прошла успешно!</h2>
-          <p className={styles.successText}>
-            Мы отправили письмо на <strong>{form.email}</strong>.
-            Пожалуйста, проверьте почту и перейдите по ссылке для подтверждения аккаунта.
-          </p>
-          <Link to="/login" className={styles.loginLink}>
-            Перейти к входу
-          </Link>
+
+          <h2 className={styles.title}>
+            {confirmed ? 'Email подтвержден' : 'Введите код из письма'}
+          </h2>
+
+          {confirmed ? (
+            <>
+              <p className={styles.successText}>
+                Аккаунт активирован. Теперь можно войти и записаться к психологу.
+              </p>
+              <Link to="/login" className={styles.loginLink}>
+                Перейти ко входу
+              </Link>
+            </>
+          ) : (
+            <>
+              <p className={styles.successText}>
+                Мы отправили 6-значный код на <strong>{form.email}</strong>.
+                Введите его ниже, чтобы подтвердить аккаунт.
+              </p>
+
+              {confirmationError && (
+                <Alert variant="error" onClose={() => setConfirmationError('')}>
+                  {confirmationError}
+                </Alert>
+              )}
+
+              <form onSubmit={handleCodeSubmit} className={styles.codeForm} noValidate>
+                <Input
+                  label="Код подтверждения"
+                  type="text"
+                  name="confirmation_code"
+                  placeholder="000000"
+                  value={confirmationCode}
+                  onChange={(e) => {
+                    setConfirmationCode(e.target.value.replace(/\D/g, '').slice(0, 6));
+                    if (confirmationError) setConfirmationError('');
+                  }}
+                  inputMode="numeric"
+                  autoComplete="one-time-code"
+                  maxLength={6}
+                />
+                <Button type="submit" fullWidth loading={confirmationLoading}>
+                  Подтвердить email
+                </Button>
+              </form>
+            </>
+          )}
         </div>
       </div>
     );

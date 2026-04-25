@@ -2,6 +2,7 @@
 Модель записи на приём к психологу.
 """
 from django.db import models
+from django.db.models import Q
 
 
 class Appointment(models.Model):
@@ -34,10 +35,10 @@ class Appointment(models.Model):
         related_name='appointments',
         verbose_name='psychologist',
     )
-    time_slot = models.OneToOneField(
+    time_slot = models.ForeignKey(
         'schedule.TimeSlot',
         on_delete=models.PROTECT,
-        related_name='appointment',
+        related_name='appointments',
         verbose_name='time slot',
     )
     status = models.CharField(
@@ -66,6 +67,13 @@ class Appointment(models.Model):
         verbose_name = 'appointment'
         verbose_name_plural = 'appointments'
         ordering = ['-created_at']
+        constraints = [
+            models.UniqueConstraint(
+                fields=['time_slot'],
+                condition=Q(status__in=['pending', 'confirmed']),
+                name='unique_active_appointment_per_time_slot',
+            ),
+        ]
 
     def __str__(self):
         return (

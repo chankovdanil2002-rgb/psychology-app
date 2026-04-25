@@ -33,6 +33,10 @@ export function confirmEmail(token) {
   return api.get(`/auth/confirm-email/${token}/`);
 }
 
+export function confirmEmailCode(email, code) {
+  return api.post('/auth/confirm-email/code/', { email, code });
+}
+
 /**
  * Get the current authenticated user's profile.
  */

@@ -35,6 +35,7 @@ frontend/dist/
 # OS
 .DS_Store
 Thumbs.db
+*.log
 
 # Claude Code
 .claude/

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { patchProfile, getSpecializations } from '../../api';
 import Input from '../../components/ui/Input';
@@ -8,6 +9,31 @@ import Loader from '../../components/ui/Loader';
 import FileUpload from '../../components/forms/FileUpload';
 import { extractList } from '../../utils/helpers';
 import styles from './ProfilePage.module.css';
+
+function toDateInputValue(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function getLatestAllowedBirthDate() {
+  const date = new Date();
+  date.setFullYear(date.getFullYear() - 14);
+  return toDateInputValue(date);
+}
+
+function formatDate(dateValue) {
+  if (!dateValue) return 'Не указана';
+  const [year, month, day] = dateValue.split('-');
+  return `${day}.${month}.${year}`;
+}
+
+function getInitials(user) {
+  const first = user.first_name?.trim()?.[0] || '';
+  const last = user.last_name?.trim()?.[0] || '';
+  return `${first}${last}`.toUpperCase() || 'К';
+}
 
 /**
  * Страница профиля — определяет роль пользователя из AuthContext
@@ -118,7 +144,63 @@ function PendingVerification({ user }) {
 /**
  * Форма профиля клиента.
  */
+function ClientProfileView({ user, onEdit }) {
+  const fullName = `${user.last_name || ''} ${user.first_name || ''}`.trim();
+
+  return (
+    <div className={styles.page}>
+      <div className={styles.card}>
+        <h1 className={styles.title}>Личный кабинет</h1>
+
+        <div className={styles.profileHeader}>
+          {user.avatar ? (
+            <img
+              src={user.avatar}
+              alt="Аватар профиля"
+              className={styles.profileAvatar}
+            />
+          ) : (
+            <div className={styles.profileAvatarPlaceholder}>
+              {getInitials(user)}
+            </div>
+          )}
+          <div>
+            <h2 className={styles.profileName}>{fullName}</h2>
+            <p className={styles.profileEmail}>{user.email}</p>
+          </div>
+        </div>
+
+        <div className={styles.profileDetails}>
+          <div className={styles.profileDetail}>
+            <span>Телефон</span>
+            <strong>{user.phone || 'Не указан'}</strong>
+          </div>
+          <div className={styles.profileDetail}>
+            <span>Дата рождения</span>
+            <strong>{formatDate(user.date_of_birth)}</strong>
+          </div>
+          <div className={styles.profileDetail}>
+            <span>Статус профиля</span>
+            <strong>Заполнен</strong>
+          </div>
+        </div>
+
+        <div className={styles.profileActions}>
+          <Link to="/catalog" className={styles.catalogLink}>
+            Выбрать психолога
+          </Link>
+          <Button type="button" variant="outline" fullWidth onClick={onEdit}>
+            Редактировать профиль
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function ClientProfileForm({ user, isProfileComplete, fetchProfile }) {
+  const latestAllowedBirthDate = getLatestAllowedBirthDate();
+  const [isEditing, setIsEditing] = useState(!isProfileComplete);
   const [form, setForm] = useState({
     first_name: user.first_name || '',
     last_name: user.last_name || '',
@@ -131,12 +213,33 @@ function ClientProfileForm({ user, isProfileComplete, fetchProfile }) {
   const [successMsg, setSuccessMsg] = useState('');
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    if (isProfileComplete) {
+      setIsEditing(false);
+    }
+  }, [isProfileComplete]);
+
+  if (isProfileComplete && !isEditing) {
+    return (
+      <ClientProfileView
+        user={user}
+        onEdit={() => {
+          setSuccessMsg('');
+          setIsEditing(true);
+        }}
+      />
+    );
+  }
+
   const validate = () => {
     const errs = {};
     if (!form.first_name.trim()) errs.first_name = 'Введите имя';
     if (!form.last_name.trim()) errs.last_name = 'Введите фамилию';
     if (!form.phone.trim()) errs.phone = 'Введите номер телефона';
     if (!form.date_of_birth) errs.date_of_birth = 'Укажите дату рождения';
+    if (form.date_of_birth && form.date_of_birth > latestAllowedBirthDate) {
+      errs.date_of_birth = 'Запись доступна клиентам от 14 лет';
+    }
     return errs;
   };
 
@@ -172,6 +275,7 @@ function ClientProfileForm({ user, isProfileComplete, fetchProfile }) {
 
       await patchProfile(formData);
       await fetchProfile();
+      setIsEditing(false);
       setSuccessMsg('Профиль успешно сохранён!');
     } catch (err) {
       const data = err.response?.data;
@@ -257,6 +361,7 @@ function ClientProfileForm({ user, isProfileComplete, fetchProfile }) {
             value={form.date_of_birth}
             onChange={handleChange}
             error={errors.date_of_birth}
+            max={latestAllowedBirthDate}
           />
 
           <FileUpload
