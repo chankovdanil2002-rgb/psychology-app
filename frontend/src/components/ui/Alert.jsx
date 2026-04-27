@@ -1,8 +1,8 @@
 import styles from './Alert.module.css';
 
 /**
- * Alert/message component.
- * Variants: success, error, info, warning.
+ * Компонент уведомления / сообщения.
+ * Варианты: success, error, info, warning.
  */
 export default function Alert({
   children,
@@ -19,7 +19,7 @@ export default function Alert({
         <button
           className={styles.closeBtn}
           onClick={onClose}
-          aria-label="Close"
+          aria-label="Закрыть"
         >
           &times;
         </button>

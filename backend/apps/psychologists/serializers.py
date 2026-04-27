@@ -13,6 +13,7 @@ from django.utils import timezone
 from rest_framework import serializers
 
 from apps.psychologists.models import PsychologistProfile
+from apps.specializations.models import PsychologistSpecialization, Specialization
 from apps.users.image_utils import uploaded_image_to_data_url
 from apps.users.models import User
 
@@ -23,6 +24,8 @@ class PsychologistProfileSerializer(serializers.ModelSerializer):
 
     Включает email и role из связанной модели User (только чтение), чтобы
     фронтенд-AuthContext мог их получить.
+    Поле specializations принимает список id при записи и возвращает
+    список {id, name, slug} при чтении.
     """
 
     email = serializers.EmailField(source='user.email', read_only=True)
@@ -32,6 +35,12 @@ class PsychologistProfileSerializer(serializers.ModelSerializer):
         required=False,
         allow_empty_file=False,
     )
+    specializations = serializers.PrimaryKeyRelatedField(
+        many=True,
+        queryset=Specialization.objects.all(),
+        required=False,
+    )
+    average_rating = serializers.SerializerMethodField()
 
     class Meta:
         model = PsychologistProfile
@@ -48,25 +57,46 @@ class PsychologistProfileSerializer(serializers.ModelSerializer):
             'education',
             'bio',
             'price',
+            'specializations',
+            'average_rating',
             'diploma_scan',
             'is_verified',
             'verified_at',
             'is_profile_complete',
         ]
-        read_only_fields = ['email', 'role', 'is_verified', 'verified_at']
+        read_only_fields = ['email', 'role', 'is_verified', 'verified_at', 'average_rating']
+
+    def get_average_rating(self, obj):
+        return obj.get_average_rating()
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
+        # Фото — пустая строка вместо null.
         data['photo'] = instance.photo or ''
+        # Специализации — список объектов {id, name, slug} вместо списка id.
+        data['specializations'] = list(
+            instance.specializations.values('id', 'name', 'slug')
+        )
         return data
 
     def update(self, instance, validated_data):
+        specializations = validated_data.pop('specializations', None)
         photo_file = validated_data.pop('photo', None)
+
         instance = super().update(instance, validated_data)
 
         if photo_file is not None:
             instance.photo = uploaded_image_to_data_url(photo_file)
             instance.save(update_fields=['photo'])
+
+        if specializations is not None:
+            # Удаляем старые связи и создаём новые через промежуточную таблицу.
+            PsychologistSpecialization.objects.filter(psychologist=instance).delete()
+            for spec in specializations:
+                PsychologistSpecialization.objects.create(
+                    psychologist=instance,
+                    specialization=spec,
+                )
 
         return instance
 

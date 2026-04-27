@@ -1,15 +1,15 @@
 import api from './axios';
 
 /**
- * Create a review for a completed appointment (client only).
- * @param {Object} data - { appointment, rating, text }
+ * Создание отзыва к завершённой записи (только для клиента).
+ * @param {Object} data - { appointment_id, rating, text }
  */
 export function createReview(data) {
   return api.post('/reviews/', data);
 }
 
 /**
- * Get reviews, optionally filtered by psychologist.
+ * Получение отзывов с опциональной фильтрацией по психологу.
  * @param {Object} params - { psychologist, page }
  */
 export function getReviews(params = {}) {

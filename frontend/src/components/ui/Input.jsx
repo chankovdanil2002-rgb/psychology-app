@@ -2,8 +2,8 @@ import { forwardRef } from 'react';
 import styles from './Input.module.css';
 
 /**
- * Reusable input component with label and error display.
- * Supports text, email, password, number, date, tel, and textarea types.
+ * Переиспользуемый компонент поля ввода с меткой и отображением ошибки.
+ * Поддерживает типы: text, email, password, number, date, tel, textarea.
  */
 const Input = forwardRef(function Input(
   {

@@ -1,4 +1,4 @@
-# Generated manually for allowing cancelled slots to be booked again.
+# Создана вручную: позволяет повторно бронировать отменённые слоты.
 
 import django.db.models.deletion
 from django.db import migrations, models

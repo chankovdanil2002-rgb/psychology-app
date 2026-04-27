@@ -1,4 +1,4 @@
-"""Admin configuration for the appointments app."""
+"""Настройка административного интерфейса для приложения appointments."""
 from django.contrib import admin
 
 from .models import Appointment
@@ -6,7 +6,7 @@ from .models import Appointment
 
 @admin.register(Appointment)
 class AppointmentAdmin(admin.ModelAdmin):
-    """Admin view for Appointment."""
+    """Административное представление модели Appointment."""
 
     list_display = ('id', 'client', 'psychologist', 'status', 'created_at')
     list_filter = ('status',)

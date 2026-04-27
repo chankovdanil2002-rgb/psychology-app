@@ -1,4 +1,4 @@
-"""Helpers for storing small profile images directly in the database."""
+"""Вспомогательные функции для хранения изображений профиля в формате base64."""
 import base64
 from io import BytesIO
 
@@ -12,7 +12,7 @@ PROFILE_IMAGE_QUALITY = 85
 
 
 def image_bytes_to_data_url(image_bytes):
-    """Normalize raw image bytes to a compact JPEG data URL."""
+    """Преобразует байты изображения в компактный JPEG data URL."""
     try:
         image = Image.open(BytesIO(image_bytes))
         image = ImageOps.exif_transpose(image)
@@ -37,7 +37,7 @@ def image_bytes_to_data_url(image_bytes):
 
 
 def uploaded_image_to_data_url(uploaded_file):
-    """Convert an uploaded image file to a browser-ready base64 data URL."""
+    """Конвертирует загруженный файл изображения в base64 data URL для браузера."""
     content_type = getattr(uploaded_file, 'content_type', '') or ''
     if not content_type.startswith('image/'):
         raise serializers.ValidationError(

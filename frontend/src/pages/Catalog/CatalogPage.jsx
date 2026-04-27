@@ -4,7 +4,7 @@ import { getPsychologists, getSpecializations } from '../../api';
 import Loader from '../../components/ui/Loader';
 import Pagination from '../../components/ui/Pagination';
 import StarRating from '../../components/ui/StarRating';
-import { extractData, extractList, formatPrice, truncateText } from '../../utils/helpers';
+import { extractData, extractList, formatPrice, truncateText, getCookie, setCookie } from '../../utils/helpers';
 import styles from './CatalogPage.module.css';
 
 export default function CatalogPage() {
@@ -17,7 +17,8 @@ export default function CatalogPage() {
 
   const currentPage = parseInt(searchParams.get('page') || '1', 10);
   const search = searchParams.get('search') || '';
-  const ordering = searchParams.get('ordering') || '-average_rating';
+  // Читаем предпочтение сортировки из cookie, если не задано в URL
+  const ordering = searchParams.get('ordering') || getCookie('catalog_ordering') || '-average_rating';
   const specFilter = searchParams.get('specialization') || '';
 
   const searchRef = useRef(null);
@@ -93,7 +94,11 @@ export default function CatalogPage() {
         <select
           className={styles.sortSelect}
           value={ordering}
-          onChange={(e) => updateParam('ordering', e.target.value)}
+          onChange={(e) => {
+            // Сохраняем предпочтение сортировки в cookie на 365 дней
+            setCookie('catalog_ordering', e.target.value);
+            updateParam('ordering', e.target.value);
+          }}
         >
           <option value="-average_rating">По рейтингу</option>
           <option value="price">Цена: по возрастанию</option>

@@ -1,10 +1,10 @@
-"""Application configuration for the appointments app."""
+"""Конфигурация приложения appointments."""
 from django.apps import AppConfig
 
 
 class AppointmentsConfig(AppConfig):
-    """Configuration for the appointments app."""
+    """Конфигурация приложения appointments."""
 
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'apps.appointments'
-    verbose_name = 'Appointments'
+    verbose_name = 'Записи на приём'

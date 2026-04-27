@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { createAdminPsychologist, getAdminPsychologists } from '../../api';
+import { createAdminPsychologist, deleteAdminPsychologist, getAdminPsychologists } from '../../api';
 import Alert from '../../components/ui/Alert';
 import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
@@ -13,6 +13,7 @@ export default function AdminVerificationPage() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [creating, setCreating] = useState(false);
+  const [deletingId, setDeletingId] = useState(null);
   const [fieldErrors, setFieldErrors] = useState({});
   const [form, setForm] = useState({
     email: '',
@@ -88,6 +89,22 @@ export default function AdminVerificationPage() {
     }
   };
 
+  const handleDelete = async (p) => {
+    if (!confirm(`Удалить психолога «${p.full_name}»? Это действие необратимо.`)) return;
+    setDeletingId(p.id);
+    setError('');
+    setSuccess('');
+    try {
+      await deleteAdminPsychologist(p.id);
+      setSuccess(`Психолог «${p.full_name}» удалён.`);
+      fetchPsychologists();
+    } catch (err) {
+      setError(err.response?.data?.message || 'Не удалось удалить психолога');
+    } finally {
+      setDeletingId(null);
+    }
+  };
+
   if (loading) return <Loader />;
 
   return (
@@ -136,7 +153,7 @@ export default function AdminVerificationPage() {
               error={fieldErrors.email}
             />
             <Input
-              label="Временный пароль"
+              label="Пароль"
               type="password"
               name="password"
               value={form.password}
@@ -166,6 +183,7 @@ export default function AdminVerificationPage() {
               <span>Добавлен</span>
               <span>Профиль</span>
               <span>Статус</span>
+              <span></span>
             </div>
             {psychologists.map((p) => (
               <div key={p.id} className={styles.tableRow}>
@@ -174,6 +192,16 @@ export default function AdminVerificationPage() {
                 <span>{formatDate(p.date_joined)}</span>
                 <span>{p.is_profile_complete ? 'Заполнен' : 'Нужно заполнить'}</span>
                 <span>{p.is_active ? 'Активен' : 'Неактивен'}</span>
+                <span>
+                  <Button
+                    variant="danger"
+                    size="sm"
+                    loading={deletingId === p.id}
+                    onClick={() => handleDelete(p)}
+                  >
+                    Удалить
+                  </Button>
+                </span>
               </div>
             ))}
           </div>
@@ -190,6 +218,15 @@ export default function AdminVerificationPage() {
                 <p className={styles.meta}>
                   Статус: {p.is_active ? 'активен' : 'неактивен'}
                 </p>
+                <Button
+                  variant="danger"
+                  size="sm"
+                  loading={deletingId === p.id}
+                  onClick={() => handleDelete(p)}
+                  fullWidth
+                >
+                  Удалить
+                </Button>
               </div>
             ))}
           </div>

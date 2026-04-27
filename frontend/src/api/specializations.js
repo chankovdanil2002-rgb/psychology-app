@@ -1,14 +1,14 @@
 import api from './axios';
 
 /**
- * Get all available specializations.
+ * Получение всех доступных специализаций.
  */
 export function getSpecializations() {
   return api.get('/specializations/');
 }
 
 /**
- * Get details of a specific specialization by slug.
+ * Получение детальной информации о специализации по slug.
  * @param {string} slug
  */
 export function getSpecializationBySlug(slug) {

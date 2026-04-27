@@ -2,9 +2,12 @@
 Представления для аутентификации, регистрации, подтверждения email и доступа к профилю.
 """
 import logging
+import secrets
+from datetime import timedelta
 
 from django.core.cache import cache
 from django.db import transaction
+from django.utils import timezone
 from rest_framework import status
 from rest_framework.exceptions import APIException
 from rest_framework.generics import GenericAPIView
@@ -41,30 +44,53 @@ class ClientRegistrationView(GenericAPIView):
     """
     POST /api/auth/register/client/
 
-    Регистрирует нового клиента. Создаёт User (is_active=False) и
-    отправляет письмо с подтверждением.
+    Регистрирует нового клиента. Данные временно сохраняются в кэше (24 ч),
+    пользователь в БД не создаётся до подтверждения кода из письма.
     """
 
     serializer_class = ClientRegistrationSerializer
     permission_classes = [AllowAny]
 
-    @transaction.atomic
+    # Время жизни ожидающей регистрации — 24 часа.
+    _PENDING_TTL = 60 * 60 * 24
+
+    @staticmethod
+    def _cache_key(email: str) -> str:
+        return f'pending_reg:{email}'
+
     def post(self, request):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = serializer.save()
 
-        # Создаём токен подтверждения email.
-        token = EmailConfirmationToken.objects.create(user=user)
+        email = serializer.validated_data['email']
+        password = serializer.validated_data['password']
+
+        # Генерируем 6-значный код подтверждения.
+        code = f'{secrets.randbelow(1_000_000):06d}'
+        expires_at = timezone.now() + timedelta(hours=24)
+
+        # Сохраняем данные регистрации в кэше — БД ещё не трогаем.
+        cache.set(
+            self._cache_key(email),
+            {
+                'email': email,
+                'password': password,
+                'role': User.Role.CLIENT,
+                'code': code,
+                'expires_at': expires_at,
+            },
+            self._PENDING_TTL,
+        )
 
         try:
-            send_confirmation_email(user.email, token.code)
+            send_confirmation_email(email, code)
         except EmailDeliveryError as exc:
+            cache.delete(self._cache_key(email))
             raise EmailDeliveryAPIException(str(exc)) from exc
 
         return success_response(
-            data=UserSerializer(user).data,
-            message='Registration successful. Please check your email to confirm your account.',
+            data={'email': email},
+            message='Регистрация прошла успешно. Проверьте почту и введите код подтверждения.',
             status_code=status.HTTP_201_CREATED,
         )
 
@@ -94,7 +120,7 @@ class LoginView(GenericAPIView):
                     'refresh': str(refresh),
                 },
             },
-            message='Login successful.',
+            message='Вход выполнен успешно.',
         )
 
 
@@ -114,19 +140,19 @@ class EmailConfirmView(GenericAPIView):
             ).get(token=token)
         except EmailConfirmationToken.DoesNotExist:
             return success_response(
-                message='Invalid confirmation token.',
+                message='Недействительная ссылка подтверждения.',
                 status_code=status.HTTP_400_BAD_REQUEST,
             )
 
         if confirmation.is_used:
             return success_response(
-                message='This token has already been used.',
+                message='Эта ссылка уже была использована.',
                 status_code=status.HTTP_400_BAD_REQUEST,
             )
 
         if confirmation.is_expired:
             return success_response(
-                message='This token has expired.',
+                message='Срок действия ссылки истёк.',
                 status_code=status.HTTP_400_BAD_REQUEST,
             )
 
@@ -140,13 +166,24 @@ class EmailConfirmView(GenericAPIView):
         confirmation.save(update_fields=['is_used'])
 
         return success_response(
-            message='Email confirmed successfully. You can now log in.',
+            message='Email подтверждён. Теперь вы можете войти в систему.',
         )
 
 
 class EmailCodeConfirmView(GenericAPIView):
+    """
+    POST /api/auth/confirm-email/code/
+
+    Подтверждает email и создаёт пользователя в БД.
+    Данные регистрации берутся из кэша по email + код.
+    """
+
     serializer_class = EmailCodeConfirmationSerializer
     permission_classes = [AllowAny]
+
+    @staticmethod
+    def _cache_key(email: str) -> str:
+        return f'pending_reg:{email}'
 
     def post(self, request):
         serializer = self.get_serializer(data=request.data)
@@ -155,36 +192,44 @@ class EmailCodeConfirmView(GenericAPIView):
         email = serializer.validated_data['email']
         code = serializer.validated_data['code']
 
-        confirmation = EmailConfirmationToken.objects.select_related(
-            'user'
-        ).filter(
-            user__email=email,
-            code=code,
-            is_used=False,
-        ).order_by('-created_at').first()
+        pending = cache.get(self._cache_key(email))
 
-        if confirmation is None:
+        if pending is None or pending.get('code') != code:
             return success_response(
                 message='Неверный код подтверждения.',
                 status_code=status.HTTP_400_BAD_REQUEST,
             )
 
-        if confirmation.is_expired:
+        if timezone.now() > pending['expires_at']:
+            cache.delete(self._cache_key(email))
             return success_response(
-                message='Срок действия кода истек.',
+                message='Срок действия кода истёк. Зарегистрируйтесь снова.',
                 status_code=status.HTTP_400_BAD_REQUEST,
             )
 
-        user = confirmation.user
-        user.is_active = True
-        user.save(update_fields=['is_active'])
+        # Защита от гонки: если пользователь уже создан (повторный запрос).
+        if User.objects.filter(email=email).exists():
+            cache.delete(self._cache_key(email))
+            return success_response(
+                message='Аккаунт уже подтверждён. Войдите в систему.',
+                status_code=status.HTTP_400_BAD_REQUEST,
+            )
 
-        confirmation.is_used = True
-        confirmation.save(update_fields=['is_used'])
+        # Создаём пользователя — уже активным, email подтверждён.
+        with transaction.atomic():
+            user = User.objects.create_user(
+                email=pending['email'],
+                password=pending['password'],
+                role=pending['role'],
+                is_active=True,
+            )
+
+        # Удаляем данные ожидания из кэша.
+        cache.delete(self._cache_key(email))
 
         return success_response(
             data=UserSerializer(user).data,
-            message='Email подтвержден. Теперь можно войти.',
+            message='Email подтверждён. Теперь можно войти.',
         )
 
 
@@ -216,7 +261,7 @@ class PasswordResetView(GenericAPIView):
             pass  # Не раскрываем, существует ли такой email.
 
         return success_response(
-            message='If your email is registered, you will receive a password reset link.',
+            message='Если этот email зарегистрирован, вы получите письмо со ссылкой для сброса пароля.',
         )
 
 
@@ -243,13 +288,13 @@ class PasswordResetConfirmView(GenericAPIView):
             ).get(token=token_uuid)
         except EmailConfirmationToken.DoesNotExist:
             return success_response(
-                message='Invalid reset token.',
+                message='Недействительная ссылка сброса пароля.',
                 status_code=status.HTTP_400_BAD_REQUEST,
             )
 
         if not confirmation.is_valid:
             return success_response(
-                message='This token has expired or already been used.',
+                message='Срок действия ссылки истёк или она уже была использована.',
                 status_code=status.HTTP_400_BAD_REQUEST,
             )
 
@@ -263,7 +308,7 @@ class PasswordResetConfirmView(GenericAPIView):
         confirmation.save(update_fields=['is_used'])
 
         return success_response(
-            message='Password has been reset successfully.',
+            message='Пароль успешно изменён.',
         )
 
 
@@ -317,7 +362,7 @@ class ProfileMeView(GenericAPIView):
         cached_data = cache.get(cache_key)
 
         if cached_data is not None:
-            return success_response(data=cached_data, message='Profile retrieved.')
+            return success_response(data=cached_data, message='Профиль получен.')
 
         profile, serializer_class = self.get_profile_and_serializer(
             request.user
@@ -330,7 +375,7 @@ class ProfileMeView(GenericAPIView):
             data = serializer_class(profile).data
 
         cache.set(cache_key, data, 300)  # Кэшируем на 5 минут.
-        return success_response(data=data, message='Profile retrieved.')
+        return success_response(data=data, message='Профиль получен.')
 
     def put(self, request):
         """Полное обновление профиля текущего пользователя."""
@@ -340,7 +385,7 @@ class ProfileMeView(GenericAPIView):
 
         if profile is None:
             return success_response(
-                message='Admin profiles cannot be updated via this endpoint.',
+                message='Профиль администратора нельзя обновить через этот эндпоинт.',
                 status_code=status.HTTP_400_BAD_REQUEST,
             )
 
@@ -355,7 +400,7 @@ class ProfileMeView(GenericAPIView):
 
         return success_response(
             data=serializer.data,
-            message='Profile updated.',
+            message='Профиль обновлён.',
         )
 
     def patch(self, request):
@@ -366,7 +411,7 @@ class ProfileMeView(GenericAPIView):
 
         if profile is None:
             return success_response(
-                message='Admin profiles cannot be updated via this endpoint.',
+                message='Профиль администратора нельзя обновить через этот эндпоинт.',
                 status_code=status.HTTP_400_BAD_REQUEST,
             )
 
@@ -384,5 +429,5 @@ class ProfileMeView(GenericAPIView):
 
         return success_response(
             data=serializer.data,
-            message='Profile updated.',
+            message='Профиль обновлён.',
         )

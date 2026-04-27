@@ -1,4 +1,4 @@
-"""URL configuration for the specializations app."""
+"""URL-конфигурация приложения specializations."""
 from django.urls import path
 
 from . import views

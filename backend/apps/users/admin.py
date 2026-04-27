@@ -19,9 +19,9 @@ class UserAdmin(BaseUserAdmin):
     # Поля, отображаемые на странице деталей/редактирования пользователя.
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        ('Role', {'fields': ('role',)}),
+        ('Роль', {'fields': ('role',)}),
         (
-            'Permissions',
+            'Права доступа',
             {
                 'fields': (
                     'is_active',
@@ -32,7 +32,7 @@ class UserAdmin(BaseUserAdmin):
                 ),
             },
         ),
-        ('Important dates', {'fields': ('last_login', 'date_joined')}),
+        ('Важные даты', {'fields': ('last_login', 'date_joined')}),
     )
 
     # Поля, отображаемые на странице создания пользователя.

@@ -39,7 +39,7 @@ class SpecializationListView(ListAPIView):
         serializer = self.get_serializer(queryset, many=True)
         return success_response(
             data=serializer.data,
-            message='Specializations retrieved successfully.',
+            message='Список специализаций получен.',
         )
 
 
@@ -70,5 +70,5 @@ class SpecializationDetailView(RetrieveAPIView):
         serializer = self.get_serializer(instance)
         return success_response(
             data=serializer.data,
-            message='Specialization retrieved successfully.',
+            message='Данные специализации получены.',
         )

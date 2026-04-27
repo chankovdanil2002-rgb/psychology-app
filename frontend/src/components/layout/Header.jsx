@@ -20,16 +20,16 @@ export default function Header() {
           Психологи института
         </Link>
 
-        {/* Hamburger toggle (mobile) */}
+        {/* Кнопка-гамбургер (мобильная версия) */}
         <button
           className={styles.hamburger}
           onClick={toggleMenu}
-          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-label={menuOpen ? 'Закрыть меню' : 'Открыть меню'}
         >
           {menuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
         </button>
 
-        {/* Navigation */}
+        {/* Навигация */}
         <nav className={`${styles.nav} ${menuOpen ? styles.navOpen : ''}`}>
           <NavLink
             to="/"
@@ -87,10 +87,10 @@ export default function Header() {
             </NavLink>
           )}
 
-          {/* Auth section */}
+          {/* Блок авторизации */}
           {isAuthenticated ? (
             <div className={styles.authSection}>
-              {/* Profile link */}
+              {/* Ссылка на профиль */}
               <NavLink
                 to="/profile"
                 className={({ isActive }) =>
@@ -102,7 +102,7 @@ export default function Header() {
                 <span>Личный кабинет</span>
               </NavLink>
 
-              {/* Logout */}
+              {/* Выход */}
               <button className={styles.logoutBtn} onClick={() => { logout(); closeMenu(); }}>
                 <FiLogOut size={16} />
                 <span>Выйти</span>

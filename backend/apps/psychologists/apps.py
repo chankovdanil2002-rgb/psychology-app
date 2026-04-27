@@ -7,4 +7,4 @@ class PsychologistsConfig(AppConfig):
 
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'apps.psychologists'
-    verbose_name = 'Psychologists'
+    verbose_name = 'Психологи'

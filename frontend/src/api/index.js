@@ -77,7 +77,7 @@ export function getSlots(params = {}) {
 }
 
 export function createSlot(data) {
-  return api.post('/schedule/slots/', data);
+  return api.post('/schedule/slots/create/', data);
 }
 
 export function createBulkSlots(data) {
@@ -106,6 +106,10 @@ export function createAdminPsychologist(data) {
   return api.post('/admin/psychologists/', data);
 }
 
+export function deleteAdminPsychologist(id) {
+  return api.delete(`/admin/psychologists/${id}/`);
+}
+
 // --- Specializations ---
 
 export function getSpecializations() {
@@ -119,7 +123,7 @@ export function getSpecializationBySlug(slug) {
 // --- Reviews ---
 
 export function createReview(data) {
-  return api.post('/reviews/', data);
+  return api.post('/reviews/create/', data);
 }
 
 export function getReviews(params = {}) {

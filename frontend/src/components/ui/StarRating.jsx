@@ -2,12 +2,12 @@ import { useState } from 'react';
 import styles from './StarRating.module.css';
 
 /**
- * Interactive/display star rating component.
- * @param {number} value - Current rating (1-5)
- * @param {function} onChange - If provided, enables interactive mode
- * @param {number} max - Maximum stars (default 5)
- * @param {boolean} showValue - Show numeric value next to stars
- * @param {string} size - 'sm' | 'md' | 'lg'
+ * Компонент звёздного рейтинга — интерактивный или только для отображения.
+ * @param {number} value - Текущий рейтинг (1–5)
+ * @param {function} onChange - При передаче включает интерактивный режим
+ * @param {number} max - Максимальное число звёзд (по умолчанию 5)
+ * @param {boolean} showValue - Показывать числовое значение рядом со звёздами
+ * @param {string} size - Размер: 'sm' | 'md' | 'lg'
  */
 export default function StarRating({
   value = 0,

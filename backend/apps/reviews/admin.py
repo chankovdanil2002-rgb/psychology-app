@@ -1,4 +1,4 @@
-"""Admin configuration for the reviews app."""
+"""Настройка административного интерфейса для приложения reviews."""
 from django.contrib import admin
 
 from .models import Review
@@ -6,7 +6,7 @@ from .models import Review
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
-    """Admin view for Review."""
+    """Административное представление модели Review."""
 
     list_display = ('id', 'appointment', 'rating', 'created_at')
     list_filter = ('rating',)

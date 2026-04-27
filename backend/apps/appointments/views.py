@@ -1,8 +1,13 @@
 """Представления для приложения appointments."""
+import datetime
+
+from django.db.models import Exists, OuterRef
+from django.utils import timezone
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 
+from apps.reviews.models import Review
 from apps.users.permissions import IsClient, IsProfileComplete, IsPsychologist
 from apps.users.utils import success_response
 
@@ -32,7 +37,7 @@ class AppointmentCreateView(APIView):
         appointment = serializer.save()
         return success_response(
             data=AppointmentDetailSerializer(appointment).data,
-            message='Appointment created successfully.',
+            message='Запись успешно создана.',
             status_code=status.HTTP_201_CREATED,
         )
 
@@ -63,12 +68,14 @@ class AppointmentListView(APIView):
 
         qs = qs.select_related(
             'client', 'psychologist', 'time_slot',
+        ).annotate(
+            has_review=Exists(Review.objects.filter(appointment=OuterRef('pk'))),
         ).order_by('-created_at')
 
         serializer = AppointmentListSerializer(qs, many=True)
         return success_response(
             data=serializer.data,
-            message='Appointments retrieved successfully.',
+            message='Список записей получен.',
         )
 
 
@@ -86,14 +93,14 @@ class AppointmentConfirmView(APIView):
         if appointment is None:
             return success_response(
                 data={},
-                message='Appointment not found.',
+                message='Запись не найдена.',
                 status_code=status.HTTP_404_NOT_FOUND,
             )
 
         if appointment.status != Appointment.Status.PENDING:
             return success_response(
                 data={},
-                message='Only pending appointments can be confirmed.',
+                message='Подтвердить можно только заявку в статусе «Ожидает».',
                 status_code=status.HTTP_400_BAD_REQUEST,
             )
 
@@ -101,7 +108,7 @@ class AppointmentConfirmView(APIView):
         appointment.save(update_fields=['status', 'updated_at'])
         return success_response(
             data=AppointmentDetailSerializer(appointment).data,
-            message='Appointment confirmed.',
+            message='Запись подтверждена.',
         )
 
     @staticmethod
@@ -128,14 +135,14 @@ class AppointmentRejectView(APIView):
         if appointment is None:
             return success_response(
                 data={},
-                message='Appointment not found.',
+                message='Запись не найдена.',
                 status_code=status.HTTP_404_NOT_FOUND,
             )
 
         if appointment.status != Appointment.Status.PENDING:
             return success_response(
                 data={},
-                message='Only pending appointments can be rejected.',
+                message='Отклонить можно только заявку в статусе «Ожидает».',
                 status_code=status.HTTP_400_BAD_REQUEST,
             )
 
@@ -149,7 +156,7 @@ class AppointmentRejectView(APIView):
 
         return success_response(
             data=AppointmentDetailSerializer(appointment).data,
-            message='Appointment rejected. Time slot released.',
+            message='Заявка отклонена. Слот освобождён.',
         )
 
     @staticmethod
@@ -176,14 +183,34 @@ class AppointmentCompleteView(APIView):
         if appointment is None:
             return success_response(
                 data={},
-                message='Appointment not found.',
+                message='Запись не найдена.',
                 status_code=status.HTTP_404_NOT_FOUND,
             )
 
         if appointment.status != Appointment.Status.CONFIRMED:
             return success_response(
                 data={},
-                message='Only confirmed appointments can be completed.',
+                message='Завершить можно только подтверждённую запись.',
+                status_code=status.HTTP_400_BAD_REQUEST,
+            )
+
+        # Запрещаем завершить приём раньше времени его окончания.
+        slot = appointment.time_slot
+        appointment_end = timezone.make_aware(
+            datetime.datetime.combine(slot.date, slot.end_time),
+            timezone.get_current_timezone(),
+        )
+        if timezone.now() < appointment_end:
+            remaining = appointment_end - timezone.now()
+            total_minutes = int(remaining.total_seconds() // 60)
+            hours, minutes = divmod(total_minutes, 60)
+            if hours:
+                time_left = f'{hours} ч {minutes} мин'
+            else:
+                time_left = f'{minutes} мин'
+            return success_response(
+                data={},
+                message=f'Приём ещё не завершён. До конца приёма: {time_left}.',
                 status_code=status.HTTP_400_BAD_REQUEST,
             )
 
@@ -191,7 +218,7 @@ class AppointmentCompleteView(APIView):
         appointment.save(update_fields=['status', 'updated_at'])
         return success_response(
             data=AppointmentDetailSerializer(appointment).data,
-            message='Appointment marked as completed.',
+            message='Приём отмечен как завершённый.',
         )
 
     @staticmethod
@@ -222,7 +249,7 @@ class AppointmentCancelView(APIView):
         except Appointment.DoesNotExist:
             return success_response(
                 data={},
-                message='Appointment not found.',
+                message='Запись не найдена.',
                 status_code=status.HTTP_404_NOT_FOUND,
             )
 
@@ -232,7 +259,7 @@ class AppointmentCancelView(APIView):
         ):
             return success_response(
                 data={},
-                message='Only pending or confirmed appointments can be cancelled.',
+                message='Отменить можно только заявку в статусе «Ожидает» или «Подтверждена».',
                 status_code=status.HTTP_400_BAD_REQUEST,
             )
 
@@ -246,5 +273,5 @@ class AppointmentCancelView(APIView):
 
         return success_response(
             data=AppointmentDetailSerializer(appointment).data,
-            message='Appointment cancelled. Time slot released.',
+            message='Запись отменена. Слот освобождён.',
         )

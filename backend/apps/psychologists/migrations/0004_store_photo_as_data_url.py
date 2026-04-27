@@ -1,4 +1,4 @@
-# Generated manually to store psychologist photos directly in the database.
+# Создана вручную: сохраняет фотографии психологов напрямую в базе данных.
 
 import base64
 import mimetypes

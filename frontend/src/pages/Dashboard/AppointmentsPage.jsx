@@ -4,16 +4,22 @@ import Alert from '../../components/ui/Alert';
 import Button from '../../components/ui/Button';
 import Loader from '../../components/ui/Loader';
 import Modal from '../../components/ui/Modal';
+import Pagination from '../../components/ui/Pagination';
 import StarRating from '../../components/ui/StarRating';
 import { APPOINTMENT_STATUS, APPOINTMENT_STATUS_COLOR } from '../../utils/constants';
 import { extractList, formatDate, formatTime } from '../../utils/helpers';
 import styles from './AppointmentsPage.module.css';
+
+const PAGE_SIZE = 5;
 
 export default function AppointmentsPage() {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+
+  // Пагинация
+  const [currentPage, setCurrentPage] = useState(1);
 
   // Состояние модалки отзыва
   const [reviewModal, setReviewModal] = useState(null);
@@ -55,17 +61,24 @@ export default function AppointmentsPage() {
         rating: reviewRating,
         text: reviewText,
       });
-      setSuccess('Отзыв отправлен');
+      setSuccess('Отзыв успешно отправлен!');
       setReviewModal(null);
       setReviewRating(5);
       setReviewText('');
       fetchAppointments();
-    } catch {
-      setError('Не удалось отправить отзыв');
+    } catch (err) {
+      setError(err.response?.data?.message || 'Не удалось отправить отзыв');
     } finally {
       setReviewLoading(false);
     }
   };
+
+  // Вычисляем страницу для отображения
+  const totalPages = Math.ceil(appointments.length / PAGE_SIZE);
+  const pagedAppointments = appointments.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE,
+  );
 
   if (loading) return <Loader />;
 
@@ -79,8 +92,9 @@ export default function AppointmentsPage() {
       {appointments.length === 0 ? (
         <p className={styles.empty}>У вас пока нет записей</p>
       ) : (
+        <>
         <div className={styles.list}>
-          {appointments.map((a) => (
+          {pagedAppointments.map((a) => (
             <div key={a.id} className={styles.card}>
               <div className={styles.cardHeader}>
                 <span
@@ -112,11 +126,21 @@ export default function AppointmentsPage() {
             </div>
           ))}
         </div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={(p) => { setCurrentPage(p); window.scrollTo(0, 0); }}
+        />
+        </>
       )}
 
       {/* Модалка отзыва */}
-      {reviewModal && (
-        <Modal title="Оставить отзыв" onClose={() => setReviewModal(null)}>
+      <Modal
+        isOpen={!!reviewModal}
+        title="Оставить отзыв"
+        onClose={() => { setReviewModal(null); setReviewRating(5); setReviewText(''); }}
+      >
+        {reviewModal && (
           <div className={styles.reviewForm}>
             <p>Психолог: <strong>{reviewModal.psychologist_name}</strong></p>
             <div className={styles.reviewField}>
@@ -142,8 +166,8 @@ export default function AppointmentsPage() {
               Отправить отзыв
             </Button>
           </div>
-        </Modal>
-      )}
+        )}
+      </Modal>
     </div>
   );
 }

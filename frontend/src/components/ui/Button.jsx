@@ -1,8 +1,8 @@
 import styles from './Button.module.css';
 
 /**
- * Reusable button with variant support.
- * Variants: primary, secondary, danger, outline.
+ * Переиспользуемая кнопка с поддержкой вариантов стиля.
+ * Варианты: primary, secondary, danger, outline.
  */
 export default function Button({
   children,

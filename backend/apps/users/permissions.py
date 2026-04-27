@@ -7,7 +7,7 @@ from rest_framework.permissions import BasePermission
 class IsClient(BasePermission):
     """Разрешает доступ только пользователям с ролью клиента."""
 
-    message = 'Access restricted to clients only.'
+    message = 'Доступ разрешён только клиентам.'
 
     def has_permission(self, request, view):
         return (
@@ -20,7 +20,7 @@ class IsClient(BasePermission):
 class IsPsychologist(BasePermission):
     """Разрешает доступ только пользователям с ролью психолога."""
 
-    message = 'Access restricted to psychologists only.'
+    message = 'Доступ разрешён только психологам.'
 
     def has_permission(self, request, view):
         return (
@@ -33,7 +33,7 @@ class IsPsychologist(BasePermission):
 class IsAdmin(BasePermission):
     """Разрешает доступ только пользователям с ролью администратора."""
 
-    message = 'Access restricted to administrators only.'
+    message = 'Доступ разрешён только администраторам.'
 
     def has_permission(self, request, view):
         return (
@@ -51,7 +51,7 @@ class IsProfileComplete(BasePermission):
     или PsychologistProfile в зависимости от роли.
     """
 
-    message = 'You must complete your profile before accessing this resource.'
+    message = 'Для доступа к этому ресурсу необходимо заполнить профиль.'
 
     def has_permission(self, request, view):
         user = request.user
@@ -78,7 +78,7 @@ class IsVerifiedPsychologist(BasePermission):
     Разрешает доступ только психологам, верифицированным администратором.
     """
 
-    message = 'Your account has not been verified yet.'
+    message = 'Ваш аккаунт ещё не верифицирован администратором.'
 
     def has_permission(self, request, view):
         user = request.user

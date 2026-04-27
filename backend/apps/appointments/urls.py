@@ -1,4 +1,4 @@
-"""URL configuration for the appointments app."""
+"""URL-конфигурация приложения appointments."""
 from django.urls import path
 
 from . import views

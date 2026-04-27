@@ -97,7 +97,7 @@ export default function PsychologistDetailPage() {
           )}
         </div>
 
-        {/* Reviews */}
+        {/* Отзывы */}
         <div className={styles.reviewsSection}>
           <h2>Отзывы ({psych.total_reviews || 0})</h2>
           {psych.reviews && psych.reviews.length > 0 ? (

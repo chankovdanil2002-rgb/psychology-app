@@ -2,7 +2,7 @@
 Представления для публичного каталога психологов и административных эндпоинтов.
 """
 from django.core.cache import cache
-from django.db.models import Avg, Count, Q
+from django.db.models import Avg, Count, F, Q
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 from django_filters.rest_framework import DjangoFilterBackend
@@ -70,12 +70,40 @@ class PsychologistListView(generics.ListAPIView):
             )
         )
 
+    def filter_queryset(self, queryset):
+        """
+        После стандартной фильтрации заменяет сортировку по average_rating
+        на NULLS LAST, чтобы психологи без отзывов опускались в конец списка.
+        """
+        queryset = super().filter_queryset(queryset)
+
+        ordering = queryset.query.order_by
+        if not ordering:
+            return queryset
+
+        new_ordering = []
+        changed = False
+        for term in ordering:
+            if term == '-average_rating':
+                new_ordering.append(F('average_rating').desc(nulls_last=True))
+                changed = True
+            elif term == 'average_rating':
+                new_ordering.append(F('average_rating').asc(nulls_last=True))
+                changed = True
+            else:
+                new_ordering.append(term)
+
+        if changed:
+            queryset = queryset.order_by(*new_ordering)
+
+        return queryset
+
     def list(self, request, *args, **kwargs):
         """Оборачивает постраничный ответ в стандартный успешный формат."""
         response = super().list(request, *args, **kwargs)
         return success_response(
             data=response.data,
-            message='Psychologist list retrieved successfully.',
+            message='Список психологов получен.',
         )
 
 
@@ -125,7 +153,45 @@ class PsychologistDetailView(generics.RetrieveAPIView):
         serializer = self.get_serializer(instance)
         return success_response(
             data=serializer.data,
-            message='Psychologist details retrieved successfully.',
+            message='Данные психолога получены.',
+        )
+
+
+class AdminPsychologistDeleteView(generics.DestroyAPIView):
+    """
+    Административный эндпоинт для удаления психолога.
+
+    DELETE /api/admin/psychologists/<id>/
+    Удаляет пользователя и связанный профиль психолога.
+    """
+
+    permission_classes = [IsAuthenticated, IsAdmin]
+
+    def get_queryset(self):
+        return PsychologistProfile.objects.filter(user__role='psychologist').select_related('user')
+
+    def destroy(self, request, *args, **kwargs):
+        from django.db import transaction
+        from apps.appointments.models import Appointment
+        from apps.schedule.models import TimeSlot
+
+        profile = self.get_object()
+        user = profile.user
+        name = str(profile)
+
+        with transaction.atomic():
+            # 1. Удаляем записи психолога (вместе с отзывами через CASCADE).
+            #    Это разблокирует тайм-слоты (PROTECT снимается).
+            Appointment.objects.filter(psychologist=profile).delete()
+            # 2. Удаляем тайм-слоты.
+            TimeSlot.objects.filter(psychologist=profile).delete()
+            # 3. Удаляем пользователя — каскадно удаляет профиль.
+            user.delete()
+
+        cache.clear()
+        return success_response(
+            message=f'Психолог «{name}» успешно удалён.',
+            status_code=status.HTTP_200_OK,
         )
 
 
@@ -159,7 +225,7 @@ class AdminPsychologistListCreateView(generics.ListCreateAPIView):
         response = super().list(request, *args, **kwargs)
         return success_response(
             data=response.data,
-            message='Psychologist team retrieved successfully.',
+            message='Список психологов получен.',
         )
 
     def create(self, request, *args, **kwargs):
@@ -171,6 +237,6 @@ class AdminPsychologistListCreateView(generics.ListCreateAPIView):
 
         return success_response(
             data=AdminPsychologistListSerializer(profile).data,
-            message='Psychologist account created successfully.',
+            message='Аккаунт психолога успешно создан.',
             status_code=status.HTTP_201_CREATED,
         )

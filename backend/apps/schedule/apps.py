@@ -1,10 +1,10 @@
-"""Application configuration for the schedule app."""
+"""Конфигурация приложения schedule."""
 from django.apps import AppConfig
 
 
 class ScheduleConfig(AppConfig):
-    """Configuration for the schedule app."""
+    """Конфигурация приложения schedule."""
 
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'apps.schedule'
-    verbose_name = 'Schedule'
+    verbose_name = 'Расписание'

@@ -1,4 +1,4 @@
-# Generated manually to store client avatars directly in the database.
+# Создана вручную: сохраняет аватары клиентов напрямую в базе данных.
 
 import base64
 import mimetypes

@@ -4,6 +4,7 @@ URL-конфигурация приложения psychologists.
 from django.urls import path
 
 from apps.psychologists.views import (
+    AdminPsychologistDeleteView,
     AdminPsychologistListCreateView,
     PsychologistDetailView,
     PsychologistListView,
@@ -23,5 +24,10 @@ admin_urlpatterns = [
         'psychologists/',
         AdminPsychologistListCreateView.as_view(),
         name='admin-psychologists',
+    ),
+    path(
+        'psychologists/<int:pk>/',
+        AdminPsychologistDeleteView.as_view(),
+        name='admin-psychologist-delete',
     ),
 ]

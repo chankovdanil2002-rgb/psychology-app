@@ -99,3 +99,26 @@ export function extractList(res) {
 export function extractData(res) {
   return res.data?.data ?? res.data ?? {};
 }
+
+/**
+ * Устанавливает cookie с указанным именем, значением и сроком жизни в днях.
+ * @param {string} name - Имя cookie
+ * @param {string} value - Значение cookie
+ * @param {number} days - Срок жизни в днях
+ */
+export function setCookie(name, value, days = 365) {
+  const expires = new Date(Date.now() + days * 864e5).toUTCString();
+  document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; expires=${expires}; path=/; SameSite=Lax`;
+}
+
+/**
+ * Читает значение cookie по имени. Возвращает null, если не найдено.
+ * @param {string} name - Имя cookie
+ * @returns {string|null}
+ */
+export function getCookie(name) {
+  const match = document.cookie
+    .split('; ')
+    .find((row) => row.startsWith(encodeURIComponent(name) + '='));
+  return match ? decodeURIComponent(match.split('=')[1]) : null;
+}

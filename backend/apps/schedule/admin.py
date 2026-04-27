@@ -1,4 +1,4 @@
-"""Admin configuration for the schedule app."""
+"""Настройка административного интерфейса для приложения schedule."""
 from django.contrib import admin
 
 from .models import TimeSlot
@@ -6,7 +6,7 @@ from .models import TimeSlot
 
 @admin.register(TimeSlot)
 class TimeSlotAdmin(admin.ModelAdmin):
-    """Admin view for TimeSlot."""
+    """Административное представление модели TimeSlot."""
 
     list_display = ('psychologist', 'date', 'start_time', 'end_time', 'is_available')
     list_filter = ('is_available', 'date')

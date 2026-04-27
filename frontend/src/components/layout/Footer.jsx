@@ -1,7 +1,7 @@
 import styles from './Footer.module.css';
 
 /**
- * Simple application footer.
+ * Футер приложения.
  */
 export default function Footer() {
   const currentYear = new Date().getFullYear();

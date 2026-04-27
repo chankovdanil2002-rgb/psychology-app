@@ -28,7 +28,7 @@ export default function HomePage() {
 
   return (
     <div className={styles.home}>
-      {/* Hero */}
+      {/* Главный баннер */}
       <section className={styles.hero}>
         <div className={styles.heroContent}>
           <h1>Запишитесь на консультацию к психологу</h1>
@@ -40,7 +40,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Specializations */}
+      {/* Специализации */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>Направления</h2>
         {loading ? (
@@ -57,7 +57,7 @@ export default function HomePage() {
         )}
       </section>
 
-      {/* How it works */}
+      {/* Как это работает */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>Как это работает</h2>
         <div className={styles.stepsGrid}>

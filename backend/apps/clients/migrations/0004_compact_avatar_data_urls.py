@@ -1,4 +1,4 @@
-# Generated manually to compact client avatar images stored in the database.
+# Создана вручную: компактирует аватары клиентов, хранящиеся в базе данных.
 
 import base64
 from io import BytesIO

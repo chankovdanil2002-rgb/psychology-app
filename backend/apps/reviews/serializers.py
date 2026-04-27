@@ -27,21 +27,21 @@ class ReviewCreateSerializer(serializers.Serializer):
                 'client', 'client__user',
             ).get(pk=value)
         except Appointment.DoesNotExist:
-            raise serializers.ValidationError('Appointment not found.')
+            raise serializers.ValidationError('Запись не найдена.')
 
         if appointment.client.user != request.user:
             raise serializers.ValidationError(
-                'You can only review your own appointments.'
+                'Вы можете оставить отзыв только к своей записи.'
             )
 
         if appointment.status != Appointment.Status.COMPLETED:
             raise serializers.ValidationError(
-                'Reviews can only be left for completed appointments.'
+                'Отзыв можно оставить только к завершённым записям.'
             )
 
         if hasattr(appointment, 'review'):
             raise serializers.ValidationError(
-                'A review already exists for this appointment.'
+                'Отзыв к этой записи уже существует.'
             )
 
         return value

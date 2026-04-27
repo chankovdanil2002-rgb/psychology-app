@@ -1,4 +1,4 @@
-# Generated manually to compact psychologist photos stored in the database.
+# Создана вручную: компактирует фотографии психологов, хранящиеся в базе данных.
 
 import base64
 from io import BytesIO

@@ -18,23 +18,16 @@ DATABASES = {
     }
 }
 
-# ──────────────────────────────────────────────
-# Email — в режиме разработки письма выводятся в консоль
-# ──────────────────────────────────────────────
-
-EMAIL_BACKEND = os.environ.get(
-    'EMAIL_BACKEND',
-    'django.core.mail.backends.console.EmailBackend',
-)
+# Email-настройки берутся из .env (EMAIL_BACKEND, EMAIL_HOST_USER и т.д.)
 
 # ──────────────────────────────────────────────
-# Кэш — в оперативной памяти процесса (локальный dev-кэш)
+# Кэш — файловый (разделяется между процессами, подходит для dev)
 # ──────────────────────────────────────────────
 
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'psychology-app-dev-cache',
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': BASE_DIR / '.dev_cache',  # noqa: F405
     }
 }
 

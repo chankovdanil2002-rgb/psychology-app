@@ -61,7 +61,7 @@
 .tableHeader,
 .tableRow {
   display: grid;
-  grid-template-columns: 1.5fr 1.5fr 1fr 1fr 1fr;
+  grid-template-columns: 1.5fr 1.5fr 1fr 1fr 1fr auto;
   padding: 0.8rem 1.2rem;
   align-items: center;
   gap: 0.5rem;

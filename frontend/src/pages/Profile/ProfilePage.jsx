@@ -6,9 +6,30 @@ import Input from '../../components/ui/Input';
 import Button from '../../components/ui/Button';
 import Alert from '../../components/ui/Alert';
 import Loader from '../../components/ui/Loader';
+import StarRating from '../../components/ui/StarRating';
 import FileUpload from '../../components/forms/FileUpload';
-import { extractList } from '../../utils/helpers';
+import { extractList, formatPrice } from '../../utils/helpers';
 import styles from './ProfilePage.module.css';
+
+/** Оставляет только буквы (кириллица + латиница), пробелы и дефисы. */
+function onlyLetters(value) {
+  return value.replace(/[^a-zA-Zа-яА-ЯёЁ\s-]/g, '');
+}
+
+/**
+ * Приводит ввод к формату +7XXXXXXXXXX.
+ * Всегда сохраняет +7 в начале, принимает только цифры.
+ */
+function normalizePhone(raw) {
+  const digits = raw.replace(/\D/g, '');
+  let d = digits;
+  if (d.startsWith('8') || d.startsWith('7')) {
+    d = '7' + d.slice(1);
+  } else {
+    d = '7' + d;
+  }
+  return '+' + d.slice(0, 11);
+}
 
 function toDateInputValue(date) {
   const year = date.getFullYear();
@@ -204,7 +225,7 @@ function ClientProfileForm({ user, isProfileComplete, fetchProfile }) {
   const [form, setForm] = useState({
     first_name: user.first_name || '',
     last_name: user.last_name || '',
-    phone: user.phone || '',
+    phone: user.phone || '+7',
     date_of_birth: user.date_of_birth || '',
   });
   const [avatarFile, setAvatarFile] = useState(null);
@@ -235,7 +256,11 @@ function ClientProfileForm({ user, isProfileComplete, fetchProfile }) {
     const errs = {};
     if (!form.first_name.trim()) errs.first_name = 'Введите имя';
     if (!form.last_name.trim()) errs.last_name = 'Введите фамилию';
-    if (!form.phone.trim()) errs.phone = 'Введите номер телефона';
+    if (!form.phone || form.phone === '+7') {
+      errs.phone = 'Введите номер телефона';
+    } else if (!/^\+7\d{10}$/.test(form.phone)) {
+      errs.phone = 'Номер должен начинаться с +7 и содержать 11 цифр';
+    }
     if (!form.date_of_birth) errs.date_of_birth = 'Укажите дату рождения';
     if (form.date_of_birth && form.date_of_birth > latestAllowedBirthDate) {
       errs.date_of_birth = 'Запись доступна клиентам от 14 лет';
@@ -249,6 +274,21 @@ function ClientProfileForm({ user, isProfileComplete, fetchProfile }) {
     if (errors[name]) setErrors((prev) => ({ ...prev, [name]: '' }));
     if (serverError) setServerError('');
     if (successMsg) setSuccessMsg('');
+  };
+
+  const handleNameChange = (e) => {
+    const { name, value } = e.target;
+    const filtered = onlyLetters(value);
+    setForm((prev) => ({ ...prev, [name]: filtered }));
+    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: '' }));
+    if (serverError) setServerError('');
+  };
+
+  const handlePhoneChange = (e) => {
+    const normalized = normalizePhone(e.target.value);
+    setForm((prev) => ({ ...prev, phone: normalized }));
+    if (errors.phone) setErrors((prev) => ({ ...prev, phone: '' }));
+    if (serverError) setServerError('');
   };
 
   const handleSubmit = async (e) => {
@@ -331,7 +371,7 @@ function ClientProfileForm({ user, isProfileComplete, fetchProfile }) {
               name="last_name"
               placeholder="Иванов"
               value={form.last_name}
-              onChange={handleChange}
+              onChange={handleNameChange}
               error={errors.last_name}
             />
             <Input
@@ -339,7 +379,7 @@ function ClientProfileForm({ user, isProfileComplete, fetchProfile }) {
               name="first_name"
               placeholder="Иван"
               value={form.first_name}
-              onChange={handleChange}
+              onChange={handleNameChange}
               error={errors.first_name}
             />
           </div>
@@ -348,9 +388,9 @@ function ClientProfileForm({ user, isProfileComplete, fetchProfile }) {
             label="Телефон"
             type="tel"
             name="phone"
-            placeholder="+7 (999) 123-45-67"
+            placeholder="+7XXXXXXXXXX"
             value={form.phone}
-            onChange={handleChange}
+            onChange={handlePhoneChange}
             error={errors.phone}
           />
 
@@ -383,9 +423,110 @@ function ClientProfileForm({ user, isProfileComplete, fetchProfile }) {
 }
 
 /**
+ * Режим просмотра профиля психолога.
+ */
+function PsychologistProfileView({ user, onEdit }) {
+  const fullName = [user.last_name, user.first_name, user.patronymic]
+    .filter(Boolean)
+    .join(' ');
+
+  return (
+    <div className={styles.page}>
+      <div className={styles.cardWide}>
+        <h1 className={styles.title}>Личный кабинет психолога</h1>
+
+        <div className={styles.profileHeader}>
+          {user.photo ? (
+            <img src={user.photo} alt="Фото профиля" className={styles.profileAvatar} />
+          ) : (
+            <div className={styles.profileAvatarPlaceholder}>
+              {getInitials(user)}
+            </div>
+          )}
+          <div>
+            <h2 className={styles.profileName}>{fullName || 'Имя не указано'}</h2>
+            <p className={styles.profileEmail}>{user.email}</p>
+            {user.average_rating > 0 && (
+              <StarRating value={user.average_rating} size="sm" showValue />
+            )}
+          </div>
+        </div>
+
+        <div className={styles.profileDetails}>
+          <div className={styles.profileDetail}>
+            <span>Телефон</span>
+            <strong>{user.phone || 'Не указан'}</strong>
+          </div>
+          <div className={styles.profileDetail}>
+            <span>Стаж работы</span>
+            <strong>
+              {user.experience_years != null
+                ? `${user.experience_years} ${pluralYears(user.experience_years)}`
+                : 'Не указан'}
+            </strong>
+          </div>
+          <div className={styles.profileDetail}>
+            <span>Стоимость консультации</span>
+            <strong>{user.price ? formatPrice(user.price) : 'Не указана'}</strong>
+          </div>
+          {user.education && (
+            <div className={styles.profileDetail}>
+              <span>Образование</span>
+              <strong>{user.education}</strong>
+            </div>
+          )}
+        </div>
+
+        {user.bio && (
+          <div className={styles.section}>
+            <h2 className={styles.sectionTitle}>О себе</h2>
+            <p className={styles.bioText}>{user.bio}</p>
+          </div>
+        )}
+
+        {user.specializations?.length > 0 && (
+          <div className={styles.section}>
+            <h2 className={styles.sectionTitle}>Специализации</h2>
+            <div className={styles.specTags}>
+              {user.specializations.map((s) => (
+                <span
+                  key={typeof s === 'object' ? s.id : s}
+                  className={styles.specTag}
+                >
+                  {typeof s === 'object' ? s.name : s}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div className={styles.profileActions}>
+          <Link to="/dashboard" className={styles.catalogLink}>
+            Перейти в панель управления
+          </Link>
+          <Button type="button" variant="outline" fullWidth onClick={onEdit}>
+            Редактировать профиль
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function pluralYears(n) {
+  const abs = Math.abs(n) % 100;
+  const mod = abs % 10;
+  if (abs > 10 && abs < 20) return 'лет';
+  if (mod === 1) return 'год';
+  if (mod >= 2 && mod <= 4) return 'года';
+  return 'лет';
+}
+
+/**
  * Форма профиля психолога (для верифицированных психологов).
  */
 function PsychologistProfileForm({ user, isProfileComplete, fetchProfile }) {
+  const [isEditing, setIsEditing] = useState(!isProfileComplete);
   const [specializations, setSpecializations] = useState([]);
   const [specLoading, setSpecLoading] = useState(true);
 
@@ -393,7 +534,7 @@ function PsychologistProfileForm({ user, isProfileComplete, fetchProfile }) {
     first_name: user.first_name || '',
     last_name: user.last_name || '',
     patronymic: user.patronymic || '',
-    phone: user.phone || '',
+    phone: user.phone || '+7',
     experience_years: user.experience_years || '',
     education: user.education || '',
     bio: user.bio || '',
@@ -407,6 +548,10 @@ function PsychologistProfileForm({ user, isProfileComplete, fetchProfile }) {
   const [serverError, setServerError] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (isProfileComplete) setIsEditing(false);
+  }, [isProfileComplete]);
 
   // Загружаем доступные специализации
   useEffect(() => {
@@ -432,7 +577,11 @@ function PsychologistProfileForm({ user, isProfileComplete, fetchProfile }) {
     const errs = {};
     if (!form.first_name.trim()) errs.first_name = 'Введите имя';
     if (!form.last_name.trim()) errs.last_name = 'Введите фамилию';
-    if (!form.phone.trim()) errs.phone = 'Введите номер телефона';
+    if (!form.phone || form.phone === '+7') {
+      errs.phone = 'Введите номер телефона';
+    } else if (!/^\+7\d{10}$/.test(form.phone)) {
+      errs.phone = 'Номер должен начинаться с +7 и содержать 11 цифр';
+    }
     if (!form.experience_years && form.experience_years !== 0) {
       errs.experience_years = 'Укажите стаж';
     }
@@ -453,6 +602,21 @@ function PsychologistProfileForm({ user, isProfileComplete, fetchProfile }) {
     if (errors[name]) setErrors((prev) => ({ ...prev, [name]: '' }));
     if (serverError) setServerError('');
     if (successMsg) setSuccessMsg('');
+  };
+
+  const handleNameChange = (e) => {
+    const { name, value } = e.target;
+    const filtered = onlyLetters(value);
+    setForm((prev) => ({ ...prev, [name]: filtered }));
+    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: '' }));
+    if (serverError) setServerError('');
+  };
+
+  const handlePhoneChange = (e) => {
+    const normalized = normalizePhone(e.target.value);
+    setForm((prev) => ({ ...prev, phone: normalized }));
+    if (errors.phone) setErrors((prev) => ({ ...prev, phone: '' }));
+    if (serverError) setServerError('');
   };
 
   const handleSpecToggle = (specId) => {
@@ -500,6 +664,7 @@ function PsychologistProfileForm({ user, isProfileComplete, fetchProfile }) {
 
       await patchProfile(formData);
       await fetchProfile();
+      setIsEditing(false);
       setSuccessMsg('Профиль успешно сохранён!');
     } catch (err) {
       const data = err.response?.data;
@@ -523,6 +688,19 @@ function PsychologistProfileForm({ user, isProfileComplete, fetchProfile }) {
       setLoading(false);
     }
   };
+
+  // Режим просмотра — только если профиль заполнен и не редактируется
+  if (isProfileComplete && !isEditing) {
+    return (
+      <PsychologistProfileView
+        user={user}
+        onEdit={() => {
+          setSuccessMsg('');
+          setIsEditing(true);
+        }}
+      />
+    );
+  }
 
   return (
     <div className={styles.page}>
@@ -557,14 +735,14 @@ function PsychologistProfileForm({ user, isProfileComplete, fetchProfile }) {
                 label="Фамилия"
                 name="last_name"
                 value={form.last_name}
-                onChange={handleChange}
+                onChange={handleNameChange}
                 error={errors.last_name}
               />
               <Input
                 label="Имя"
                 name="first_name"
                 value={form.first_name}
-                onChange={handleChange}
+                onChange={handleNameChange}
                 error={errors.first_name}
               />
             </div>
@@ -572,16 +750,16 @@ function PsychologistProfileForm({ user, isProfileComplete, fetchProfile }) {
               label="Отчество"
               name="patronymic"
               value={form.patronymic}
-              onChange={handleChange}
+              onChange={handleNameChange}
               error={errors.patronymic}
             />
             <Input
               label="Телефон"
               type="tel"
               name="phone"
-              placeholder="+7 (999) 123-45-67"
+              placeholder="+7XXXXXXXXXX"
               value={form.phone}
-              onChange={handleChange}
+              onChange={handlePhoneChange}
               error={errors.phone}
             />
             <FileUpload
@@ -666,6 +844,16 @@ function PsychologistProfileForm({ user, isProfileComplete, fetchProfile }) {
           <Button type="submit" fullWidth loading={loading}>
             Сохранить профиль
           </Button>
+          {isProfileComplete && (
+            <Button
+              type="button"
+              variant="outline"
+              fullWidth
+              onClick={() => setIsEditing(false)}
+            >
+              Отмена
+            </Button>
+          )}
         </form>
       </div>
     </div>

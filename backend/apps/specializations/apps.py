@@ -1,10 +1,10 @@
-"""Application configuration for the specializations app."""
+"""Конфигурация приложения specializations."""
 from django.apps import AppConfig
 
 
 class SpecializationsConfig(AppConfig):
-    """Configuration for the specializations app."""
+    """Конфигурация приложения specializations."""
 
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'apps.specializations'
-    verbose_name = 'Specializations'
+    verbose_name = 'Специализации'

@@ -10,7 +10,7 @@ const AuthContext = createContext(null);
 export function useAuth() {
   const ctx = useContext(AuthContext);
   if (!ctx) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error('useAuth должен использоваться внутри AuthProvider');
   }
   return ctx;
 }
@@ -41,7 +41,7 @@ export function AuthProvider({ children }) {
     }
   }, [tokens]);
 
-  // On mount (or when tokens change), fetch the user profile
+  // При монтировании (или при смене токенов) загружаем профиль пользователя
   const fetchProfile = useCallback(async () => {
     if (!tokens?.access) {
       setUser(null);
@@ -69,7 +69,7 @@ export function AuthProvider({ children }) {
   // чтобы вызывающий мог дождаться полного цикла авторизации.
   const login = useCallback(async (email, password) => {
     const { data } = await authApi.login(email, password);
-    // Ответ: { status, data: { user, tokens: { access, refresh } }, message }
+    // Формат ответа: { status, data: { user, tokens: { access, refresh } }, message }
     const inner = data.data || data;
     const tkns = inner.tokens || inner;
     const newTokens = { access: tkns.access, refresh: tkns.refresh };

@@ -14,6 +14,7 @@ class ClientRegistrationSerializer(serializers.Serializer):
     Сериализатор регистрации клиента.
 
     Проверяет уникальность email, надёжность пароля и совпадение подтверждения.
+    Не создаёт пользователя в БД — данные временно хранятся в кэше до подтверждения.
     """
 
     email = serializers.EmailField()
@@ -29,11 +30,11 @@ class ClientRegistrationSerializer(serializers.Serializer):
     )
 
     def validate_email(self, value):
-        """Проверяет, что email ещё не зарегистрирован."""
+        """Проверяет, что email ещё не зарегистрирован в БД."""
         email = value.lower()
         if User.objects.filter(email=email).exists():
             raise serializers.ValidationError(
-                'A user with this email already exists.'
+                'Пользователь с таким email уже зарегистрирован.'
             )
         return email
 
@@ -46,19 +47,9 @@ class ClientRegistrationSerializer(serializers.Serializer):
         """Проверяет совпадение двух введённых паролей."""
         if attrs['password'] != attrs['password_confirm']:
             raise serializers.ValidationError(
-                {'password_confirm': 'Passwords do not match.'}
+                {'password_confirm': 'Пароли не совпадают.'}
             )
         return attrs
-
-    def create(self, validated_data):
-        """Создаёт нового пользователя-клиента (неактивного до подтверждения email)."""
-        validated_data.pop('password_confirm')
-        user = User.objects.create_user(
-            email=validated_data['email'],
-            password=validated_data['password'],
-            role=User.Role.CLIENT,
-        )
-        return user
 
 
 class PsychologistRegistrationSerializer(serializers.Serializer):
@@ -89,7 +80,7 @@ class PsychologistRegistrationSerializer(serializers.Serializer):
         email = value.lower()
         if User.objects.filter(email=email).exists():
             raise serializers.ValidationError(
-                'A user with this email already exists.'
+                'Пользователь с таким email уже зарегистрирован.'
             )
         return email
 
@@ -110,11 +101,11 @@ class PsychologistRegistrationSerializer(serializers.Serializer):
 
         if value.size > max_size:
             raise serializers.ValidationError(
-                'File size must not exceed 5 MB.'
+                'Размер файла не должен превышать 5 МБ.'
             )
         if value.content_type not in allowed_types:
             raise serializers.ValidationError(
-                'Allowed file types: JPEG, PNG, WebP, PDF.'
+                'Допустимые форматы файла: JPEG, PNG, WebP, PDF.'
             )
         return value
 
@@ -122,7 +113,7 @@ class PsychologistRegistrationSerializer(serializers.Serializer):
         """Проверяет совпадение двух введённых паролей."""
         if attrs['password'] != attrs['password_confirm']:
             raise serializers.ValidationError(
-                {'password_confirm': 'Passwords do not match.'}
+                {'password_confirm': 'Пароли не совпадают.'}
             )
         return attrs
 
@@ -182,12 +173,12 @@ class LoginSerializer(serializers.Serializer):
 
         if user is None:
             raise serializers.ValidationError(
-                'Invalid email or password.'
+                'Неверный email или пароль.'
             )
 
         if not user.is_active:
             raise serializers.ValidationError(
-                'Please confirm your email address before logging in.'
+                'Пожалуйста, подтвердите email перед входом в систему.'
             )
 
         attrs['user'] = user
@@ -255,7 +246,7 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
         """Проверяет совпадение двух введённых паролей."""
         if attrs['password'] != attrs['password_confirm']:
             raise serializers.ValidationError(
-                {'password_confirm': 'Passwords do not match.'}
+                {'password_confirm': 'Пароли не совпадают.'}
             )
         return attrs
 

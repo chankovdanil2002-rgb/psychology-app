@@ -1,10 +1,10 @@
 import styles from './Pagination.module.css';
 
 /**
- * Pagination with page numbers and prev/next buttons.
- * @param {number} currentPage
- * @param {number} totalPages
- * @param {function} onPageChange
+ * Компонент пагинации с номерами страниц и кнопками «вперёд/назад».
+ * @param {number} currentPage - Текущая страница
+ * @param {number} totalPages - Общее количество страниц
+ * @param {function} onPageChange - Обработчик смены страницы
  */
 export default function Pagination({ currentPage, totalPages, onPageChange }) {
   if (totalPages <= 1) return null;

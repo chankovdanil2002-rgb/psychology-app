@@ -1,7 +1,7 @@
 import api from './axios';
 
 /**
- * Создает новую запись на консультацию (только для клиента).
+ * Создаёт новую запись на консультацию (только для клиента).
  * @param {Object} data - { time_slot_id, comment? }
  */
 export function createAppointment(data) {
@@ -9,14 +9,14 @@ export function createAppointment(data) {
 }
 
 /**
- * Get list of appointments for the current user (client or psychologist).
+ * Получение списка записей текущего пользователя (клиента или психолога).
  */
 export function getAppointments(params = {}) {
   return api.get('/appointments/', { params });
 }
 
 /**
- * Confirm a pending appointment (psychologist only).
+ * Подтверждение ожидающей записи (только для психолога).
  * @param {number|string} id
  */
 export function confirmAppointment(id) {
@@ -24,7 +24,7 @@ export function confirmAppointment(id) {
 }
 
 /**
- * Reject a pending appointment (psychologist only).
+ * Отклонение ожидающей записи (только для психолога).
  * @param {number|string} id
  */
 export function rejectAppointment(id) {
@@ -32,7 +32,7 @@ export function rejectAppointment(id) {
 }
 
 /**
- * Mark an appointment as completed (psychologist only).
+ * Отметка записи как завершённой (только для психолога).
  * @param {number|string} id
  */
 export function completeAppointment(id) {
@@ -40,7 +40,7 @@ export function completeAppointment(id) {
 }
 
 /**
- * Cancel an appointment (client only, when pending or confirmed).
+ * Отмена записи клиентом (только если статус «ожидает» или «подтверждена»).
  * @param {number|string} id
  */
 export function cancelAppointment(id) {

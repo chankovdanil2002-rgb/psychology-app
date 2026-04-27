@@ -63,8 +63,28 @@ export default function BookingWizard() {
   // Все доступные слоты выбранного психолога (без фильтра по дате)
   const [allSlots, setAllSlots] = useState([]);
 
-  // Уникальные даты, на которых есть свободные слоты
-  const availableDates = [...new Set(allSlots.map((s) => s.date))].sort();
+  // Текущая дата в локальном часовом поясе (YYYY-MM-DD)
+  const getLocalToday = () => {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  };
+
+  // Слоты без прошедших: дата > сегодня, или дата = сегодня и время начала ещё не наступило
+  const futureSlots = allSlots.filter((s) => {
+    const today = getLocalToday();
+    if (s.date < today) return false;
+    if (s.date === today) {
+      const now = new Date();
+      const [h, m] = s.start_time.split(':').map(Number);
+      const slotStart = new Date();
+      slotStart.setHours(h, m, 0, 0);
+      return slotStart > now;
+    }
+    return true;
+  });
+
+  // Уникальные даты, на которых есть будущие свободные слоты
+  const availableDates = [...new Set(futureSlots.map((s) => s.date))].sort();
 
   // Шаг 2: загружаем ВСЕ доступные слоты психолога одним запросом
   useEffect(() => {
@@ -83,9 +103,9 @@ export default function BookingWizard() {
     }
   }, [step, selectedPsych]);
 
-  // Слоты для выбранной даты
+  // Слоты для выбранной даты (только будущие)
   const slots = selectedDate
-    ? allSlots.filter((s) => s.date === selectedDate)
+    ? futureSlots.filter((s) => s.date === selectedDate)
     : [];
 
   const handleSubmit = async () => {
@@ -198,7 +218,7 @@ export default function BookingWizard() {
               <>
                 <div className={styles.dateGrid}>
                   {availableDates.map((d) => {
-                    const count = allSlots.filter((s) => s.date === d).length;
+                    const count = futureSlots.filter((s) => s.date === d).length;
                     return (
                       <button
                         key={d}

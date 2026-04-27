@@ -89,6 +89,7 @@ class AppointmentListSerializer(serializers.ModelSerializer):
     date = serializers.DateField(source='time_slot.date', read_only=True)
     start_time = serializers.TimeField(source='time_slot.start_time', read_only=True)
     end_time = serializers.TimeField(source='time_slot.end_time', read_only=True)
+    has_review = serializers.BooleanField(read_only=True)
 
     class Meta:
         model = Appointment
@@ -100,6 +101,8 @@ class AppointmentListSerializer(serializers.ModelSerializer):
             'start_time',
             'end_time',
             'status',
+            'comment',
+            'has_review',
             'created_at',
         )
         read_only_fields = fields

@@ -41,7 +41,7 @@ class TimeSlotCreateSerializer(serializers.ModelSerializer):
         """Проверяет, что дата — сегодня или в будущем."""
         if value < datetime.date.today():
             raise serializers.ValidationError(
-                'Cannot create time slots in the past.'
+                'Нельзя создавать слоты в прошлом.'
             )
         return value
 
@@ -49,7 +49,7 @@ class TimeSlotCreateSerializer(serializers.ModelSerializer):
         """Проверяет, что end_time > start_time."""
         if attrs['end_time'] <= attrs['start_time']:
             raise serializers.ValidationError(
-                {'end_time': 'End time must be after start time.'}
+                {'end_time': 'Время окончания должно быть позже времени начала.'}
             )
         return attrs
 
@@ -81,7 +81,7 @@ class BulkTimeSlotCreateSerializer(serializers.Serializer):
         """Проверяет, что date_from — сегодня или в будущем."""
         if value < datetime.date.today():
             raise serializers.ValidationError(
-                'Start date cannot be in the past.'
+                'Дата начала не может быть в прошлом.'
             )
         return value
 
@@ -89,15 +89,15 @@ class BulkTimeSlotCreateSerializer(serializers.Serializer):
         """Кросс-полевая валидация."""
         if attrs['date_to'] < attrs['date_from']:
             raise serializers.ValidationError(
-                {'date_to': 'End date must be on or after start date.'}
+                {'date_to': 'Дата окончания должна быть не раньше даты начала.'}
             )
         if attrs['end_time'] <= attrs['start_time']:
             raise serializers.ValidationError(
-                {'end_time': 'End time must be after start time.'}
+                {'end_time': 'Время окончания должно быть позже времени начала.'}
             )
         if not attrs['weekdays']:
             raise serializers.ValidationError(
-                {'weekdays': 'At least one weekday must be selected.'}
+                {'weekdays': 'Необходимо выбрать хотя бы один день недели.'}
             )
         return attrs
 

@@ -1,4 +1,4 @@
-"""URL configuration for the reviews app."""
+"""URL-конфигурация приложения reviews."""
 from django.urls import path
 
 from . import views

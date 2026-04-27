@@ -64,7 +64,7 @@ class TimeSlotListView(ListAPIView):
         serializer = self.get_serializer(queryset, many=True)
         return success_response(
             data=serializer.data,
-            message='Time slots retrieved successfully.',
+            message='Список слотов получен.',
         )
 
 
@@ -86,7 +86,7 @@ class TimeSlotCreateView(APIView):
         slot = serializer.save()
         return success_response(
             data=TimeSlotSerializer(slot).data,
-            message='Time slot created successfully.',
+            message='Слот успешно создан.',
             status_code=status.HTTP_201_CREATED,
         )
 
@@ -109,7 +109,7 @@ class TimeSlotBulkCreateView(APIView):
         created_slots = serializer.save()
         return success_response(
             data=TimeSlotSerializer(created_slots, many=True).data,
-            message=f'{len(created_slots)} time slot(s) created successfully.',
+            message=f'Создано слотов: {len(created_slots)}.',
             status_code=status.HTTP_201_CREATED,
         )
 
@@ -136,12 +136,12 @@ class TimeSlotDeleteView(DestroyAPIView):
         if instance.appointments.filter(status__in=['pending', 'confirmed']).exists():
             return success_response(
                 data={},
-                message='Cannot delete a time slot that has an active appointment.',
+                message='Нельзя удалить слот с активной записью.',
                 status_code=status.HTTP_400_BAD_REQUEST,
             )
 
         instance.delete()
         return success_response(
-            message='Time slot deleted successfully.',
+            message='Слот успешно удалён.',
             status_code=status.HTTP_200_OK,
         )

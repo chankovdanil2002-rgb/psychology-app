@@ -1,4 +1,4 @@
-"""Admin configuration for the specializations app."""
+"""Настройка административного интерфейса для приложения specializations."""
 from django.contrib import admin
 
 from .models import PsychologistSpecialization, Specialization
@@ -6,7 +6,7 @@ from .models import PsychologistSpecialization, Specialization
 
 @admin.register(Specialization)
 class SpecializationAdmin(admin.ModelAdmin):
-    """Admin view for Specialization."""
+    """Административное представление модели Specialization."""
 
     list_display = ('name', 'slug')
     search_fields = ('name',)
@@ -15,7 +15,7 @@ class SpecializationAdmin(admin.ModelAdmin):
 
 @admin.register(PsychologistSpecialization)
 class PsychologistSpecializationAdmin(admin.ModelAdmin):
-    """Admin view for PsychologistSpecialization."""
+    """Административное представление модели PsychologistSpecialization."""
 
     list_display = ('psychologist', 'specialization', 'is_primary')
     list_filter = ('is_primary', 'specialization')

@@ -1,7 +1,7 @@
 import api from './axios';
 
 /**
- * Get a paginated list of psychologists with optional filters.
+ * Получение постраничного списка психологов с опциональными фильтрами.
  * @param {Object} params - { specialization, search, ordering, page }
  */
 export function getPsychologists(params = {}) {
@@ -9,7 +9,7 @@ export function getPsychologists(params = {}) {
 }
 
 /**
- * Get detailed info about a specific psychologist.
+ * Получение детальной информации о конкретном психологе.
  * @param {number|string} id
  */
 export function getPsychologistById(id) {
@@ -17,16 +17,24 @@ export function getPsychologistById(id) {
 }
 
 /**
- * Get the psychologist team list for admin management.
+ * Получение списка психологов для административного управления командой.
  */
 export function getAdminPsychologists() {
   return api.get('/admin/psychologists/');
 }
 
 /**
- * Create a psychologist account from the admin panel.
+ * Создание аккаунта психолога из административной панели.
  * @param {Object} data
  */
 export function createAdminPsychologist(data) {
   return api.post('/admin/psychologists/', data);
+}
+
+/**
+ * Удаление психолога администратором (каскадно удаляет записи и слоты).
+ * @param {number|string} id
+ */
+export function deleteAdminPsychologist(id) {
+  return api.delete(`/admin/psychologists/${id}/`);
 }

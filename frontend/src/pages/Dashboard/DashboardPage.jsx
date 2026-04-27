@@ -68,13 +68,13 @@ export default function DashboardPage() {
       )}
       {tab === 'schedule' && (
         <ScheduleTab
-          psychologistId={user?.profile?.id}
+          psychologistId={user?.id}
           onError={setError}
           onSuccess={setSuccess}
         />
       )}
       {tab === 'reviews' && (
-        <ReviewsTab psychologistId={user?.profile?.id} />
+        <ReviewsTab psychologistId={user?.id} />
       )}
     </div>
   );
@@ -104,9 +104,16 @@ function AppointmentsTab({ onError, onSuccess }) {
       else if (action === 'complete') await completeAppointment(id);
       onSuccess(`Запись ${label}`);
       fetch();
-    } catch {
-      onError('Ошибка при обработке записи');
+    } catch (err) {
+      onError(err.response?.data?.message || 'Ошибка при обработке записи');
     }
+  };
+
+  /** Возвращает true, если время окончания приёма ещё не наступило. */
+  const isAppointmentOngoing = (a) => {
+    if (!a.date || !a.end_time) return false;
+    const endAt = new Date(`${a.date}T${a.end_time}`);
+    return new Date() < endAt;
   };
 
   if (loading) return <Loader />;
@@ -142,7 +149,12 @@ function AppointmentsTab({ onError, onSuccess }) {
         ) : (
           confirmed.map((a) => (
             <AppointmentCard key={a.id} appointment={a}>
-              <Button size="sm" onClick={() => handleAction(a.id, 'complete', 'завершена')}>
+              <Button
+                size="sm"
+                disabled={isAppointmentOngoing(a)}
+                title={isAppointmentOngoing(a) ? 'Приём ещё не завершён' : ''}
+                onClick={() => handleAction(a.id, 'complete', 'завершена')}
+              >
                 Завершить приём
               </Button>
             </AppointmentCard>
@@ -189,19 +201,30 @@ function AppointmentCard({ appointment: a, children }) {
   );
 }
 
+/** Возвращает сегодняшнюю дату в локальном часовом поясе как YYYY-MM-DD. */
+function getLocalToday() {
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+}
+
 function ScheduleTab({ psychologistId, onError, onSuccess }) {
+  const today = getLocalToday();
+
   const [slots, setSlots] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [viewDate, setViewDate] = useState(new Date().toISOString().split('T')[0]);
+  const [viewDate, setViewDate] = useState(today);
 
   // Форма одного слота
-  const [slotDate, setSlotDate] = useState('');
+  const [slotDate, setSlotDate] = useState(today);
   const [slotStart, setSlotStart] = useState('');
   const [slotEnd, setSlotEnd] = useState('');
 
   // Форма массового создания
-  const [bulkDateFrom, setBulkDateFrom] = useState('');
-  const [bulkDateTo, setBulkDateTo] = useState('');
+  const [bulkDateFrom, setBulkDateFrom] = useState(today);
+  const [bulkDateTo, setBulkDateTo] = useState(today);
   const [bulkStart, setBulkStart] = useState('09:00');
   const [bulkEnd, setBulkEnd] = useState('10:00');
   const [bulkWeekdays, setBulkWeekdays] = useState([0, 1, 2, 3, 4]);
@@ -222,20 +245,40 @@ function ScheduleTab({ psychologistId, onError, onSuccess }) {
 
   const handleAddSlot = async (e) => {
     e.preventDefault();
+    if (slotDate < today) {
+      onError('Нельзя создать слот на прошедшую дату');
+      return;
+    }
+    if (slotEnd <= slotStart) {
+      onError('Время окончания должно быть позже времени начала');
+      return;
+    }
     try {
       await createSlot({ date: slotDate, start_time: slotStart, end_time: slotEnd });
       onSuccess('Слот создан');
-      setSlotDate('');
+      setSlotDate(today);
       setSlotStart('');
       setSlotEnd('');
       fetchSlots();
-    } catch {
-      onError('Не удалось создать слот');
+    } catch (err) {
+      onError(err.response?.data?.message || 'Не удалось создать слот');
     }
   };
 
   const handleBulkAdd = async (e) => {
     e.preventDefault();
+    if (bulkDateFrom < today) {
+      onError('Нельзя создать слоты на прошедшие даты');
+      return;
+    }
+    if (bulkDateTo < bulkDateFrom) {
+      onError('Дата окончания не может быть раньше даты начала');
+      return;
+    }
+    if (bulkEnd <= bulkStart) {
+      onError('Время окончания должно быть позже времени начала');
+      return;
+    }
     try {
       await createBulkSlots({
         date_from: bulkDateFrom,
@@ -246,8 +289,8 @@ function ScheduleTab({ psychologistId, onError, onSuccess }) {
       });
       onSuccess('Слоты созданы');
       fetchSlots();
-    } catch {
-      onError('Не удалось создать слоты');
+    } catch (err) {
+      onError(err.response?.data?.message || 'Не удалось создать слоты');
     }
   };
 
@@ -302,7 +345,7 @@ function ScheduleTab({ psychologistId, onError, onSuccess }) {
       {/* Добавить один слот */}
       <Section title="Добавить слот">
         <form onSubmit={handleAddSlot} className={styles.slotForm}>
-          <input type="date" value={slotDate} onChange={(e) => setSlotDate(e.target.value)} required className={styles.dateInput} />
+          <input type="date" value={slotDate} min={today} onChange={(e) => setSlotDate(e.target.value)} required className={styles.dateInput} />
           <input type="time" value={slotStart} onChange={(e) => setSlotStart(e.target.value)} required className={styles.dateInput} />
           <input type="time" value={slotEnd} onChange={(e) => setSlotEnd(e.target.value)} required className={styles.dateInput} />
           <Button type="submit">Добавить</Button>
@@ -315,11 +358,11 @@ function ScheduleTab({ psychologistId, onError, onSuccess }) {
           <div className={styles.formRow}>
             <div>
               <label>С:</label>
-              <input type="date" value={bulkDateFrom} onChange={(e) => setBulkDateFrom(e.target.value)} required className={styles.dateInput} />
+              <input type="date" value={bulkDateFrom} min={today} onChange={(e) => setBulkDateFrom(e.target.value)} required className={styles.dateInput} />
             </div>
             <div>
               <label>По:</label>
-              <input type="date" value={bulkDateTo} onChange={(e) => setBulkDateTo(e.target.value)} required className={styles.dateInput} />
+              <input type="date" value={bulkDateTo} min={today} onChange={(e) => setBulkDateTo(e.target.value)} required className={styles.dateInput} />
             </div>
           </div>
           <div className={styles.formRow}>

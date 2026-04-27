@@ -28,7 +28,7 @@ class ReviewCreateView(APIView):
         review = serializer.save()
         return success_response(
             data=ReviewSerializer(review).data,
-            message='Review created successfully.',
+            message='Отзыв успешно оставлен.',
             status_code=status.HTTP_201_CREATED,
         )
 
@@ -57,5 +57,5 @@ class ReviewListView(APIView):
         serializer = ReviewSerializer(qs, many=True)
         return success_response(
             data=serializer.data,
-            message='Reviews retrieved successfully.',
+            message='Список отзывов получен.',
         )
