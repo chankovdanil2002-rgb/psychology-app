@@ -114,7 +114,7 @@ export default function HomePage() {
             opacity: heroOpacity,
           }}
         >
-          <span className={styles.heroBadge}>Психологическая помощь онлайн</span>
+          <span className={styles.heroBadge}>Психологическая помощь</span>
           <h1 className={styles.heroTitle}>
             Найди своего
             <span className={styles.heroAccent}> психолога </span>
@@ -240,7 +240,7 @@ export default function HomePage() {
             Это сложнее всего — но вы уже здесь. Выберите психолога и запишитесь прямо сейчас.
           </p>
           <Link to="/booking" className={styles.ctaBig}>
-            Начать бесплатно
+            Начать сейчас
           </Link>
         </div>
       </section>
