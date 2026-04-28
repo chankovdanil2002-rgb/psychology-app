@@ -8,31 +8,66 @@
 }
 
 :root {
-  --color-primary: #4a90d9;
-  --color-primary-dark: #357abd;
-  --color-primary-light: #6ba3e0;
-  --color-secondary: #6c757d;
-  --color-success: #28a745;
-  --color-danger: #dc3545;
-  --color-warning: #ffc107;
-  --color-info: #17a2b8;
-  --color-bg: #f8f9fa;
+  /* Primary — deep indigo-violet */
+  --color-primary: #6d28d9;
+  --color-primary-dark: #4c1d95;
+  --color-primary-light: #8b5cf6;
+
+  /* Accent — warm coral */
+  --color-accent: #f43f5e;
+  --color-accent-light: #fb7185;
+
+  /* Teal / mint for diversity */
+  --color-teal: #0d9488;
+  --color-amber: #f59e0b;
+
+  /* System */
+  --color-secondary: #64748b;
+  --color-success: #10b981;
+  --color-danger: #ef4444;
+  --color-warning: #f59e0b;
+  --color-info: #06b6d4;
+
+  /* Backgrounds */
+  --color-bg: #f5f3ff;
   --color-bg-white: #ffffff;
-  --color-text: #333333;
-  --color-text-light: #6c757d;
-  --color-border: #dee2e6;
-  --color-star: #f5a623;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
+  --color-bg-card: #ffffff;
+
+  /* Text */
+  --color-text: #1e1b4b;
+  --color-text-light: #64748b;
+
+  /* Borders */
+  --color-border: #e0e7ff;
+  --color-star: #f59e0b;
+
+  /* Gradients */
+  --gradient-hero: linear-gradient(135deg, #4c1d95 0%, #6d28d9 45%, #7c3aed 70%, #a855f7 100%);
+  --gradient-card-1: linear-gradient(135deg, #6d28d9, #a855f7);
+  --gradient-card-2: linear-gradient(135deg, #0d9488, #06b6d4);
+  --gradient-card-3: linear-gradient(135deg, #f43f5e, #fb923c);
+  --gradient-card-4: linear-gradient(135deg, #f59e0b, #fbbf24);
+  --gradient-card-5: linear-gradient(135deg, #8b5cf6, #6d28d9);
+  --gradient-card-6: linear-gradient(135deg, #0d9488, #10b981);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(109, 40, 217, 0.08);
+  --shadow-md: 0 4px 16px rgba(109, 40, 217, 0.15);
+  --shadow-lg: 0 10px 40px rgba(109, 40, 217, 0.2);
+  --shadow-glow: 0 0 30px rgba(109, 40, 217, 0.35);
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+
   --font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
 }
 
 html {
   font-size: 16px;
+  scroll-behavior: smooth;
 }
 
 body {

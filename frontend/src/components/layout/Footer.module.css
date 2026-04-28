@@ -1,18 +1,68 @@
 .footer {
-  background-color: var(--color-bg-white);
-  border-top: 1px solid var(--color-border);
+  background: var(--color-text);
   margin-top: auto;
-  padding: 1.5rem 0;
 }
 
 .container {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 1.5rem;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.brandIcon {
+  font-size: 1.5rem;
+}
+
+.brandName {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.links a {
+  color: rgba(255,255,255,0.6);
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.links a:hover {
+  color: var(--color-primary-light);
+}
+
+.bottom {
+  padding: 1.25rem 0;
   text-align: center;
 }
 
-.text {
-  color: var(--color-text-light);
-  font-size: 0.875rem;
+.bottom p {
+  color: rgba(255,255,255,0.4);
+  font-size: 0.8rem;
+}
+
+@media (max-width: 480px) {
+  .top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }

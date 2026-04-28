@@ -1,17 +1,26 @@
+import { Link } from 'react-router-dom';
 import styles from './Footer.module.css';
 
-/**
- * Футер приложения.
- */
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
     <footer className={styles.footer}>
       <div className={styles.container}>
-        <p className={styles.text}>
-          &copy; {currentYear} Психолог Онлайн. Все права защищены.
-        </p>
+        <div className={styles.top}>
+          <div className={styles.brand}>
+            <span className={styles.brandIcon}>🧠</span>
+            <span className={styles.brandName}>Психологи ИППС СФУ</span>
+          </div>
+          <div className={styles.links}>
+            <Link to="/catalog">Психологи</Link>
+            <Link to="/booking">Записаться</Link>
+            <Link to="/register">Регистрация</Link>
+          </div>
+        </div>
+        <div className={styles.bottom}>
+          <p>&copy; {currentYear} ИППС СФУ, кафедра ПРиК. Учебный проект.</p>
+        </div>
       </div>
     </footer>
   );

@@ -1,23 +1,31 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { FiMenu, FiX, FiUser, FiLogOut } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 import styles from './Header.module.css';
 
 export default function Header() {
-  const { isAuthenticated, isClient, isPsychologist, isAdmin, logout } =
-    useAuth();
+  const { isAuthenticated, isClient, isPsychologist, isAdmin, logout } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  /* Переключаем стиль хедера при скролле */
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 30);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const toggleMenu = () => setMenuOpen((prev) => !prev);
   const closeMenu = () => setMenuOpen(false);
 
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
       <div className={styles.container}>
         {/* Logo */}
         <Link to="/" className={styles.logo} onClick={closeMenu}>
-          Психологи института
+          <span className={styles.logoIcon}>🧠</span>
+          <span>Психологи ИППС</span>
         </Link>
 
         {/* Кнопка-гамбургер (мобильная версия) */}
@@ -33,9 +41,8 @@ export default function Header() {
         <nav className={`${styles.nav} ${menuOpen ? styles.navOpen : ''}`}>
           <NavLink
             to="/"
-            className={({ isActive }) =>
-              `${styles.navLink} ${isActive ? styles.active : ''}`
-            }
+            end
+            className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}
             onClick={closeMenu}
           >
             Главная
@@ -43,9 +50,7 @@ export default function Header() {
 
           <NavLink
             to="/catalog"
-            className={({ isActive }) =>
-              `${styles.navLink} ${isActive ? styles.active : ''}`
-            }
+            className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}
             onClick={closeMenu}
           >
             Психологи
@@ -54,9 +59,7 @@ export default function Header() {
           {isAuthenticated && isClient && (
             <NavLink
               to="/appointments"
-              className={({ isActive }) =>
-                `${styles.navLink} ${isActive ? styles.active : ''}`
-              }
+              className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}
               onClick={closeMenu}
             >
               Мои записи
@@ -66,21 +69,17 @@ export default function Header() {
           {isAuthenticated && isPsychologist && (
             <NavLink
               to="/dashboard"
-              className={({ isActive }) =>
-                `${styles.navLink} ${isActive ? styles.active : ''}`
-              }
+              className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}
               onClick={closeMenu}
             >
-              Кабинет психолога
+              Кабинет
             </NavLink>
           )}
 
           {isAuthenticated && isAdmin && (
             <NavLink
               to="/admin/psychologists"
-              className={({ isActive }) =>
-                `${styles.navLink} ${isActive ? styles.active : ''}`
-              }
+              className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}
               onClick={closeMenu}
             >
               Команда
@@ -90,7 +89,6 @@ export default function Header() {
           {/* Блок авторизации */}
           {isAuthenticated ? (
             <div className={styles.authSection}>
-              {/* Ссылка на профиль */}
               <NavLink
                 to="/profile"
                 className={({ isActive }) =>
@@ -99,10 +97,8 @@ export default function Header() {
                 onClick={closeMenu}
               >
                 <FiUser size={16} />
-                <span>Личный кабинет</span>
+                <span>Профиль</span>
               </NavLink>
-
-              {/* Выход */}
               <button className={styles.logoutBtn} onClick={() => { logout(); closeMenu(); }}>
                 <FiLogOut size={16} />
                 <span>Выйти</span>
@@ -112,9 +108,7 @@ export default function Header() {
             <div className={styles.authSection}>
               <NavLink
                 to="/login"
-                className={({ isActive }) =>
-                  `${styles.navLink} ${isActive ? styles.active : ''}`
-                }
+                className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}
                 onClick={closeMenu}
               >
                 Войти
