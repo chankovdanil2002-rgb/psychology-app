@@ -197,6 +197,60 @@
   padding: 3rem;
 }
 
+.error {
+  text-align: center;
+  color: var(--color-danger);
+  padding: 1rem;
+  background: #fff0f0;
+  border-radius: var(--radius-md);
+  margin-bottom: 1rem;
+}
+
+/* ── Прелоадер начальной загрузки (Deferred.when) ── */
+.preloaderWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 1.5rem;
+}
+
+.preloaderText {
+  color: var(--color-text-light);
+  font-size: 1rem;
+}
+
+/* Большой спиннер — показывается при начальной загрузке */
+.spinner {
+  width: 64px;
+  height: 64px;
+  border: 5px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Маленький спиннер-оверлей при смене фильтров */
+.loadingOverlay {
+  display: flex;
+  justify-content: center;
+  padding: 4rem 0;
+}
+
+.spinnerSm {
+  width: 36px;
+  height: 36px;
+  border: 4px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 @media (max-width: 768px) {
   .filterToggle {
     display: block;
